@@ -1,0 +1,4 @@
+<label>{{label}}</label>
+<input [type]="type" class="form-control" [placeholder]="placeholder" [formControl]="control"
+    [ngClass]="{'is-invalid': hasError()}" [autofocus]="true">
+<app-input-error-message [errors]="errors" [name]="name"></app-input-error-message>

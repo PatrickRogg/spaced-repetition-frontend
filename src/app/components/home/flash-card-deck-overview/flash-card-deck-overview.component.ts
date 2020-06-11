@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
+import { Router, NavigationExtras } from '@angular/router';
+import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateFlashCardDeckComponent } from './create-flash-card-deck/create-flash-card-deck.component';
+import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
+
+@Component({
+    selector: 'app-flash-card-deck-overview',
+    templateUrl: './flash-card-deck-overview.component.html',
+    styleUrls: ['./flash-card-deck-overview.component.scss']
+})
+export class FlashCardDeckOverviewComponent implements OnInit {
+    flashCardDecks: FlashCardDeckOverview[] = [];
+
+    constructor(
+        private router: Router,
+        private flashCardDeckApiService: FlashCardDeckApiService,
+        private modalService: NgbModal,
+    ) { }
+
+    ngOnInit(): void {
+        this.getFlashCardDecks();
+    }
+
+    getFlashCardDecks(): void {
+        this.flashCardDeckApiService.getFlashCardDecksOfUser().subscribe(
+            data => {
+                this.flashCardDecks = data;
+            }
+        );
+    }
+
+    public openCreateFlashCardDeckModal(): void {
+        const options = {
+            centered: true,
+            size: `xl`
+        }
+        const modalRef = this.modalService.open(CreateFlashCardDeckComponent, options);
+
+        modalRef.result.then((createdFlashCardDeck) => {
+            this.flashCardDecks.push(createdFlashCardDeck);
+        });
+    }
+
+    public start(flashCardDeck: FlashCardDeck): void {
+        const navigationExtras: NavigationExtras = {
+            state: {
+                flashCardDeckId: flashCardDeck.id
+            }
+        };
+        this.router.navigate(['/spaced-repetition'], navigationExtras);
+    }
+
+    public deleteFlashCardDeck(flashCardDeck: FlashCardDeckOverview): void {
+        this.flashCardDecks = this.flashCardDecks.filter(fd => flashCardDeck !== fd);
+        this.flashCardDeckApiService.deleteFlashCardDeck(flashCardDeck.id).subscribe();
+    }
+}

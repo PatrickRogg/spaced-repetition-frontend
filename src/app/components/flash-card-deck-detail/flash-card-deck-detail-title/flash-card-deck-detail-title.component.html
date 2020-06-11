@@ -1,0 +1,22 @@
+<div *ngIf="flashCardDeck">
+    <div *ngIf="!isEditing">
+        <h3 class="mb-2">
+            <a (click)="edit()">{{flashCardDeck.name}} <i class="fas fa-pencil-alt title-edit align-top"></i></a>
+        </h3>
+
+        <p [innerHtml]="flashCardDeck.notes"></p>
+    </div>
+    <form *ngIf="isEditing" [formGroup]="flashCardDeckForm">
+        <div class="form-inline">
+            <input type="text" class="form-control mr-3" formControlName="name">
+            <a (click)="update()"><i class="fas fa-save topic-save"></i></a>
+        </div>
+
+        <app-input-error-message [errors]="validationErrors" [name]="'name'"></app-input-error-message>
+
+        <app-rich-text-editor [control]="flashCardDeckForm.get('notes')"></app-rich-text-editor>
+        <app-input-error-message [errors]="validationErrors" [name]="'notes'"></app-input-error-message>
+    </form>
+
+    <hr>
+</div>

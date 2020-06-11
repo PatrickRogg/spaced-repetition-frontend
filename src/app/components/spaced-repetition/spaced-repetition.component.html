@@ -1,0 +1,68 @@
+<main *ngIf="todoFlashCards.length > 0">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-12 mb-5">
+                        <h1 class="text-center mb-0 text-white">
+                            Spaced Repetition Session
+                        </h1>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col-4 text-left">
+                                        <h5 class="mb-0">Remaining Cards: <strong>{{todoFlashCards.length}}</strong>
+                                        </h5>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <h2 *ngIf="isQuestion">Question</h2>
+                                        <h2 *ngIf="!isQuestion">Answer</h2>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <button class="btn" (click)="navigateToStatsPage()" data-toggle="tooltip"
+                                            data-placement="right" title="Stop studying">
+                                            <h3 class="mb-0"><i class="far fa-window-close text-danger"></i></h3>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body row align-items-center">
+                                <div class="col-12 text-left">
+                                    <span *ngIf="isQuestion">
+                                        {{todoFlashCards[currentFLashCardIndex].question}}
+                                    </span>
+                                    <span class="answer" *ngIf="!isQuestion" [innerHtml]="todoFlashCards[currentFLashCardIndex].answer">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-12 text-center" *ngIf="isQuestion">
+                                        <button class="btn btn-danger" (click)="showAnswer()">
+                                            Show Answer
+                                        </button>
+                                    </div>
+                                    <p class="col-12 text-center" *ngIf="!isQuestion">
+                                        My answer was...
+                                    </p>
+                                    <div class="col-6 text-center" *ngIf="!isQuestion">
+                                        <button class="btn btn-danger" (click)="answerWrong()">
+                                            Wrong
+                                        </button>
+                                    </div>
+                                    <div class="col-6 text-center" *ngIf="!isQuestion">
+                                        <button class="btn btn-success" (click)="answerCorrect()">
+                                            Correct
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

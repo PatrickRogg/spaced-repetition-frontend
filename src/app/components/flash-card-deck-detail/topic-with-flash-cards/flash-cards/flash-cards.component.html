@@ -1,0 +1,33 @@
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let flashCard of flashCards">
+        <div class="row align-items-center">
+            <div class="col-10">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7" data-toggle="tooltip" data-placement="bottom" title="Question">
+                        <a (click)="openEditFlashCardModal(flashCard)" [routerLink]="">{{flashCard.question}}</a>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <span class="badge badge-pill badge-warning" data-toggle="tooltip" data-placement="bottom"
+                            title="Level">
+                            Level: {{flashCard.level}}
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <span class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Last wrong answer">
+                            <i class="far fa-clock"></i> {{flashCard.nextRepetition | date: 'mediumDate'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 my-auto text-right">
+                <a class="text-danger" (click)="deleteFlashCard(flashCard)">
+                    <i class="far fa-trash-alt"></i>        
+                </a>
+            </div>
+
+        </div>
+    </li>
+    <li class="list-group-item create-flash-card" (click)="openCreateFlashCardModal()">
+        <span class="text-muted ml-2"><i class="fas fa-plus"></i> New Flash Card</span>
+    </li>
+</ul>

@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand mr-5" routerLink="/">
+            <h2 class="m-0 text-white">
+                <strong>Sparep</strong>
+            </h2>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item" *ngIf="isSignedIn()">
+                    <a class="nav-link" routerLink="/home">Your Decks</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-outline-light mr-4" (click)="signIn()" *ngIf="!isSignedIn()" id="sign-in-button">
+                        Sign In
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-light" (click)="signUp()" *ngIf="!isSignedIn()" id="sign-up-button">
+                        Sign Up
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-danger" (click)="signOut()" *ngIf="isSignedIn()" id="sign-out-button">
+                        Sign Out
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
