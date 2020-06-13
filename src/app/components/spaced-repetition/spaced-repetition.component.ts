@@ -43,6 +43,7 @@ export class SpacedRepetitionComponent implements OnInit {
             (flashCards: FlashCard[]) => {
                 flashCards.forEach(flashCard => this.flashCardRepetitions.push(new SpacedRepetition(flashCard)));
                 this.todoFlashCards = flashCards;
+                console.log(flashCards)
             },
         );
     }

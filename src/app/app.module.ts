@@ -30,6 +30,7 @@ import { FlashCardsComponent } from './components/flash-card-deck-detail/topic-w
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-overview/create-flash-card-deck/create-flash-card-deck.component';
 import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit
     FlashCardsComponent,
     EditFlashCardComponent,
     CreateFlashCardDeckComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

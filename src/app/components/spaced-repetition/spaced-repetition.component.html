@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                     <span class="answer" *ngIf="!isQuestion"
-                                        [innerHtml]="todoFlashCards[currentFLashCardIndex].answer">
+                                        [innerHtml]="todoFlashCards[currentFLashCardIndex].answer | safeHtml">
                                     </span>
                                     <div class="row" *ngIf="!isQuestion">
                                         <div class="col-12 text-right">
