@@ -28,9 +28,8 @@ import { CreateTopicComponent } from './components/flash-card-deck-detail/create
 import { TopicWithFlashCardsComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/topic-with-flash-cards.component';
 import { FlashCardsComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/flash-cards/flash-cards.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HomeStatsComponent } from './components/home/home-stats/home-stats.component';
-import { EditFlashCardComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/flash-cards/edit-flash-card/edit-flash-card.component';
 import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-overview/create-flash-card-deck/create-flash-card-deck.component';
+import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-
     CreateTopicComponent,
     TopicWithFlashCardsComponent,
     FlashCardsComponent,
-    HomeStatsComponent,
     EditFlashCardComponent,
     CreateFlashCardDeckComponent,
   ],

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { Observable } from 'rxjs';
 import { Image } from 'src/app/components/rich-text-editor/image.model';
 

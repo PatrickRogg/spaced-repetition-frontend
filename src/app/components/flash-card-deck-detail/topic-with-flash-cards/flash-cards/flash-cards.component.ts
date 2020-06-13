@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateFlashCardComponent } from './create-flash-card/create-flash-card.component';
-import { EditFlashCardComponent } from './edit-flash-card/edit-flash-card.component';
+import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
 
 @Component({
     selector: 'app-flash-cards',
@@ -44,13 +44,7 @@ export class FlashCardsComponent implements OnInit {
         const modalRef = this.modalService.open(EditFlashCardComponent, options);
         modalRef.componentInstance.flashCardId = flashCard.id;
 
-        modalRef.result.then((updatedFlashCard) => {
-            for (let i = 0; i < this.flashCards.length; i++) {
-                if (this.flashCards[i].id === updatedFlashCard.id) {
-                    this.flashCards[i] = updatedFlashCard;
-                }
-            }
-        });
+        modalRef.result.then(flashCard => this.updateFlashCard(flashCard));
     }
 
     public updateFlashCard(updatedFlashCard: FlashCard): void {

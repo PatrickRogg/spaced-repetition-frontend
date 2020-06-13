@@ -5,6 +5,8 @@ import { NextRepetitionService } from 'src/app/services/next-repetition.service'
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
 import { FlashCardRepetitionApiService } from 'src/app/services/api/flash-card-repetition-api.service';
 import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
 
 @Component({
     selector: 'app-spaced-repetition',
@@ -23,6 +25,7 @@ export class SpacedRepetitionComponent implements OnInit {
         private flashCardRepetitionApiService: FlashCardRepetitionApiService,
         private flashCardApiService: FlashCardApiService,
         private nextRepetitionService: NextRepetitionService,
+        private modalService: NgbModal,
     ) {
         if (this.router.getCurrentNavigation().extras.state) {
             const flashCardDeckId = this.router.getCurrentNavigation().extras.state.flashCardDeckId;
@@ -40,7 +43,7 @@ export class SpacedRepetitionComponent implements OnInit {
             (flashCards: FlashCard[]) => {
                 flashCards.forEach(flashCard => this.flashCardRepetitions.push(new SpacedRepetition(flashCard)));
                 this.todoFlashCards = flashCards;
-            },            
+            },
         );
     }
 
@@ -98,5 +101,34 @@ export class SpacedRepetitionComponent implements OnInit {
 
     getFlashCardRepetitionBy(flashCardId: number) {
         return this.flashCardRepetitions.find((flashCardRepetition) => flashCardRepetition.flashCard.id === flashCardId);
+    }
+
+    public deleteFlashCard(flashCard: FlashCard): void {
+        this.todoFlashCards = this.todoFlashCards.filter(fc => fc !== flashCard);
+        this.flashCardRepetitions = this.flashCardRepetitions.filter(fcr => fcr.flashCard.id !== flashCard.id);
+        this.flashCardApiService.deleteFlashCard(flashCard.id).subscribe();
+
+        if (this.todoFlashCards.length === 0) {
+            this.navigateToStatsPage();
+        }
+    }
+
+    public async openEditFlashCardModal(flashCard: FlashCard) {
+        const options = {
+            centered: true,
+            size: `xl`
+        }
+
+        const modalRef = this.modalService.open(EditFlashCardComponent, options);
+        modalRef.componentInstance.flashCardId = flashCard.id;
+        modalRef.result.then(flashCard => this.updateFlashCard(flashCard));
+    }
+
+    public updateFlashCard(updatedFlashCard: FlashCard): void {
+        for (let i = 0; i < this.todoFlashCards.length; i++) {
+            if (this.todoFlashCards[i].id === updatedFlashCard.id) {
+                this.todoFlashCards[i] = updatedFlashCard;
+            }
+        }
     }
 }
