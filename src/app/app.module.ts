@@ -32,6 +32,8 @@ import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-
 import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
+import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
+import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { HomeStudyComponent } from './components/home/home-study/home-study.comp
     CreateFlashCardDeckComponent,
     SafeHtmlPipe,
     HomeStudyComponent,
+    LandingPageHeaderComponent,
+    LandingPageFlashCardComponent,
   ],
   imports: [
     BrowserModule,
