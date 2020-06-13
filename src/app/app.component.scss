@@ -1,7 +1,7 @@
 .grid-container {
     display: grid;
-    grid-template-rows: 4em auto 4em;
-    gap: 6rem 4em;
+    grid-template-rows: 5em auto 4em;
+    gap: 5rem 4em;
     grid-template-areas: "." "." ".";
     height: 100vh;
 }
