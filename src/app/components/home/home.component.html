@@ -1,7 +1,11 @@
 <div class="container">
-    <h3 class="mb-2">
+    <h3 class="mb-4">
         Dashboard
     </h3>
+    
+    <div class="mb-4">
+        <app-home-study [flashCardDecks]="flashCardDecks"></app-home-study>
+    </div>
 
-    <app-flash-card-deck-overview></app-flash-card-deck-overview>
+    <app-flash-card-deck-overview [flashCardDecks]="flashCardDecks"></app-flash-card-deck-overview>
 </div>

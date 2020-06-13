@@ -28,8 +28,9 @@ export class SpacedRepetitionComponent implements OnInit {
         private modalService: NgbModal,
     ) {
         if (this.router.getCurrentNavigation().extras.state) {
-            const flashCardDeckId = this.router.getCurrentNavigation().extras.state.flashCardDeckId;
-            this.getFashCardDeck(flashCardDeckId);
+            const flashCardDeckIds = this.router.getCurrentNavigation().extras.state.flashCardDeckIds;
+            console.log(flashCardDeckIds)
+            this.getFashCardDeck(flashCardDeckIds);
         } else {
             this.router.navigate(['/home'])
         }
@@ -38,12 +39,11 @@ export class SpacedRepetitionComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    getFashCardDeck(fashCardDeckId: any) {
-        this.flashCardRepetitionApiService.getFlashCards([fashCardDeckId]).subscribe(
+    getFashCardDeck(fashCardDeckIds: number[]) {
+        this.flashCardRepetitionApiService.getFlashCards(fashCardDeckIds).subscribe(
             (flashCards: FlashCard[]) => {
                 flashCards.forEach(flashCard => this.flashCardRepetitions.push(new SpacedRepetition(flashCard)));
                 this.todoFlashCards = flashCards;
-                console.log(flashCards)
             },
         );
     }

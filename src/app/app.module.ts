@@ -31,6 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-overview/create-flash-card-deck/create-flash-card-deck.component';
 import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { HomeStudyComponent } from './components/home/home-study/home-study.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     EditFlashCardComponent,
     CreateFlashCardDeckComponent,
     SafeHtmlPipe,
+    HomeStudyComponent,
   ],
   imports: [
     BrowserModule,
