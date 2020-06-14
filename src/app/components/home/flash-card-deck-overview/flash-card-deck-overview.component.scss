@@ -1,8 +1,17 @@
-.card-add-deck:hover {
-    cursor: pointer;
-    filter: brightness(85%);
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
 }
 
-.card-header {
-    height: 50px;
+.create-flash-card {
+    cursor: pointer;
+    border-bottom: none !important; 
+}
+
+.create-flash-card:hover {
+    background-color: rgba(0,0,0,.075);
+    cursor: pointer;
 }

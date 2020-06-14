@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-6 col-sm-12 mb-4" *ngFor="let flashCardDeck of flashCardDecks">
         <div class="card">
             <div class="card-header">
@@ -51,4 +51,28 @@
             <i class="fas fa-plus"></i> Add new Card Deck
         </button>
     </div>
-</div>
+</div> -->
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let flashCardDeck of flashCardDecks">
+        <div class="row align-items-center">
+            <div class="col-10">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-7">
+                        <a routerLink="/flash-card-decks/{{flashCardDeck.id}}">{{flashCardDeck.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 my-auto text-right">
+                <a class="text-danger" *ngIf="flashCardDeck.totalFlashCards === 0"
+                    (click)="deleteFlashCardDeck(flashCardDeck)">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </div>
+
+        </div>
+    </li>
+    <li class="list-group-item create-flash-card" (click)="openCreateFlashCardDeckModal()">
+        <span class="text-muted ml-2"><i class="fas fa-plus"></i> Add Flash Card Deck</span>
+    </li>
+</ul>
