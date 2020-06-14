@@ -35,6 +35,7 @@ import { HomeStudyComponent } from './components/home/home-study/home-study.comp
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,9 @@ import { HowItWorksComponent } from './components/how-it-works/how-it-works.comp
     provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,
     multi: true
-  }],
+  },
+  { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
