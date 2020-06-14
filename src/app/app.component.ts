@@ -14,7 +14,7 @@ export class AppComponent {
 
     public isNavbarDisplayed(): boolean {
         const path = this.location.path();
-        return !path.includes('sign-up') && !path.includes('sign-in') && path !== '/spaced-repetition';
+        return path !== '/spaced-repetition';
     }
 
     public isFooterDisplayed(): boolean {

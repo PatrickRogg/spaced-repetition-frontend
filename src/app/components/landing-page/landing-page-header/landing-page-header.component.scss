@@ -1,3 +1,11 @@
+header {
+    margin-top: -5rem;
+    height: calc(100vh - 70px);
+}
+
 .container {
-    padding-top: 5rem;
+    // max-height: calc(100vh - 70px);
+    // min-height: calc(100vh - 70px);
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
