@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~9.1.4",
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
+    "@ckeditor/ckeditor5-angular": "^1.2.3",
+    "@ckeditor/ckeditor5-build-inline": "^19.0.2",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.9.3",

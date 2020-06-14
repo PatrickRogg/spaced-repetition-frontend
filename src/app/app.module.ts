@@ -28,7 +28,6 @@ import { CreateTopicComponent } from './components/flash-card-deck-detail/create
 import { TopicWithFlashCardsComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/topic-with-flash-cards.component';
 import { FlashCardsComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/flash-cards/flash-cards.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateFlashCardDeckComponent } from './components/home/flash-card-deck-overview/create-flash-card-deck/create-flash-card-deck.component';
 import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
@@ -59,7 +58,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     TopicWithFlashCardsComponent,
     FlashCardsComponent,
     EditFlashCardComponent,
-    CreateFlashCardDeckComponent,
     SafeHtmlPipe,
     HomeStudyComponent,
     LandingPageHeaderComponent,

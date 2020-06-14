@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
 import { Router, NavigationExtras } from '@angular/router';
 import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateFlashCardDeckComponent } from './create-flash-card-deck/create-flash-card-deck.component';
 import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
 
 @Component({
@@ -16,23 +14,24 @@ export class FlashCardDeckOverviewComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private modalService: NgbModal,
         private flashCardDeckApiService: FlashCardDeckApiService,
     ) { }
 
     ngOnInit(): void {
     }
-    
-    public openCreateFlashCardDeckModal(): void {
-        const options = {
-            centered: true,
-            size: `xl`
-        }
-        const modalRef = this.modalService.open(CreateFlashCardDeckComponent, options);
 
-        modalRef.result.then((createdFlashCardDeck) => {
-            this.flashCardDecks.push(createdFlashCardDeck);
-        });
+    public create(): void {
+        const flashCardDeck = new FlashCardDeck(`Untitled`, ``);
+
+        this.flashCardDeckApiService.createFlashCardDeck(flashCardDeck).subscribe(
+            data => {
+                this.navigateToDetail(data.id);
+            }
+        );
+    }
+
+    public navigateToDetail(flashCardDeckId: number): void {
+        this.router.navigate([`/flash-card-decks`, flashCardDeckId]);
     }
 
     public start(flashCardDeck: FlashCardDeck): void {

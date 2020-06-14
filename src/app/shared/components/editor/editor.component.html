@@ -1,0 +1,3 @@
+<div *ngIf="editor">
+    <ckeditor [config]="editorConfig" [editor]="editor" [ngModel]="value" (ngModelChange)="inputChange($event)" name="value"></ckeditor>
+</div>
