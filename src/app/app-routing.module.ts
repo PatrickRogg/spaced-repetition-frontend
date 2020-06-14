@@ -8,6 +8,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { SpacedRepetitionStatsComponent } from './components/spaced-repetition-stats/spaced-repetition-stats.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SpacedRepetitionComponent } from './components/spaced-repetition/spaced-repetition.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'flash-card-decks/:id', component: FlashCardDeckDetailComponent, canActivate: [AuthGuard] },
   { path: 'spaced-repetition', component: SpacedRepetitionComponent, canActivate: [AuthGuard] },
   { path: 'spaced-repetition/stats', component: SpacedRepetitionStatsComponent, canActivate: [AuthGuard] },
+  { path: 'how-it-works', component: HowItWorksComponent },
   { path: '', component: LandingPageComponent },
 ];
 

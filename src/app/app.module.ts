@@ -34,6 +34,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { LandingPageFlashCardComponent } from './components/landing-page/landing
     HomeStudyComponent,
     LandingPageHeaderComponent,
     LandingPageFlashCardComponent,
+    HowItWorksComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,17 @@
 .nav-link {
     font-weight: 500;
     font-size: 1.05rem;
-    color: white !important;
 }
 
 .nav-link:hover {
     opacity: 0.8;
+}
+
+.nav-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.navbar-brand {
+    margin-right: 7rem;
 }
