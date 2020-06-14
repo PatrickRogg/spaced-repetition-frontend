@@ -1,75 +1,50 @@
-<!-- <div class="row">
-    <div class="col-md-6 col-sm-12 mb-4" *ngFor="let flashCardDeck of flashCardDecks">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-9">
-                        <h6 class="mb-0">
-                            <a routerLink="/flash-card-decks/{{flashCardDeck.id}}">{{flashCardDeck.name}}</a>
-                        </h6>
-                    </div>
-
-                    <div class="col-3 text-right">
-                        <a class="text-danger" *ngIf="flashCardDeck.totalFlashCards === 0"
-                            (click)="deleteFlashCardDeck(flashCardDeck)">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-12 text-center my-2">
-                        <h4 class="mb-0 text-danger" *ngIf="flashCardDeck.todoFlashCards > 0">
-                            <i class="far fa-times-circle"></i> {{flashCardDeck.todoFlashCards}} Cards Todo
-                        </h4>
-                        <h4 class="text-success mb-0" *ngIf="flashCardDeck.todoFlashCards === 0">
-                            <i class="far fa-check-circle"></i> Done
-                        </h4>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6 text-center">
-                        <button class="btn btn-success" [disabled]="flashCardDeck.todoFlashCards === 0"
-                            (click)="start(flashCardDeck)">
-                            Repeat Todo Cards <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-                    <div class="col-6 text-center">
-                        <button class="btn btn-secondary" routerLink="/flash-card-decks/{{flashCardDeck.id}}">
-                            Details <i class="fas fa-info-circle"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-6 col-sm-6">
+        Name
     </div>
-    <div class="col-12 text-center">
-        <button class="btn btn-dark btn-lg" (click)="openCreateFlashCardDeckModal()">
-            <i class="fas fa-plus"></i> Add new Card Deck
-        </button>
+    <div class="col-2 col-sm-1 text-center" data-toggle="tooltip" data-placement="bottom" title="Completed FlashCards">
+        ToDo
     </div>
-</div> -->
-
+    <div class="col-2 col-sm-1 text-center" data-toggle="tooltip" data-placement="bottom" title="Todo Flashcards">
+        &Sigma;
+    </div>
+    <div class="col-2 col-sm-4 my-auto text-right">
+        Start
+    </div>
+</div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let flashCardDeck of flashCardDecks">
         <div class="row align-items-center">
-            <div class="col-10">
+            <div class="col-6 col-sm-6">
                 <div class="row align-items-center">
                     <div class="col-12 col-md-7">
                         <a routerLink="/flash-card-decks/{{flashCardDeck.id}}">{{flashCardDeck.name}}</a>
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-auto text-right">
-                <a class="text-danger" *ngIf="flashCardDeck.totalFlashCards === 0"
-                    (click)="deleteFlashCardDeck(flashCardDeck)">
-                    <i class="far fa-trash-alt"></i>
-                </a>
+            <div class="col-2 col-sm-1 text-center"
+                [ngClass]="{'text-danger': flashCardDeck.todoFlashCards !== 0, 'text-success': flashCardDeck.todoFlashCards === 0}"
+                data-toggle="tooltip" data-placement="bottom" title="Todo Flashcards">
+                {{flashCardDeck.todoFlashCards}}
             </div>
-
+            <div class="col-2 col-sm-1 text-center" data-toggle="tooltip" data-placement="bottom"
+                title="Completed FlashCards">
+                {{flashCardDeck.totalFlashCards}}
+            </div>
+            <div class="col-2 col-sm-4 text-right">
+                <h4 class="text-danger mb-0 mr-1" *ngIf="flashCardDeck.totalFlashCards === 0"
+                    (click)="deleteFlashCardDeck(flashCardDeck)">
+                    <a><i class="far fa-trash-alt"></i></a>
+                </h4>
+                <button class="btn btn-sm btn-primary" *ngIf="flashCardDeck.todoFlashCards > 0"
+                    (click)="start(flashCardDeck)">
+                    <i class="fas fa-play"></i>
+                </button>
+                <h4 class="text-success mb-0 mr-1"
+                    *ngIf="flashCardDeck.todoFlashCards === 0 && flashCardDeck.totalFlashCards > 0">
+                    <i class="far fa-check-circle"></i>
+                </h4>
+            </div>
         </div>
     </li>
     <li class="list-group-item create-flash-card" (click)="openCreateFlashCardDeckModal()">
