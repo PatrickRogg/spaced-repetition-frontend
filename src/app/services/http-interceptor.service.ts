@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CORE_API_URL } from 'src/app/app.constants';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +12,8 @@ import { CORE_API_URL } from 'src/app/app.constants';
 export class HttpInterceptorService implements HttpInterceptor {
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -24,6 +27,14 @@ export class HttpInterceptorService implements HttpInterceptor {
             });
         }
 
-        return next.handle(tokenizedRequest);
+        return next.handle(tokenizedRequest).pipe(tap(() => { },
+            (err: any) => {
+                if (err instanceof HttpErrorResponse) {
+                    if (err.status !== 401) {
+                        return;
+                    }
+                    this.router.navigate(['/sign-in']);
+                }
+            }));;
     }
 }
