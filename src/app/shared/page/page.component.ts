@@ -1,22 +1,28 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { PageElement } from './models/page-element.model';
 
 @Component({
     selector: 'app-page',
     templateUrl: './page.component.html',
-    styleUrls: ['./page.component.scss']
+    styleUrls: ['./page.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class PageComponent implements OnInit {
+export class PageComponent implements OnInit, AfterViewInit {
     title = `Untitled`;
-    pageElements: PageElement[] = [
-        this.getNewPageElement()
-    ];
+    @ViewChild('pageElements') pageElements: ElementRef;
 
     constructor(
         private renderer: Renderer2
     ) { }
 
     ngOnInit(): void {
+
+    }
+
+    ngAfterViewInit(): void {
+        const root = this.pageElements.nativeElement as HTMLElement
+        const pageElement = this.createPageElement();
+        root.appendChild(pageElement)
     }
 
     public headlineEnter(event: any): void {
@@ -30,52 +36,69 @@ export class PageComponent implements OnInit {
         }
     }
 
-    public pageElementKeydow(event: KeyboardEvent): void {
+    createPageElement() {
+        const pageElement = document.createElement(`div`);
+        pageElement.id = this.generateUUID();
+        pageElement.setAttribute(`contenteditable`, `true`);
+        pageElement.setAttribute('placeholder', 'Type / to use commands');
+        return pageElement;
+    }
+
+    public handlePageElementKeydown(event: any): void {
         if (event.key === `Enter`) {
             this.handlePageElementEnter(event);
         } else if (event.key === `Backspace`) {
             this.handlePageElementBackspace(event);
         } else if (event.key === `/`) {
             this.handlePageElementSlash(event);
+        } else if (event.key === `ArrowUp`) {
+            this.handlePageElementArrowUp(event);
+        } else if (event.key === `ArrowDown`) {
+            this.handlePageElementArrowDown(event);
         }
+
+        console.log(event)
     }
 
     handlePageElementEnter(event: any): void {
         event.preventDefault();
-        const srcElementId = event.srcElement.id;
-        const newPageElements = [];
-        const newPageElement = this.getNewPageElement();
-
-        for (let i = 0; i < this.pageElements.length; i++) {
-            newPageElements.push(this.pageElements[i]);
-
-            if (this.pageElements[i].id === srcElementId) {
-                newPageElements.push(newPageElement);
-            }
-        }
-
-        this.pageElements = newPageElements;
-        //this.renderer.selectRootElement(newPageElement.id).focus();
+        const parentElement = event.srcElement.parentElement as HTMLElement;
+        const newPageElement = this.createPageElement();
+        parentElement.insertBefore(newPageElement, parentElement.nextSibling);
+        newPageElement.focus();
     }
 
     handlePageElementBackspace(event: any): void {
-        const srcElementInnerText = event.srcElement.innerText;
-        const srcElementId = event.srcElement.id;
+        const srcElement = event.srcElement as HTMLElement;
+        const prevElement = srcElement.previousSibling as HTMLElement;
 
-        if (srcElementInnerText === `` && this.pageElements.length > 1) {
-            const newPageElements = [];
-
-            for (let i = 0; i < this.pageElements.length; i++) {
-                if (this.pageElements[i].id !== srcElementId) {
-                    newPageElements.push(this.pageElements[i]);
-                }
-            }
-
-            this.pageElements = newPageElements;
+        if (srcElement.innerText === `` && prevElement) {
+            event.preventDefault();
+            
+            prevElement.focus();
+            srcElement.remove();
         }
     }
 
     handlePageElementSlash(event: any): void {
+    }
+
+    handlePageElementArrowUp(event: any): void {
+        const srcElement = event.srcElement as HTMLElement;
+        const prevElement = srcElement.previousSibling as HTMLElement;
+
+        if (prevElement) {
+            prevElement.focus()
+        }
+    }
+
+    handlePageElementArrowDown(event: any): void {
+        const srcElement = event.srcElement as HTMLElement;
+        const nextElement = srcElement.nextSibling as HTMLElement;
+
+        if (nextElement) {
+            nextElement.focus()
+        }
     }
 
     public getNewPageElement(): PageElement {

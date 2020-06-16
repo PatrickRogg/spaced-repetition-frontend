@@ -2,9 +2,6 @@
     <h1 class="title" contenteditable="true" [(ngModel)]="title" name="title" (keydown.enter)="headlineEnter($event)">
     </h1>
 
-    <div *ngFor="let pageElement of pageElements">
-        <div contenteditable="true" placeholder="Type '/' to use commands" [innerHtml]="pageElement.content | safeHtml"
-            [id]="pageElement.id" (keydown)="pageElementKeydow($event)">
-        </div>
+    <div #pageElements (keydown)="handlePageElementKeydown($event)">
     </div>
 </div>
