@@ -1,0 +1,7 @@
+<div class="container">
+    <h1 class="title" contenteditable="true" [(ngModel)]="title" name="title" (keydown.enter)="headlineEnter($event)"></h1>
+
+    <div class="content" contenteditable="true" (ngModelChange)="content" name="content" (domChange)="domChange($event)"
+        placeholder="Type '/' to use commands" [innerHtml]="content">
+    </div>
+</div>

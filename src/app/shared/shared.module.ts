@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ContenteditableModule } from '@ng-stack/contenteditable';
 
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputErrorMessageComponent } from './components/input-error-message/input-error-message.component';
-import { EditorComponent } from './components/editor/editor.component';
+import { PageComponent } from './page/page.component';
+import { DomChangeDirective } from './directives/dom-change.directive';
 
 
 
@@ -14,18 +15,19 @@ import { EditorComponent } from './components/editor/editor.component';
     declarations: [
         CustomInputComponent,
         InputErrorMessageComponent,
-        EditorComponent,
+        PageComponent,
+        DomChangeDirective,
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        CKEditorModule
+        ContenteditableModule,
     ],
     exports: [
         CustomInputComponent,
         InputErrorMessageComponent,
-        EditorComponent,
+        PageComponent,
     ]
 })
 export class SharedModule { }
