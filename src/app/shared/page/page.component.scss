@@ -1,8 +1,3 @@
-.title {
-    font-size: 3rem;
-    margin-bottom: 3rem;
-}
-
 [contenteditable] {
     outline: 0px solid transparent;
     background: transparent;
@@ -15,7 +10,36 @@
     color: #6c757d !important;
 }
 
+.title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    font-weight: bold;
+}
+
 .editable-div {
     padding: 3px 2px;
-    min-height: 24px;
+    min-height: 30px;
+}
+
+.headline-1 {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.headline-2 {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.headline-3 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.ul-item {
+    color: red;
+}
+
+.ol-item {
+    color: green;
 }

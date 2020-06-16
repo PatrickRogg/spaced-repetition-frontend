@@ -11,7 +11,7 @@ import { PageElementCreatorService } from '../services/page-element-creator.serv
 export class PageComponent implements OnInit, AfterViewInit {
     title = `Untitled`;
     @ViewChild('pageElements') pageElements: ElementRef;
-    activePageElement: HTMLElement;
+    focusedElement: HTMLElement;
 
     constructor(
         private pageElementHandlerService: PageElementHandlerService,
@@ -26,25 +26,17 @@ export class PageComponent implements OnInit, AfterViewInit {
         this.createDefaultPageElement();
     }
 
-    public handlePageElementKeydown(event: any): void {
-        const newActivePageElement = this.pageElementHandlerService.handlePageElementKeydown(event);
+    public handlePageElement(event: any): void {
+        const pageElement = this.pageElementHandlerService.handlePageElementKeydown(event);
 
-        if (newActivePageElement) {
-            this.setActivePageElement(newActivePageElement);
+        if (pageElement) {
+            this.setFocusedElement(pageElement);
         }
-    }
-
-    setActivePageElement(newActivePageElement: HTMLElement) {
-        newActivePageElement.focus();
-        this.activePageElement.setAttribute(`placeholder`, ``);
-        newActivePageElement.setAttribute(`placeholder`, `Type / to use commands`);
-        this.activePageElement = newActivePageElement;
-        this.moveCursorToEndOf(newActivePageElement);
     }
 
     public headlineEnter(event: any): void {
         event.preventDefault();
-        let element = event.srcElement.nextElementSibling;
+        const element = event.srcElement.nextElementSibling;
 
         if (element == null) {
             return;
@@ -54,14 +46,25 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     createDefaultPageElement(): void {
-        const pageElement = this.pageElementCreaterService.createDefault();
-        pageElement.setAttribute(`placeholder`, `Type / to use commands`);
-        pageElement.focus();
-
+        const pageElement = this.pageElementCreaterService.createEmptyElement();
         const parentElement = this.pageElements.nativeElement as HTMLElement
         parentElement.appendChild(pageElement);
+        this.setFocusedElement(pageElement);
+    }
 
-        this.activePageElement = pageElement;
+    setFocusedElement(element: HTMLElement): void {
+        if (this.isEmptyElement(element)) {
+            this.focusedElement.removeAttribute(`placeholder`);
+        }
+
+        this.focusedElement = element;
+        this.focusedElement.focus();
+        this.moveCursorToEndOf(this.focusedElement);
+    }
+
+    private isEmptyElement(element: HTMLElement) {
+        return this.focusedElement && this.focusedElement !== element &&
+            this.focusedElement.getAttribute(`element-type`) === this.pageElementCreaterService.EMPTY_ELEMENT_TYPE;
     }
 
     moveCursorToEndOf(element: HTMLElement) {
