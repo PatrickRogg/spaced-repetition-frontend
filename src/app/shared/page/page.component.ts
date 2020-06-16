@@ -1,5 +1,6 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { PageElement } from './models/page-element.model';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { PageElementHandlerService } from '../services/page-element-handler.service';
+import { PageElementCreatorService } from '../services/page-element-creator.service';
 
 @Component({
     selector: 'app-page',
@@ -10,9 +11,11 @@ import { PageElement } from './models/page-element.model';
 export class PageComponent implements OnInit, AfterViewInit {
     title = `Untitled`;
     @ViewChild('pageElements') pageElements: ElementRef;
+    activePageElement: HTMLElement;
 
     constructor(
-        private renderer: Renderer2
+        private pageElementHandlerService: PageElementHandlerService,
+        private pageElementCreaterService: PageElementCreatorService,
     ) { }
 
     ngOnInit(): void {
@@ -20,9 +23,23 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        const root = this.pageElements.nativeElement as HTMLElement
-        const pageElement = this.createPageElement();
-        root.appendChild(pageElement)
+        this.createDefaultPageElement();
+    }
+
+    public handlePageElementKeydown(event: any): void {
+        const newActivePageElement = this.pageElementHandlerService.handlePageElementKeydown(event);
+
+        if (newActivePageElement) {
+            this.setActivePageElement(newActivePageElement);
+        }
+    }
+
+    setActivePageElement(newActivePageElement: HTMLElement) {
+        newActivePageElement.focus();
+        this.activePageElement.setAttribute(`placeholder`, ``);
+        newActivePageElement.setAttribute(`placeholder`, `Type / to use commands`);
+        this.activePageElement = newActivePageElement;
+        this.moveCursorToEndOf(newActivePageElement);
     }
 
     public headlineEnter(event: any): void {
@@ -36,85 +53,29 @@ export class PageComponent implements OnInit, AfterViewInit {
         }
     }
 
-    createPageElement() {
-        const pageElement = document.createElement(`div`);
-        pageElement.id = this.generateUUID();
-        pageElement.setAttribute(`contenteditable`, `true`);
-        pageElement.setAttribute('placeholder', 'Type / to use commands');
-        return pageElement;
+    createDefaultPageElement(): void {
+        const pageElement = this.pageElementCreaterService.createDefault();
+        pageElement.setAttribute(`placeholder`, `Type / to use commands`);
+        pageElement.focus();
+
+        const parentElement = this.pageElements.nativeElement as HTMLElement
+        parentElement.appendChild(pageElement);
+
+        this.activePageElement = pageElement;
     }
 
-    public handlePageElementKeydown(event: any): void {
-        if (event.key === `Enter`) {
-            this.handlePageElementEnter(event);
-        } else if (event.key === `Backspace`) {
-            this.handlePageElementBackspace(event);
-        } else if (event.key === `/`) {
-            this.handlePageElementSlash(event);
-        } else if (event.key === `ArrowUp`) {
-            this.handlePageElementArrowUp(event);
-        } else if (event.key === `ArrowDown`) {
-            this.handlePageElementArrowDown(event);
+    moveCursorToEndOf(element: HTMLElement) {
+        let range: any;
+        let selection: any;
+
+        if (document.createRange) {
+            range = document.createRange();
+            range.selectNodeContents(element);
+            range.collapse(false);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
         }
-
-        console.log(event)
-    }
-
-    handlePageElementEnter(event: any): void {
-        event.preventDefault();
-        const parentElement = event.srcElement.parentElement as HTMLElement;
-        const newPageElement = this.createPageElement();
-        parentElement.insertBefore(newPageElement, parentElement.nextSibling);
-        newPageElement.focus();
-    }
-
-    handlePageElementBackspace(event: any): void {
-        const srcElement = event.srcElement as HTMLElement;
-        const prevElement = srcElement.previousSibling as HTMLElement;
-
-        if (srcElement.innerText === `` && prevElement) {
-            event.preventDefault();
-            
-            prevElement.focus();
-            srcElement.remove();
-        }
-    }
-
-    handlePageElementSlash(event: any): void {
-    }
-
-    handlePageElementArrowUp(event: any): void {
-        const srcElement = event.srcElement as HTMLElement;
-        const prevElement = srcElement.previousSibling as HTMLElement;
-
-        if (prevElement) {
-            prevElement.focus()
-        }
-    }
-
-    handlePageElementArrowDown(event: any): void {
-        const srcElement = event.srcElement as HTMLElement;
-        const nextElement = srcElement.nextSibling as HTMLElement;
-
-        if (nextElement) {
-            nextElement.focus()
-        }
-    }
-
-    public getNewPageElement(): PageElement {
-        return new PageElement(this.generateUUID(), `empty`, ``)
-    }
-
-    public domChange(mutation: any): void {
-        mutation.addedNodes.forEach(node => node.id = this.generateUUID());
-    }
-
-    public generateUUID(): string {
-        // https://stackoverflow.com/questions/55052621/how-to-customize-inserted-divs-of-contenteditable-on-line-breaks
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
     }
 
 }
