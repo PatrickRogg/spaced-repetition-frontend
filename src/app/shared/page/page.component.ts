@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { PageElement } from './models/page-element.model';
 
 @Component({
     selector: 'app-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageComponent implements OnInit {
     title = `Untitled`;
-    content = ``;
+    pageElements: PageElement[] = [
+        this.getNewPageElement()
+    ];
 
-    constructor() { }
+    constructor(
+        private renderer: Renderer2
+    ) { }
 
     ngOnInit(): void {
     }
@@ -25,8 +30,59 @@ export class PageComponent implements OnInit {
         }
     }
 
+    public pageElementKeydow(event: KeyboardEvent): void {
+        if (event.key === `Enter`) {
+            this.handlePageElementEnter(event);
+        } else if (event.key === `Backspace`) {
+            this.handlePageElementBackspace(event);
+        } else if (event.key === `/`) {
+            this.handlePageElementSlash(event);
+        }
+    }
+
+    handlePageElementEnter(event: any): void {
+        event.preventDefault();
+        const srcElementId = event.srcElement.id;
+        const newPageElements = [];
+        const newPageElement = this.getNewPageElement();
+
+        for (let i = 0; i < this.pageElements.length; i++) {
+            newPageElements.push(this.pageElements[i]);
+
+            if (this.pageElements[i].id === srcElementId) {
+                newPageElements.push(newPageElement);
+            }
+        }
+
+        this.pageElements = newPageElements;
+        //this.renderer.selectRootElement(newPageElement.id).focus();
+    }
+
+    handlePageElementBackspace(event: any): void {
+        const srcElementInnerText = event.srcElement.innerText;
+        const srcElementId = event.srcElement.id;
+
+        if (srcElementInnerText === `` && this.pageElements.length > 1) {
+            const newPageElements = [];
+
+            for (let i = 0; i < this.pageElements.length; i++) {
+                if (this.pageElements[i].id !== srcElementId) {
+                    newPageElements.push(this.pageElements[i]);
+                }
+            }
+
+            this.pageElements = newPageElements;
+        }
+    }
+
+    handlePageElementSlash(event: any): void {
+    }
+
+    public getNewPageElement(): PageElement {
+        return new PageElement(this.generateUUID(), `empty`, ``)
+    }
+
     public domChange(mutation: any): void {
-        console.log(mutation)
         mutation.addedNodes.forEach(node => node.id = this.generateUUID());
     }
 

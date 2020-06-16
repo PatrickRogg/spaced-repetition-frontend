@@ -29,7 +29,6 @@ import { TopicWithFlashCardsComponent } from './components/flash-card-deck-detai
 import { FlashCardsComponent } from './components/flash-card-deck-detail/topic-with-flash-cards/flash-cards/flash-cards.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit-flash-card.component';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
@@ -58,7 +57,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
         TopicWithFlashCardsComponent,
         FlashCardsComponent,
         EditFlashCardComponent,
-        SafeHtmlPipe,
         HomeStudyComponent,
         LandingPageHeaderComponent,
         LandingPageFlashCardComponent,
