@@ -108,7 +108,8 @@ export class SpacedRepetitionComponent implements OnInit {
         this.todoFlashCards = this.todoFlashCards.filter(fc => fc !== flashCard);
         this.flashCardRepetitions = this.flashCardRepetitions.filter(fcr => fcr.flashCard.id !== flashCard.id);
         this.flashCardApiService.deleteFlashCard(flashCard.id).subscribe();
-
+        this.isQuestion = true;
+        
         if (this.todoFlashCards.length === 0) {
             this.navigateToStatsPage();
         }
