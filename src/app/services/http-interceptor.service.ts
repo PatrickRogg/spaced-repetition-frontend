@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CORE_API_URL } from 'src/app/app.constants';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +12,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     constructor(
         private authService: AuthService,
-        private router: Router,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -33,7 +31,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                     if (err.status !== 401) {
                         return;
                     }
-                    this.router.navigate(['/sign-in']);
+                    this.authService.signOut();
                 }
             }));;
     }
