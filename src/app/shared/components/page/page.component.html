@@ -1,10 +1,11 @@
-<div class="container">
-    <h1 class="title" contenteditable="true" [(ngModel)]="title" name="title" (keydown.enter)="headlineEnter($event)">
-    </h1>
-
+<div class="container h-100">
     <div #pageRootElement class="align-items-center" (keydown.enter)="handlePageElementEnter($event)"
         (keydown.arrowup)="handlePageElementArrowUp($event)" (keydown.arrowdown)="handlePageElementArrowDown($event)"
         (keydown.space)="handlePageElementSpace($event)" (mousedown)="handlePageElementClick($event)"
         (keydown.backspace)="handlePageElementBackspace($event)">
+    </div>
+
+    <div *ngIf="isPageEmpty()" (click)="createFirstPageElement($event)" class="empty-page">
+        <span class="text-muted">Click here to start writing</span>
     </div>
 </div>

@@ -9,7 +9,6 @@ import { PageElementCreatorService } from '../../services/page-element-creator.s
     encapsulation: ViewEncapsulation.None
 })
 export class PageComponent implements OnInit, AfterViewInit {
-    title = `Untitled`;
     focusedElement: HTMLElement;
 
     @ViewChild('pageRootElement') pageRootElement: ElementRef;
@@ -24,18 +23,7 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.createFirstPageElement();
-    }
-
-    public headlineEnter(event: any): void {
-        event.preventDefault();
-        const element = event.srcElement.nextElementSibling;
-
-        if (element == null) {
-            return;
-        } else {
-            element.focus();
-        }
+        this.initPage();
     }
 
     public handlePageElementEnter(event: any): void {
@@ -68,31 +56,36 @@ export class PageComponent implements OnInit, AfterViewInit {
         this.setFocusedElement(nextActiveElement);
     }
 
+    public createFirstPageElement(event: any): void {
+        const element = this.pageElementCreaterService.createEmpty(``);
+        this.focusedElement.parentElement.appendChild(element);
+        this.setFocusedElement(element);
+    }
+
+    public isPageEmpty(): boolean {
+        if (!this.pageRootElement) {
+            return true;
+        }
+        const root = this.pageRootElement.nativeElement as HTMLElement;
+        return root.childNodes.length === 1
+    }
+
     protected setFocusedElement(element: HTMLElement): void {
         if (!element) {
             return;
         }
 
-        if (this.focusedElement && this.focusedElement !== element && 
+        if (this.focusedElement && this.focusedElement !== element &&
             this.focusedElement.getAttribute(`element-type`) === this.pageElementCreaterService.EMPTY_ELEMENT_TYPE) {
             this.focusedElement.setAttribute(`placeholder`, ``)
         }
 
-        this.focusedElement.blur();        
         this.focusedElement = element;
         element.focus();
         this.moveCursorToEndOf(this.focusedElement);
     }
 
-    protected createFirstPageElement(): void {
-        const rootElement = this.pageRootElement.nativeElement as HTMLElement;
-        const firstPageElement = this.pageElementCreaterService.createEmpty(``);
-        rootElement.appendChild(firstPageElement);
-        this.focusedElement = firstPageElement;
-        firstPageElement.focus();
-    }
-
-    moveCursorToEndOf(element: HTMLElement) {
+    protected moveCursorToEndOf(element: HTMLElement) {
         let range: any;
         let selection: any;
 
@@ -106,4 +99,10 @@ export class PageComponent implements OnInit, AfterViewInit {
         }
     }
 
+    protected initPage(): void {
+        const rootElement = this.pageRootElement.nativeElement as HTMLElement;
+        const titleElement = this.pageElementCreaterService.createTitle(`Untitled`);
+        rootElement.appendChild(titleElement);
+        this.setFocusedElement(titleElement);
+    }
 }

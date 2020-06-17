@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class PageElementCreatorService {
     public EMPTY_ELEMENT_TYPE = `empty`;
+    public TITLE = `title`;
     public HEADLINE_1_ELEMENT_TYPE = `headline-1`;
     public HEADLINE_2_ELEMENT_TYPE = `headline-2`;
     public HEADLINE_3_ELEMENT_TYPE = `headline-3`;
@@ -21,6 +22,15 @@ export class PageElementCreatorService {
         element.addEventListener(`focus`, () => {
             element.setAttribute(`placeholder`, placeholderText);
         })
+        return element;
+    }
+
+    public createTitle(text: string): HTMLElement {
+        const element = this.createEditablePageElementWithId(`div`, this.HEADLINE_1_ELEMENT_TYPE);
+        element.innerText = text;
+        element.setAttribute(`placeholder`, `Title`);
+        element.classList.add(`title`);
+
         return element;
     }
 

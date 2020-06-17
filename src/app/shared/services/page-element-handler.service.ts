@@ -71,13 +71,6 @@ export class PageElementHandlerService {
             parent.remove();
 
             return this.getEditableElement(prevElement);
-        } else if (cursorStartPosition === 0 && cursorEndPosition === 0) {
-            event.preventDefault();
-            const text = srcElement.innerText;
-            const replacementPageElement = this.pageElementCreaterService.createEmpty(text);
-            parent.parentNode.replaceChild(replacementPageElement, parent);
-
-            return this.getEditableElement(replacementPageElement);
         }
 
         return null;
