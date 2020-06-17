@@ -37,7 +37,6 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePageElementClick(event: any): void {
-        event.preventDefault();
         const nextActiveElement = this.pageElementHandlerService.handleClick(event);
         this.setFocusedElement(nextActiveElement);
     }
@@ -92,7 +91,7 @@ export class PageComponent implements OnInit, AfterViewInit {
 
         this.focusedElement = element;
         element.focus();
-        this.moveCursorToEndOf(this.focusedElement);
+        //this.moveCursorToEndOf(this.focusedElement);
     }
 
     protected moveCursorToEndOf(element: HTMLElement) {

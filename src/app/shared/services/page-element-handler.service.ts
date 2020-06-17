@@ -50,7 +50,10 @@ export class PageElementHandlerService {
             return newPageElement;
         }
 
-        const nextPageElementText = ``;
+        const cursorStartPosition = window.getSelection().getRangeAt(0).startOffset;
+        const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
+        const nextPageElementText = srcElement.innerText.substring(cursorEndPosition);
+        srcElement.innerText = srcElement.innerText.substring(0, cursorStartPosition);
         let newPageElement: HTMLElement;
 
         if (this.isListItem(srcElement) && srcElement.innerText.trim().length === 0) {
@@ -58,7 +61,7 @@ export class PageElementHandlerService {
             srcElement.parentElement.parentElement.replaceChild(newPageElement, parent);
             return newPageElement;
         }
-        
+
         if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE) {
             newPageElement = this.pageElementCreaterService.createUlItem(nextPageElementText);
         } else if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE) {
@@ -160,9 +163,29 @@ export class PageElementHandlerService {
                     }
                 );
             };
+        } else {
+            event.preventDefault();
+            const pastedText = event.clipboardData.getData('Text') as string;
+            let prevIndex = 0;
+            let index = pastedText.indexOf(`\n`, prevIndex);
+            let lastElement = null;
 
-            
+            while (index >= 0) {
+                const elementText = pastedText.substring(prevIndex, index).trim();
+
+                if (elementText.length > 0) {
+                    const newPageElement = this.pageElementCreaterService.createEmpty(pastedText.substring(prevIndex, index));
+                    parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
+                    lastElement = this.getEditableElement(newPageElement);
+                }
+
+                prevIndex = ++index;
+                index = pastedText.indexOf(`\n`, index);
+            }
+
+            return lastElement;
         }
+
         return null;
     }
 
@@ -172,9 +195,10 @@ export class PageElementHandlerService {
 
         if (this.isPageElement(parent)) {
             this.router.navigate([`/notes/username/${parent.getAttribute(`page-element-id`)}`]);
+            event.preventDefault();
             return null;
         }
-        
+
         return this.getEditableElement(parent);
     }
 
