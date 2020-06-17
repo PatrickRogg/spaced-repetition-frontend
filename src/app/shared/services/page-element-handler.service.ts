@@ -9,6 +9,7 @@ export class PageElementHandlerService {
     public HEADLINE_1_COMMAND = `/h1`;
     public HEADLINE_2_COMMAND = `/h2`;
     public HEADLINE_3_COMMAND = `/h3`;
+    public UL_ITEM_COMMAND = `- `;
 
     constructor(
         private pageElementCreaterService: PageElementCreatorService,
@@ -29,7 +30,7 @@ export class PageElementHandlerService {
             return this.handlePageElementArrowDown(event);
         }
 
-        return null;
+        return this.handlePageElement(event);
     }
 
     private handlePageElementEnter(event: any): HTMLElement {
@@ -92,6 +93,20 @@ export class PageElementHandlerService {
 
         if (nextElement) {
             return nextElement;
+        }
+
+        return null;
+    }
+
+    private handlePageElement(event: any): HTMLElement {
+        const srcElement = event.srcElement as HTMLElement;
+        const innerHtml = srcElement.textContent;
+        let newPageElement: HTMLElement;
+
+        if (innerHtml === this.UL_ITEM_COMMAND) {
+            console.log(1)
+            newPageElement = this.pageElementCreaterService.createUlItemElement();
+            srcElement.parentNode.replaceChild(newPageElement, srcElement);
         }
 
         return null;
