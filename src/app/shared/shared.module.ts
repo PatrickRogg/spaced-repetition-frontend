@@ -5,9 +5,9 @@ import { ContenteditableModule } from '@ng-stack/contenteditable';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputErrorMessageComponent } from './components/input-error-message/input-error-message.component';
-import { PageComponent } from './page/page.component';
 import { DomChangeDirective } from './directives/dom-change.directive';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { PageComponent } from './components/page/page.component';
 
 
 

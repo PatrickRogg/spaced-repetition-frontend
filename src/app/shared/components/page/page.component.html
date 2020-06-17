@@ -1,0 +1,10 @@
+<div class="container">
+    <h1 class="title" contenteditable="true" [(ngModel)]="title" name="title" (keydown.enter)="headlineEnter($event)">
+    </h1>
+
+    <div #pageRootElement class="align-items-center" (keydown.enter)="handlePageElementEnter($event)"
+        (keydown.arrowup)="handlePageElementArrowUp($event)" (keydown.arrowdown)="handlePageElementArrowDown($event)"
+        (keydown.space)="handlePageElementSpace($event)" (mousedown)="handlePageElementClick($event)"
+        (keydown.backspace)="handlePageElementBackspace($event)">
+    </div>
+</div>

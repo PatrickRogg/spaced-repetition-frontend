@@ -36,10 +36,28 @@
     font-weight: bold;
 }
 
-.ul-item {
-    color: red;
+.li-wrapper {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding-left: 5px;
+    color: inherit;
+    fill: inherit;
+}
+
+.ul-dot {
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 1;
+    margin: auto 0.3rem auto 0;
+}
+
+.l-item {
+    width: 100%;
 }
 
 .ol-item {
-    color: green;
+    text-align: center;
+    line-height: 1;
+    margin: auto 0.3rem auto 0;
 }

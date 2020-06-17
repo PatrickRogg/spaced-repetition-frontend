@@ -9,104 +9,145 @@ export class PageElementHandlerService {
     public HEADLINE_1_COMMAND = `/h1`;
     public HEADLINE_2_COMMAND = `/h2`;
     public HEADLINE_3_COMMAND = `/h3`;
-    public UL_ITEM_COMMAND = `- `;
 
     constructor(
         private pageElementCreaterService: PageElementCreatorService,
-    ) { }
-
-    public handlePageElementKeydown(event: any): HTMLElement {
-        if (event instanceof MouseEvent) {
-            return event.target as HTMLElement;
-        }
-
-        if (event.key === `Enter`) {
-            return this.handlePageElementEnter(event);
-        } else if (event.key === `Backspace`) {
-            return this.handlePageElementBackspace(event);
-        } else if (event.key === `ArrowUp`) {
-            return this.handlePageElementArrowUp(event);
-        } else if (event.key === `ArrowDown`) {
-            return this.handlePageElementArrowDown(event);
-        }
-
-        return this.handlePageElement(event);
+    ) {
     }
 
-    private handlePageElementEnter(event: any): HTMLElement {
-        event.preventDefault();
-        const srcElement = event.srcElement as HTMLElement;
+    public handleEnter(event: any): HTMLElement {
+        const srcElement = event.srcElement;
         const text = srcElement.innerText;
-        let newPageElement: HTMLElement;
 
         if (text === this.HEADLINE_1_COMMAND) {
-            newPageElement = this.pageElementCreaterService.createHeadline1Element();
+            const newPageElement = this.pageElementCreaterService.createHeadline1();
             srcElement.parentNode.replaceChild(newPageElement, srcElement);
-        } else if (text === this.HEADLINE_2_COMMAND) {
-            newPageElement = this.pageElementCreaterService.createHeadline2Element();
+            return newPageElement;
+        }
+
+        if (text === this.HEADLINE_2_COMMAND) {
+            const newPageElement = this.pageElementCreaterService.createHeadline2();
             srcElement.parentNode.replaceChild(newPageElement, srcElement);
-        } else if (text === this.HEADLINE_3_COMMAND) {
-            newPageElement = this.pageElementCreaterService.createHeadline3Element();
+            return newPageElement;
+        }
+
+        if (text === this.HEADLINE_3_COMMAND) {
+            const newPageElement = this.pageElementCreaterService.createHeadline3();
             srcElement.parentNode.replaceChild(newPageElement, srcElement);
-        } else {
-            newPageElement = this.pageElementCreaterService.createEmptyElement();
-            srcElement.parentElement.insertBefore(newPageElement, srcElement.nextSibling);
+            return newPageElement;
         }
 
-        return newPageElement;
-    }
-
-    private handlePageElementBackspace(event: any): HTMLElement {
-        const srcElement = event.srcElement as HTMLElement;
-        const prevElement = srcElement.previousSibling as HTMLElement;
-
-        if (srcElement.innerText === `` && prevElement) {
-            event.preventDefault();
-            srcElement.remove();
-
-            return prevElement;
-        } else if (srcElement.innerText === ``) {
-            event.preventDefault();
-            const replacementPageElement = this.pageElementCreaterService.createEmptyElement();
-            srcElement.parentNode.replaceChild(replacementPageElement, srcElement);
-
-            return replacementPageElement;
-        }
-
-        return null;
-    }
-
-    private handlePageElementArrowUp(event: any): HTMLElement {
-        const srcElement = event.srcElement as HTMLElement;
-        const prevElement = srcElement.previousSibling as HTMLElement;
-
-        if (prevElement) {
-            return prevElement;
-        }
-
-        return null;
-    }
-
-    private handlePageElementArrowDown(event: any): HTMLElement {
-        const srcElement = event.srcElement as HTMLElement;
-        const nextElement = srcElement.nextSibling as HTMLElement;
-
-        if (nextElement) {
-            return nextElement;
-        }
-
-        return null;
-    }
-
-    private handlePageElement(event: any): HTMLElement {
-        const srcElement = event.srcElement as HTMLElement;
-        const innerHtml = srcElement.textContent;
+        const nextPageElementText = ``;
+        const parent = this.getParent(event.srcElement);
         let newPageElement: HTMLElement;
 
-        if (innerHtml === this.UL_ITEM_COMMAND) {
-            console.log(1)
-            newPageElement = this.pageElementCreaterService.createUlItemElement();
-            srcElement.parentNode.replaceChild(newPageElement, srcElement);
+        if (this.isListItem(srcElement) && srcElement.innerText.trim().length === 0) {
+            newPageElement = this.pageElementCreaterService.createEmpty(nextPageElementText);
+            srcElement.parentElement.parentElement.replaceChild(newPageElement, parent);
+            return newPageElement;
+        }
+        
+        if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE) {
+            newPageElement = this.pageElementCreaterService.createUlItem(nextPageElementText);
+        } else if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE) {
+            newPageElement = this.pageElementCreaterService.createOlItem(nextPageElementText);
+        } else {
+            newPageElement = this.pageElementCreaterService.createEmpty(nextPageElementText);
+        }
+        
+        parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
+        return this.getEditableElement(newPageElement);
+    }
+
+    public handleBackspace(event: any): HTMLElement {
+        const srcElement = event.srcElement as HTMLElement;
+        const parent = this.getParent(srcElement);
+        const prevElement = parent.previousSibling as HTMLElement;
+        const cursorStartPosition = window.getSelection().getRangeAt(0).startOffset;
+        const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
+
+        if (cursorStartPosition === 0 && cursorEndPosition === 0 && prevElement) {
+            event.preventDefault();
+            parent.remove();
+
+            return this.getEditableElement(prevElement);
+        } else if (cursorStartPosition === 0 && cursorEndPosition === 0) {
+            event.preventDefault();
+            const text = srcElement.innerText;
+            const replacementPageElement = this.pageElementCreaterService.createEmpty(text);
+            parent.parentNode.replaceChild(replacementPageElement, parent);
+
+            return this.getEditableElement(replacementPageElement);
+        }
+
+        return null;
+    }
+
+    public handleArrowUp(event: any): HTMLElement {
+        event.preventDefault();
+        const srcElement = event.srcElement as HTMLElement;
+        const parent = this.getParent(srcElement);
+        const prevElement = parent.previousSibling as HTMLElement;
+
+        return this.getEditableElement(prevElement);
+    }
+
+    public handleArrowDown(event: any): HTMLElement {
+        event.preventDefault();
+        const srcElement = event.srcElement as HTMLElement;
+        const parent = this.getParent(srcElement);
+        const nextElement = parent.nextSibling as HTMLElement;
+
+        return this.getEditableElement(nextElement);
+    }
+
+    public handleSpace(event: any): HTMLElement {
+        const srcElement = event.srcElement as HTMLElement;
+        const parent = this.getParent(srcElement);
+        const text = srcElement.innerText;
+        let newPageElement: HTMLElement = srcElement;
+
+        if (text.length === 1 && text === `-`) {
+            newPageElement = this.pageElementCreaterService.createUlItem(``);
+            parent.parentNode.replaceChild(newPageElement, parent);
+            event.preventDefault();
+        } else if (text.length === 2 && text === `1.`) {
+            newPageElement = this.pageElementCreaterService.createOlItem(``);
+            parent.parentNode.replaceChild(newPageElement, parent);
+            event.preventDefault();
+        }
+
+        return this.getEditableElement(newPageElement);
+    }
+
+    protected isListItem(srcElement: HTMLElement) {
+        return srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE
+            || srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE;
+    }
+
+    protected getParent(element: HTMLElement): HTMLElement {
+        while (!element.getAttribute(`page-element-id`)) {
+            element = element.parentElement;
+        }
+
+        return element;
+    }
+
+    protected getEditableElement(element: HTMLElement): HTMLElement {
+        if (!element || !(element instanceof HTMLElement)) {
+            return null
+        }
+
+        if (element.getAttribute(`contenteditable`)) {
+            return element;
+        }
+
+        for (let child = element.firstChild; child; child = child.nextSibling) {
+            const res = this.getEditableElement(child as HTMLElement);
+
+            if (res) {
+                return res;
+            }
         }
 
         return null;
