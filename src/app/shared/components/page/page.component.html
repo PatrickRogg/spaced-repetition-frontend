@@ -2,7 +2,7 @@
     <div #pageRootElement class="align-items-center" (keydown.enter)="handlePageElementEnter($event)"
         (keydown.arrowup)="handlePageElementArrowUp($event)" (keydown.arrowdown)="handlePageElementArrowDown($event)"
         (keydown.space)="handlePageElementSpace($event)" (mousedown)="handlePageElementClick($event)"
-        (keydown.backspace)="handlePageElementBackspace($event)">
+        (keydown.backspace)="handlePageElementBackspace($event)" (paste)="handlePaste($event)">
     </div>
 
     <div (click)="createFirstPageElement($event)" class="empty-page">

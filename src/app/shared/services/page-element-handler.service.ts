@@ -113,6 +113,27 @@ export class PageElementHandlerService {
         return this.getEditableElement(newPageElement);
     }
 
+    public handlePase(event: any): HTMLElement {
+        const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+        let blob = null;
+
+        for (const item of items) {
+            if (item.type.indexOf('image') === 0) {
+                blob = item.getAsFile();
+            }
+        }
+
+        if (blob !== null) {
+            const reader = new FileReader();
+            reader.onload = (evt: any) => {
+                const base64String = evt.target.result;
+            };
+            reader.readAsDataURL(blob);
+        }
+
+        return null;
+    }
+
     protected isListItem(srcElement: HTMLElement) {
         return srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE
             || srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE;

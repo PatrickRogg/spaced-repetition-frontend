@@ -56,6 +56,10 @@ export class PageComponent implements OnInit, AfterViewInit {
         this.setFocusedElement(nextActiveElement);
     }
 
+    public handlePaste(event: any) {
+        console.log(event.clipboardData.getData('Text'))
+    }
+
     public createFirstPageElement(event: any): void {
         const element = this.pageElementCreaterService.createEmpty(``);
         this.focusedElement.parentElement.appendChild(element);

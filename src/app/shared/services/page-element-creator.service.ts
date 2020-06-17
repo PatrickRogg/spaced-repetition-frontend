@@ -26,7 +26,7 @@ export class PageElementCreatorService {
     }
 
     public createTitle(text: string): HTMLElement {
-        const element = this.createEditablePageElementWithId(`div`, this.HEADLINE_1_ELEMENT_TYPE);
+        const element = this.createEditablePageElementWithId(`div`, this.TITLE);
         element.innerText = text;
         element.setAttribute(`placeholder`, `Title`);
         element.classList.add(`title`);
