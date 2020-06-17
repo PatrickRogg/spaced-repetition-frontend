@@ -81,11 +81,19 @@ export class PageElementHandlerService {
         const cursorStartPosition = window.getSelection().getRangeAt(0).startOffset;
         const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
 
-        if (cursorStartPosition === 0 && cursorEndPosition === 0 && prevElement) {
+        if (cursorStartPosition === 0 && cursorEndPosition === 0 && prevElement && srcElement.innerText.length === 0) {
             event.preventDefault();
             parent.remove();
 
             return this.getEditableElement(prevElement);
+        }
+
+        if (cursorStartPosition === 0 && cursorEndPosition === 0 && prevElement) {
+            const text = srcElement.innerText;
+            const prevEditableElement = this.getEditableElement(prevElement);
+            prevEditableElement.innerText += text;
+            parent.remove();
+            return prevEditableElement;
         }
 
         return null;
