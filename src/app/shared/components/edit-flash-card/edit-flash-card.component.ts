@@ -8,6 +8,7 @@ import { formatDate } from '@angular/common';
 import { LEVELS } from 'src/app/app.constants';
 import { UpdateFlashCard } from 'src/app/shared/models/update-flash-card.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DateConverterService } from 'src/app/services/date-converter.service';
 
 @Component({
     selector: 'app-edit-flash-card',
@@ -25,6 +26,7 @@ export class EditFlashCardComponent implements OnInit {
         private fb: FormBuilder,
         private nextRepetitionService: NextRepetitionService,
         private activeModal: NgbActiveModal,
+        private dateConverterService: DateConverterService,
     ) { }
 
     ngOnInit(): void {
@@ -51,11 +53,13 @@ export class EditFlashCardComponent implements OnInit {
     public submit(): void {
         const form = this.flashCardForm;
         const lastWrongAnswerAsString: string = form.get('lastWrongAnswer').value;
+        const lastWrongAnswer = this.dateConverterService.convertToUTC(new Date(lastWrongAnswerAsString));
+        
         const requestData = new UpdateFlashCard(
             form.get('question').value,
             form.get('answer').value,
             form.get('level').value,
-            new Date(lastWrongAnswerAsString),
+            lastWrongAnswer,
         );
 
         this.flashCardApiService.updateFlashCard(this.flashCardId, requestData).subscribe(
