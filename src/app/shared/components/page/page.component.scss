@@ -41,7 +41,7 @@
     font-weight: bold;
 }
 
-.li-wrapper {
+.wrapper {
     display: flex;
     align-items: flex-start;
     width: 100%;
@@ -57,12 +57,25 @@
     margin: auto 0.3rem auto 0;
 }
 
-.l-item {
+.l-item, .page-title {
     width: 100%;
+    margin: auto 0;
 }
 
 .ol-item {
     text-align: center;
     line-height: 1;
     margin: auto 0.3rem auto 0;
+}
+
+.page-icon {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1;
+    margin: auto 0.3rem auto 0;
+}
+
+.page:hover {
+    cursor: pointer;
+    background-color: #c3c6c9;
 }

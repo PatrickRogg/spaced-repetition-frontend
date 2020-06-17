@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { PageElementHandlerService } from '../../services/page-element-handler.service';
 import { PageElementCreatorService } from '../../services/page-element-creator.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-page',
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class PageComponent implements OnInit, AfterViewInit {
     focusedElement: HTMLElement;
@@ -16,7 +17,10 @@ export class PageComponent implements OnInit, AfterViewInit {
     constructor(
         private pageElementHandlerService: PageElementHandlerService,
         private pageElementCreaterService: PageElementCreatorService,
-    ) { }
+        private router: Router,
+    ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
     ngOnInit(): void {
 
@@ -33,7 +37,9 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePageElementClick(event: any): void {
-        this.setFocusedElement(event.target);
+        event.preventDefault();
+        const nextActiveElement = this.pageElementHandlerService.handleClick(event);
+        this.setFocusedElement(nextActiveElement);
     }
 
     public handlePageElementSpace(event: any): void {

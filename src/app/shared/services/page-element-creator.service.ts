@@ -11,6 +11,7 @@ export class PageElementCreatorService {
     public HEADLINE_3_ELEMENT_TYPE = `headline-3`;
     public UL_ITEM_ELEMENT_TYPE = `ul-item`;
     public OL_ITEM_ELEMENT_TYPE = `ol-item`;
+    public PAGE_ELEMENT_TYPE = `page`;
 
     constructor() { }
 
@@ -60,20 +61,27 @@ export class PageElementCreatorService {
 
     public createUlItem(text: string): HTMLElement {
         const element = this.createPageElementWithId(`div`, this.UL_ITEM_ELEMENT_TYPE);
-        element.classList.add(`li-wrapper`);
-        const listItem = this.createListItem(text)
+        element.classList.add(`wrapper`);
         element.appendChild(this.createUlDot());
-        element.appendChild(listItem);
+        element.appendChild(this.createListItem(text));
 
         return element;
     }
 
     public createOlItem(text: string): HTMLElement {
         const element = this.createPageElementWithId(`div`, this.OL_ITEM_ELEMENT_TYPE);
-        element.classList.add(`li-wrapper`);
-        const listItem = this.createListItem(text)
+        element.classList.add(`wrapper`);
         element.appendChild(this.createUlDot());
-        element.appendChild(listItem);
+        element.appendChild(this.createListItem(text));
+
+        return element;
+    }
+
+    public createPage(): HTMLElement {
+        const element = this.createEditablePageElementWithId(`div`, this.PAGE_ELEMENT_TYPE);
+        element.classList.add(`wrapper`, `page`);
+        element.appendChild(this.createPageIcon());
+        element.appendChild(this.createPageTitle());
 
         return element;
     }
@@ -110,6 +118,22 @@ export class PageElementCreatorService {
         element.setAttribute(`contenteditable`, `true`);
         element.setAttribute(`spellcheck`, `true`);
         element.classList.add(`editable-div`);
+
+        return element;
+    }
+
+    protected createPageIcon(): HTMLElement {
+        const element = document.createElement(`div`);
+        element.innerHTML = `<i class="far fa-file"></i>`;
+        element.classList.add(`page-icon`);
+
+        return element;
+    }
+
+    protected createPageTitle(): HTMLElement {
+        const element = document.createElement(`div`);
+        element.innerText = `Untitled`;
+        element.classList.add(`page-title`);
 
         return element;
     }
