@@ -5,7 +5,7 @@
         (keydown.backspace)="handlePageElementBackspace($event)">
     </div>
 
-    <div *ngIf="isPageEmpty()" (click)="createFirstPageElement($event)" class="empty-page">
-        <span class="text-muted">Click here to start writing</span>
+    <div (click)="createFirstPageElement($event)" class="empty-page">
+        <div class="text-muted editable-div" *ngIf="isPageEmpty()">Click here to start writing</div>
     </div>
 </div>
