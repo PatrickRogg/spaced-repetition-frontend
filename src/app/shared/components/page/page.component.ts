@@ -63,7 +63,7 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePaste(event: any) {
-        console.log(event.clipboardData.getData('Text'))
+        this.pageElementHandlerService.handlePaste(event);
     }
 
     public createFirstPageElement(event: any): void {

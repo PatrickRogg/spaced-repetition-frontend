@@ -12,6 +12,7 @@ export class PageElementCreatorService {
     public UL_ITEM_ELEMENT_TYPE = `ul-item`;
     public OL_ITEM_ELEMENT_TYPE = `ol-item`;
     public PAGE_ELEMENT_TYPE = `page`;
+    public IMAGE_ELEMENT_TYPE = `image`;
 
     constructor() { }
 
@@ -82,6 +83,16 @@ export class PageElementCreatorService {
         element.classList.add(`wrapper`, `page`);
         element.appendChild(this.createPageIcon());
         element.appendChild(this.createPageTitle());
+
+        return element;
+    }
+
+    public createImage(imageUrl: string) {
+        const element = this.createEditablePageElementWithId(`div`, this.IMAGE_ELEMENT_TYPE);
+        element.classList.add(`image`);
+        const image = document.createElement(`img`);
+        image.src = imageUrl;
+        element.appendChild(image);
 
         return element;
     }

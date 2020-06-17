@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PageElementCreatorService } from './page-element-creator.service';
 import { Router } from '@angular/router';
+import { ImageUploadApiService } from 'src/app/services/api/image-upload-api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,61 +16,56 @@ export class PageElementHandlerService {
     constructor(
         private pageElementCreaterService: PageElementCreatorService,
         private router: Router,
+        private imageUploadApiService: ImageUploadApiService,
     ) {
     }
 
     public handleEnter(event: any): HTMLElement {
         const srcElement = event.srcElement;
         const text = srcElement.innerText;
+        const parent = this.getParent(event.srcElement);
 
         if (text === this.HEADLINE_1_COMMAND) {
             const newPageElement = this.pageElementCreaterService.createHeadline1();
-            srcElement.parentNode.replaceChild(newPageElement, srcElement);
+            parent.parentNode.replaceChild(newPageElement, parent);
             return newPageElement;
         }
 
         if (text === this.HEADLINE_2_COMMAND) {
             const newPageElement = this.pageElementCreaterService.createHeadline2();
-            srcElement.parentNode.replaceChild(newPageElement, srcElement);
+            parent.parentNode.replaceChild(newPageElement, parent);
             return newPageElement;
         }
 
         if (text === this.HEADLINE_3_COMMAND) {
             const newPageElement = this.pageElementCreaterService.createHeadline3();
-            srcElement.parentNode.replaceChild(newPageElement, srcElement);
+            parent.parentNode.replaceChild(newPageElement, parent);
             return newPageElement;
         }
 
         if (text === this.PAGE_COMMAND) {
             const newPageElement = this.pageElementCreaterService.createPage();
-            srcElement.parentNode.replaceChild(newPageElement, srcElement);
+            parent.parentNode.replaceChild(newPageElement, parent);
             this.router.navigate([`/notes/username/${newPageElement.getAttribute(`page-element-id`)}`]);
             return newPageElement;
         }
 
         const nextPageElementText = ``;
-        const parent = this.getParent(event.srcElement);
-        console.log(parent)
         let newPageElement: HTMLElement;
 
         if (this.isListItem(srcElement) && srcElement.innerText.trim().length === 0) {
             newPageElement = this.pageElementCreaterService.createEmpty(nextPageElementText);
             srcElement.parentElement.parentElement.replaceChild(newPageElement, parent);
-            console.log(1)
             return newPageElement;
         }
         
         if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE) {
-            console.log(2)
             newPageElement = this.pageElementCreaterService.createUlItem(nextPageElementText);
         } else if (parent.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE) {
             newPageElement = this.pageElementCreaterService.createOlItem(nextPageElementText);
-            console.log(3)
         } else {
             newPageElement = this.pageElementCreaterService.createEmpty(nextPageElementText);
-            console.log(4)
         }
-        console.log(4)
 
         parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
         return this.getEditableElement(newPageElement);
@@ -138,6 +134,8 @@ export class PageElementHandlerService {
     }
 
     public handlePaste(event: any): HTMLElement {
+        const srcElement = event.srcElement as HTMLElement;
+        const parent = this.getParent(srcElement);
         const items = (event.clipboardData || event.originalEvent.clipboardData).items;
         let blob = null;
 
@@ -149,12 +147,22 @@ export class PageElementHandlerService {
 
         if (blob !== null) {
             const reader = new FileReader();
-            reader.onload = (evt: any) => {
-                const base64String = evt.target.result;
-            };
             reader.readAsDataURL(blob);
-        }
+            reader.onload = () => {
+                const resultAsString = reader.result.toString();
+                const base64 = resultAsString.substr(resultAsString.indexOf(',') + 1);
+                this.imageUploadApiService.uploadImage(base64).subscribe(
+                    image => {
+                        const imageLink = image.data.link
+                        const newPageElement = this.pageElementCreaterService.createImage(imageLink);
+                        parent.parentNode.replaceChild(newPageElement, parent);
+                        return null;
+                    }
+                );
+            };
 
+            
+        }
         return null;
     }
 

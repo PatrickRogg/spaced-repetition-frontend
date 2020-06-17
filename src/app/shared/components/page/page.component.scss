@@ -79,3 +79,14 @@
     cursor: pointer;
     background-color: #c3c6c9;
 }
+
+.image {
+    align-items: center;
+}
+
+img {
+    max-width: 40rem;
+    height: auto;
+    margin: auto;
+    display: block;
+}

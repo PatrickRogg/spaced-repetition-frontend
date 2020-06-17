@@ -19,9 +19,9 @@ export class ImageUploadApiService {
     constructor(private httpClient: HttpClient) {
     }
 
-    public uploadImage(image: any): Observable<Image> {
+    public uploadImage(imageAsBase64: string): Observable<Image> {
         const data = {
-            image: image,
+            image: imageAsBase64,
             type: `base64`
         }
         return this.httpClient.post<Image>(this.API_URL, data, this.header);
