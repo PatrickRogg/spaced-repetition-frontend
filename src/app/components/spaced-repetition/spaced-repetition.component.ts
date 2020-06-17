@@ -7,6 +7,7 @@ import { FlashCardRepetitionApiService } from 'src/app/services/api/flash-card-r
 import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
+import { DateConverterService } from 'src/app/services/date-converter.service';
 
 @Component({
     selector: 'app-spaced-repetition',
@@ -26,6 +27,7 @@ export class SpacedRepetitionComponent implements OnInit {
         private flashCardApiService: FlashCardApiService,
         private nextRepetitionService: NextRepetitionService,
         private modalService: NgbModal,
+        private dateConverterService: DateConverterService,
     ) {
         if (this.router.getCurrentNavigation().extras.state) {
             const flashCardDeckIds = this.router.getCurrentNavigation().extras.state.flashCardDeckIds;
@@ -69,7 +71,9 @@ export class SpacedRepetitionComponent implements OnInit {
 
         if (level) {
             currFLashCardRepetition.flashCard.level = level;
-            currFLashCardRepetition.flashCard.lastWrongAnswer = new Date();
+            const lastWrongAnswer = new Date();
+            lastWrongAnswer.setHours(lastWrongAnswer.getHours() - 1);
+            currFLashCardRepetition.flashCard.lastWrongAnswer = this.dateConverterService.convertToUTC(lastWrongAnswer);
         } else {
             currFLashCardRepetition.flashCard.level++
         }
