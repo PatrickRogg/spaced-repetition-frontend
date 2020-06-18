@@ -84,12 +84,18 @@ export class PageComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public handlePageElementBackspace(event: any): void {
-        const prevCaretPosition = window.getSelection().getRangeAt(0).startOffset;
+    public handlePageElementBackspace(event: Event): void {
+        let caretPosition = window.getSelection().getRangeAt(0).startOffset - 1;
+        const srcElement = event.srcElement as HTMLElement
+        const suffixLength = srcElement.innerText.length - caretPosition;
         const nextActiveElement = this.pageElementHandlerService.handleBackspace(event);
 
+        if (srcElement !== nextActiveElement) {
+            caretPosition = nextActiveElement.innerText.length - suffixLength + 1;
+        }
+        
         this.setFocusedElement(nextActiveElement);
-        this.setCaretPosition(nextActiveElement, prevCaretPosition);
+        this.setCaretPosition(nextActiveElement, caretPosition);
     }
 
     public handlePaste(event: any) {

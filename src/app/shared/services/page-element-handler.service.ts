@@ -81,7 +81,8 @@ export class PageElementHandlerService {
         return this.getEditableElement(newPageElement);
     }
 
-    public handleBackspace(event: any): HTMLElement {
+    public handleBackspace(event: any): HTMLElement {            
+        event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
         const parent = this.getParent(srcElement);
         const prevElement = parent.previousSibling as HTMLElement;
@@ -89,9 +90,7 @@ export class PageElementHandlerService {
         const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
 
         if (cursorStartPosition === 0 && cursorEndPosition === 0 && prevElement && srcElement.innerText.length === 0) {
-            event.preventDefault();
             parent.remove();
-
             return this.getEditableElement(prevElement);
         }
 
@@ -102,8 +101,15 @@ export class PageElementHandlerService {
             parent.remove();
             return prevEditableElement;
         }
+        const text = srcElement.innerText;
 
-        return null;
+        if (cursorStartPosition === cursorEndPosition) {
+            srcElement.innerText = text.substring(0, cursorStartPosition - 1) + text.substring(cursorStartPosition);
+        } else {
+            srcElement.innerText = text.substring(0, cursorStartPosition) + text.substring(cursorEndPosition);
+        }
+        
+        return this.getEditableElement(parent);
     }
 
     public handleArrowUp(event: any): HTMLElement {
