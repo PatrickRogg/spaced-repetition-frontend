@@ -221,6 +221,11 @@ export class PageElementHandlerService {
             return null;
         }
 
+        if (this.isImageElement(parent)) {
+            event.preventDefault();
+            return null;
+        }
+
         return this.getEditableElement(parent);
     }
 
@@ -228,7 +233,7 @@ export class PageElementHandlerService {
         const parent = this.getParent(srcElement);
         let nextElement = parent.nextSibling as HTMLElement;
 
-        while (this.isPageElement(nextElement)) {
+        while (this.isPageElement(nextElement) || this.isImageElement(nextElement)) {
             nextElement = nextElement.nextSibling as HTMLElement;
         }
 
@@ -239,7 +244,7 @@ export class PageElementHandlerService {
         const parent = this.getParent(srcElement);
         let prevElement = parent.previousSibling as HTMLElement;
 
-        while (this.isPageElement(prevElement)) {
+        while (this.isPageElement(prevElement) || this.isImageElement(prevElement)) {
             prevElement = prevElement.previousSibling as HTMLElement;
         }
 
