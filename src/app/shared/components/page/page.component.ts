@@ -47,50 +47,49 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePageElementArrowDown(event: any): void {
-        const prevCaretPosition = 1;
+        const prevCaretPosition = window.getSelection().getRangeAt(0).startOffset;
         const nextActiveElement = this.pageElementHandlerService.handleArrowDown(event);
         
-        if (nextActiveElement) {
-            this.setFocusedElement(nextActiveElement);
-            this.setCaretPosition(nextActiveElement, prevCaretPosition);
-        }
+        this.setFocusedElement(nextActiveElement);
+        this.setCaretPosition(nextActiveElement, prevCaretPosition);
     }
 
     public handlePageElementArrowUp(event: any): void {
-        const prevCaretPosition = 1;
+        const prevCaretPosition = window.getSelection().getRangeAt(0).startOffset;
         const nextActiveElement = this.pageElementHandlerService.handleArrowUp(event);
         
-        if (nextActiveElement) {
-            this.setFocusedElement(nextActiveElement);
-            this.setCaretPosition(nextActiveElement, prevCaretPosition);
-        }
+        this.setFocusedElement(nextActiveElement);
+        this.setCaretPosition(nextActiveElement, prevCaretPosition);
     }
 
     public handlePageElementArrowLeft(event: any): void {
-        const nextActiveElement = this.pageElementHandlerService.handleArrowLeft(event);
+        const caretPosition = window.getSelection().getRangeAt(0).startOffset;
 
-        if (nextActiveElement) {
+        if (caretPosition === 0) {
+            const nextActiveElement = this.pageElementHandlerService.handleArrowLeft(event);
+            const nextCaretPosition = nextActiveElement ? nextActiveElement.innerText.length : 0;
             this.setFocusedElement(nextActiveElement);
-            this.setCaretPosition(nextActiveElement, 1);
+            this.setCaretPosition(nextActiveElement, nextCaretPosition);
         }
+        
     }
 
     public handlePageElementArrowRight(event: any): void {
-        const nextActiveElement = this.pageElementHandlerService.handleArrowRight(event);
+        const caretPosition = window.getSelection().getRangeAt(0).startOffset;
 
-        if (nextActiveElement) {
+        if (caretPosition === event.srcElement.innerText.length) {
+            const nextActiveElement = this.pageElementHandlerService.handleArrowRight(event);
             this.setFocusedElement(nextActiveElement);
-            this.setCaretPosition(nextActiveElement, 1);
+            this.setCaretPosition(nextActiveElement, 0);
         }
     }
 
     public handlePageElementBackspace(event: any): void {
+        const prevCaretPosition = window.getSelection().getRangeAt(0).startOffset;
         const nextActiveElement = this.pageElementHandlerService.handleBackspace(event);
-        
-        if (nextActiveElement) {
-            this.setFocusedElement(nextActiveElement);
-            this.setCaretPosition(nextActiveElement, 1);
-        }
+
+        this.setFocusedElement(nextActiveElement);
+        this.setCaretPosition(nextActiveElement, prevCaretPosition);
     }
 
     public handlePaste(event: any) {
@@ -115,6 +114,10 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     protected setFocusedElement(element: HTMLElement): void {
+        if (!element) {
+            return;
+        }
+
         if (this.focusedElement && this.focusedElement !== element &&
             this.focusedElement.getAttribute(`element-type`) === this.pageElementCreaterService.EMPTY_ELEMENT_TYPE) {
             this.focusedElement.setAttribute(`placeholder`, ``)
@@ -124,19 +127,28 @@ export class PageComponent implements OnInit, AfterViewInit {
         element.focus();
     }
 
-    protected setCaretPosition(element: HTMLElement, position: number): void {
-        const range = document.createRange();
-        const textNode = element.firstChild as HTMLElement;
-        console.log(textNode)
-        if (textNode.innerText.length < position) {
-            range.setStart(textNode, textNode.innerText.length);
-            range.setEnd(element.firstChild, textNode.innerText.length);
-        } else {
-            range.setStart(element.firstChild, position);
-            range.setEnd(element.firstChild, position);
+    protected setCaretPosition(element: HTMLElement, caretPosition: number): void {
+        if (!element) {
+            return;
         }
 
+        if (caretPosition < 0) {
+            caretPosition = 0;
+        }
+
+        const textValue = element.innerText as string;
+        const range = document.createRange();
         const selection = window.getSelection();
+        const target = (element.firstChild) ? element.firstChild : element;
+
+        if (textValue.length < caretPosition) {
+            range.setStart(target, textValue.length);
+            range.setEnd(target, textValue.length);
+        } else {
+            range.setStart(target, caretPosition);
+            range.setEnd(target, caretPosition);
+        }
+
         selection.removeAllRanges();
         selection.addRange(range);
     }

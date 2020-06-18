@@ -50,10 +50,7 @@ export class PageElementHandlerService {
             return newPageElement;
         }
 
-        console.log(parent)
-
         if (this.isImageElement(parent)) {
-            console.log(`123`)
             const newPageElement = this.pageElementCreaterService.createEmpty(``);
             parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
             return newPageElement;
@@ -128,6 +125,7 @@ export class PageElementHandlerService {
     }
 
     public handleArrowRight(event: any): HTMLElement {
+        event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
         return this.moveToNextElement(srcElement);
     }
@@ -236,7 +234,7 @@ export class PageElementHandlerService {
         let prevElement = parent.previousSibling as HTMLElement;
 
         while (this.isPageElement(prevElement)) {
-            prevElement = prevElement.nextSibling as HTMLElement;
+            prevElement = prevElement.previousSibling as HTMLElement;
         }
 
         return this.getEditableElement(prevElement);
