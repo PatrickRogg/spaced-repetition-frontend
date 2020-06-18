@@ -94,7 +94,8 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePaste(event: any) {
-        this.pageElementHandlerService.handlePaste(event);
+        const nextActiveElement = this.pageElementHandlerService.handlePaste(event);
+        this.setFocusedElement(nextActiveElement);
     }
 
     public createFirstPageElement(event: any): void {
@@ -107,8 +108,10 @@ export class PageComponent implements OnInit, AfterViewInit {
         if (!this.pageRootElement) {
             return true;
         }
+
         const root = this.pageRootElement.nativeElement as HTMLElement;
-        return root.childNodes.length === 1
+        
+        return root.childNodes.length === 1;
     }
 
     protected setFocusedElement(element: HTMLElement): void {

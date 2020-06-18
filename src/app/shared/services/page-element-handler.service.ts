@@ -53,6 +53,7 @@ export class PageElementHandlerService {
         const cursorStartPosition = window.getSelection().getRangeAt(0).startOffset;
         const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
         const nextPageElementText = srcElement.innerText.substring(cursorEndPosition);
+        console.log(srcElement.innerText)
         srcElement.innerText = srcElement.innerText.substring(0, cursorStartPosition);
         let newPageElement: HTMLElement;
 
@@ -102,32 +103,24 @@ export class PageElementHandlerService {
     public handleArrowUp(event: any): HTMLElement {
         event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
-        const prevEditableElement = this.moveToPrevElement(srcElement);
-
-        return prevEditableElement;
+        return this.moveToPrevElement(srcElement);
     }
 
     public handleArrowLeft(event: any): HTMLElement {
         event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
-        const prevEditableElement = this.moveToPrevElement(srcElement);
-
-        return prevEditableElement;
+        return this.moveToPrevElement(srcElement);
     }
 
     public handleArrowDown(event: any): HTMLElement {
         event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
-        const nextEditableElement = this.moveToNextElement(srcElement);
-
-        return nextEditableElement;
+        return this.moveToNextElement(srcElement);
     }
 
     public handleArrowRight(event: any): HTMLElement {
         const srcElement = event.srcElement as HTMLElement;
-        const nextEditableElement = this.moveToNextElement(srcElement);
-
-        return nextEditableElement;
+        return this.moveToNextElement(srcElement);
     }
 
     public handleSpace(event: any): HTMLElement {
@@ -149,7 +142,9 @@ export class PageElementHandlerService {
         return this.getEditableElement(newPageElement);
     }
 
-    public handlePaste(event: any): HTMLElement {
+    public handlePaste(event: any): HTMLElement {            
+        event.preventDefault();
+
         const srcElement = event.srcElement as HTMLElement;
         const parent = this.getParent(srcElement);
         const items = (event.clipboardData || event.originalEvent.clipboardData).items;
@@ -166,34 +161,41 @@ export class PageElementHandlerService {
             reader.readAsDataURL(blob);
             reader.onload = () => {
                 const resultAsString = reader.result.toString();
+                const imageWrapperElement = this.pageElementCreaterService.createImage(resultAsString);
+                parent.parentElement.replaceChild(imageWrapperElement, parent);
                 const base64 = resultAsString.substr(resultAsString.indexOf(',') + 1);
                 this.imageUploadApiService.uploadImage(base64).subscribe(
                     image => {
                         const imageLink = image.data.link
-                        const newPageElement = this.pageElementCreaterService.createImage(imageLink);
-                        parent.parentNode.replaceChild(newPageElement, parent);
-                        return null;
+                        const imageElement = imageWrapperElement.firstChild as HTMLImageElement;
+                        imageElement.src = imageLink;
                     }
                 );
             };
+
+            const emptyElement = this.pageElementCreaterService.createEmpty(``);
+            parent.parentElement.insertBefore(emptyElement, parent.nextSibling);
+
+            return this.getEditableElement(emptyElement);
+        } else {
+            const pastedText = event.clipboardData.getData('text/plain') as string;
+            const pastedTextLines = pastedText.split(`\n`);
+            let lastElement = srcElement;
+
+            for (let i = 0; i < pastedTextLines.length; i++) {
+                const line = pastedTextLines[i].trim();
+                lastElement.innerText += line;
+
+                if (i + 1 < pastedTextLines.length) {
+                    const newPageElement = this.pageElementCreaterService.createEmpty(``);
+                    parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
+                    lastElement = this.getEditableElement(newPageElement);
+                }
+
+            }
+
+            return lastElement;
         }
-
-        event.preventDefault();
-        const pastedText = event.clipboardData.getData('text/plain') as string;
-        const pastedTextLines = pastedText.split(`\n`);
-        let lastElement = srcElement;
-
-        for (let i in pastedTextLines) {
-            const line = pastedTextLines[i].trim();
-            document.execCommand('insertText', false, line);
-
-            const newPageElement = this.pageElementCreaterService.createEmpty(line);
-            parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
-            lastElement = this.getEditableElement(newPageElement);
-        }
-
-
-        return lastElement;
     }
 
     public handleClick(event: any): HTMLElement {
