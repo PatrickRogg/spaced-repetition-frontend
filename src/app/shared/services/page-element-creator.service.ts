@@ -20,7 +20,6 @@ export class PageElementCreatorService {
         const element = this.createEditablePageElementWithId(`div`, this.EMPTY_ELEMENT_TYPE);
         element.innerText = text;
         const placeholderText = `Type / to use commands`;
-        element.setAttribute(`placeholder`, placeholderText);
         element.addEventListener(`focus`, () => {
             element.setAttribute(`placeholder`, placeholderText);
         })

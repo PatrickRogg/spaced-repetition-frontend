@@ -102,27 +102,32 @@ export class PageElementHandlerService {
     public handleArrowUp(event: any): HTMLElement {
         event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
-        const parent = this.getParent(srcElement);
-        let prevElement = parent.previousSibling as HTMLElement;
+        const prevEditableElement = this.moveToPrevElement(srcElement);
 
-        while (this.isPageElement(prevElement)) {
-            prevElement = prevElement.previousSibling as HTMLElement;
-        }
+        return prevEditableElement;
+    }
 
-        return this.getEditableElement(prevElement);
+    public handleArrowLeft(event: any): HTMLElement {
+        event.preventDefault();
+        const srcElement = event.srcElement as HTMLElement;
+        const prevEditableElement = this.moveToPrevElement(srcElement);
+
+        return prevEditableElement;
     }
 
     public handleArrowDown(event: any): HTMLElement {
         event.preventDefault();
         const srcElement = event.srcElement as HTMLElement;
-        const parent = this.getParent(srcElement);
-        let nextElement = parent.nextSibling as HTMLElement;
+        const nextEditableElement = this.moveToNextElement(srcElement);
 
-        while (this.isPageElement(nextElement)) {
-            nextElement = nextElement.nextSibling as HTMLElement;
-        }
+        return nextEditableElement;
+    }
 
-        return this.getEditableElement(nextElement);
+    public handleArrowRight(event: any): HTMLElement {
+        const srcElement = event.srcElement as HTMLElement;
+        const nextEditableElement = this.moveToNextElement(srcElement);
+
+        return nextEditableElement;
     }
 
     public handleSpace(event: any): HTMLElement {
@@ -171,30 +176,24 @@ export class PageElementHandlerService {
                     }
                 );
             };
-        } else {
-            event.preventDefault();
-            const pastedText = event.clipboardData.getData('Text') as string;
-            let prevIndex = 0;
-            let index = pastedText.indexOf(`\n`, prevIndex);
-            let lastElement = null;
-
-            while (index >= 0) {
-                const elementText = pastedText.substring(prevIndex, index).trim();
-
-                if (elementText.length > 0) {
-                    const newPageElement = this.pageElementCreaterService.createEmpty(pastedText.substring(prevIndex, index));
-                    parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
-                    lastElement = this.getEditableElement(newPageElement);
-                }
-
-                prevIndex = ++index;
-                index = pastedText.indexOf(`\n`, index);
-            }
-
-            return lastElement;
         }
 
-        return null;
+        event.preventDefault();
+        const pastedText = event.clipboardData.getData('text/plain') as string;
+        const pastedTextLines = pastedText.split(`\n`);
+        let lastElement = srcElement;
+
+        for (let i in pastedTextLines) {
+            const line = pastedTextLines[i].trim();
+            document.execCommand('insertText', false, line);
+
+            const newPageElement = this.pageElementCreaterService.createEmpty(line);
+            parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
+            lastElement = this.getEditableElement(newPageElement);
+        }
+
+
+        return lastElement;
     }
 
     public handleClick(event: any): HTMLElement {
@@ -208,6 +207,28 @@ export class PageElementHandlerService {
         }
 
         return this.getEditableElement(parent);
+    }
+
+    protected moveToNextElement(srcElement: HTMLElement): HTMLElement {
+        const parent = this.getParent(srcElement);
+        let nextElement = parent.nextSibling as HTMLElement;
+
+        while (this.isPageElement(nextElement)) {
+            nextElement = nextElement.nextSibling as HTMLElement;
+        }
+
+        return this.getEditableElement(nextElement);
+    }
+
+    protected moveToPrevElement(srcElement: HTMLElement): HTMLElement {
+        const parent = this.getParent(srcElement);
+        let prevElement = parent.previousSibling as HTMLElement;
+
+        while (this.isPageElement(prevElement)) {
+            prevElement = prevElement.nextSibling as HTMLElement;
+        }
+
+        return this.getEditableElement(prevElement);
     }
 
     protected getParent(element: HTMLElement): HTMLElement {

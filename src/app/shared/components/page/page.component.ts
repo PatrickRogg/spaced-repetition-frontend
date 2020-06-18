@@ -47,18 +47,50 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public handlePageElementArrowDown(event: any): void {
+        const prevCaretPosition = 1;
         const nextActiveElement = this.pageElementHandlerService.handleArrowDown(event);
-        this.setFocusedElement(nextActiveElement);
+        
+        if (nextActiveElement) {
+            this.setFocusedElement(nextActiveElement);
+            this.setCaretPosition(nextActiveElement, prevCaretPosition);
+        }
     }
 
     public handlePageElementArrowUp(event: any): void {
+        const prevCaretPosition = 1;
         const nextActiveElement = this.pageElementHandlerService.handleArrowUp(event);
-        this.setFocusedElement(nextActiveElement);
+        
+        if (nextActiveElement) {
+            this.setFocusedElement(nextActiveElement);
+            this.setCaretPosition(nextActiveElement, prevCaretPosition);
+        }
+    }
+
+    public handlePageElementArrowLeft(event: any): void {
+        const nextActiveElement = this.pageElementHandlerService.handleArrowLeft(event);
+
+        if (nextActiveElement) {
+            this.setFocusedElement(nextActiveElement);
+            this.setCaretPosition(nextActiveElement, 1);
+        }
+    }
+
+    public handlePageElementArrowRight(event: any): void {
+        const nextActiveElement = this.pageElementHandlerService.handleArrowRight(event);
+
+        if (nextActiveElement) {
+            this.setFocusedElement(nextActiveElement);
+            this.setCaretPosition(nextActiveElement, 1);
+        }
     }
 
     public handlePageElementBackspace(event: any): void {
         const nextActiveElement = this.pageElementHandlerService.handleBackspace(event);
-        this.setFocusedElement(nextActiveElement);
+        
+        if (nextActiveElement) {
+            this.setFocusedElement(nextActiveElement);
+            this.setCaretPosition(nextActiveElement, 1);
+        }
     }
 
     public handlePaste(event: any) {
@@ -80,10 +112,6 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     protected setFocusedElement(element: HTMLElement): void {
-        if (!element) {
-            return;
-        }
-
         if (this.focusedElement && this.focusedElement !== element &&
             this.focusedElement.getAttribute(`element-type`) === this.pageElementCreaterService.EMPTY_ELEMENT_TYPE) {
             this.focusedElement.setAttribute(`placeholder`, ``)
@@ -91,21 +119,23 @@ export class PageComponent implements OnInit, AfterViewInit {
 
         this.focusedElement = element;
         element.focus();
-        //this.moveCursorToEndOf(this.focusedElement);
     }
 
-    protected moveCursorToEndOf(element: HTMLElement) {
-        let range: any;
-        let selection: any;
-
-        if (document.createRange) {
-            range = document.createRange();
-            range.selectNodeContents(element);
-            range.collapse(false);
-            selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
+    protected setCaretPosition(element: HTMLElement, position: number): void {
+        const range = document.createRange();
+        const textNode = element.firstChild as HTMLElement;
+        console.log(textNode)
+        if (textNode.innerText.length < position) {
+            range.setStart(textNode, textNode.innerText.length);
+            range.setEnd(element.firstChild, textNode.innerText.length);
+        } else {
+            range.setStart(element.firstChild, position);
+            range.setEnd(element.firstChild, position);
         }
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
 
     protected initPage(): void {
