@@ -50,14 +50,23 @@ export class PageElementHandlerService {
             return newPageElement;
         }
 
+        console.log(parent)
+
+        if (this.isImageElement(parent)) {
+            console.log(`123`)
+            const newPageElement = this.pageElementCreaterService.createEmpty(``);
+            parent.parentElement.insertBefore(newPageElement, parent.nextSibling);
+            return newPageElement;
+        }
+
         const cursorStartPosition = window.getSelection().getRangeAt(0).startOffset;
         const cursorEndPosition = window.getSelection().getRangeAt(0).endOffset;
         const nextPageElementText = srcElement.innerText.substring(cursorEndPosition);
-        console.log(srcElement.innerText)
+
         srcElement.innerText = srcElement.innerText.substring(0, cursorStartPosition);
         let newPageElement: HTMLElement;
 
-        if (this.isListItem(srcElement) && srcElement.innerText.trim().length === 0) {
+        if (this.isListItem(parent) && srcElement.innerText.trim().length === 0) {
             newPageElement = this.pageElementCreaterService.createEmpty(nextPageElementText);
             srcElement.parentElement.parentElement.replaceChild(newPageElement, parent);
             return newPageElement;
@@ -261,12 +270,16 @@ export class PageElementHandlerService {
         return null;
     }
 
-    protected isPageElement(nextElement: HTMLElement) {
-        return nextElement && nextElement.getAttribute(`element-type`) === this.pageElementCreaterService.PAGE_ELEMENT_TYPE;
+    protected isPageElement(element: HTMLElement): boolean {
+        return element && element.getAttribute(`element-type`) === this.pageElementCreaterService.PAGE_ELEMENT_TYPE;
     }
 
-    protected isListItem(srcElement: HTMLElement) {
-        return srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE
-            || srcElement.parentElement.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE;
+    protected isListItem(element: HTMLElement): boolean {
+        return element.getAttribute(`element-type`) === this.pageElementCreaterService.UL_ITEM_ELEMENT_TYPE
+            || element.getAttribute(`element-type`) === this.pageElementCreaterService.OL_ITEM_ELEMENT_TYPE;
+    }
+
+    protected isImageElement(element: HTMLElement): boolean {
+        return element && element.getAttribute(`element-type`) == this.pageElementCreaterService.IMAGE_ELEMENT_TYPE;
     }
 }
