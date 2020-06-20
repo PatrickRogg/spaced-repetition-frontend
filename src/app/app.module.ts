@@ -34,6 +34,9 @@ import { LandingPageHeaderComponent } from './components/landing-page/landing-pa
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NotesSidebarComponent } from './components/notes/notes-sidebar/notes-sidebar.component';
+import { NotesComponent } from './components/notes/notes.component';
+import { NotesContentComponent } from './components/notes/notes-content/notes-content.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +64,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
         LandingPageHeaderComponent,
         LandingPageFlashCardComponent,
         HowItWorksComponent,
+        NotesSidebarComponent,
+        NotesComponent,
+        NotesContentComponent,
     ],
     imports: [
         BrowserModule,

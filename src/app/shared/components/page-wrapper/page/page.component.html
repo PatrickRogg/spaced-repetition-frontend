@@ -1,0 +1,10 @@
+<div #pageRootElement class="align-items-center" (keydown.enter)="handlePageElementEnter($event)"
+    (keydown.arrowup)="handlePageElementArrowUp($event)" (keydown.arrowdown)="handlePageElementArrowDown($event)"
+    (keydown.arrowleft)="handlePageElementArrowLeft($event)" (keydown.arrowright)="handlePageElementArrowRight($event)"
+    (keydown.space)="handlePageElementSpace($event)" (mousedown)="handlePageElementClick($event)"
+    (keydown.backspace)="handlePageElementBackspace($event)" (paste)="handlePaste($event)">
+</div>
+
+<div (click)="createFirstPageElement($event)" class="empty-page">
+    <div class="text-muted editable-div" *ngIf="isPageEmpty()">Click here to start writing</div>
+</div>

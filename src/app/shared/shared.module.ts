@@ -7,7 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputErrorMessageComponent } from './components/input-error-message/input-error-message.component';
 import { DomChangeDirective } from './directives/dom-change.directive';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { PageComponent } from './components/page/page.component';
+import { PageComponent } from './components/page-wrapper/page/page.component';
+import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.component';
 
 
 
@@ -19,6 +20,7 @@ import { PageComponent } from './components/page/page.component';
         PageComponent,
         DomChangeDirective,
         SafeHtmlPipe,
+        PageWrapperComponent,
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,7 @@ import { PageComponent } from './components/page/page.component';
     exports: [
         CustomInputComponent,
         InputErrorMessageComponent,
-        PageComponent,
+        PageWrapperComponent,
         SafeHtmlPipe,
     ]
 })

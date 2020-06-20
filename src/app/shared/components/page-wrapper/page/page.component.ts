@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { PageElementHandlerService } from '../../services/page-element-handler.service';
-import { PageElementCreatorService } from '../../services/page-element-creator.service';
+import { PageElementHandlerService } from '../../../services/page-element-handler.service';
+import { PageElementCreatorService } from '../../../services/page-element-creator.service';
 import { Router } from '@angular/router';
 
 @Component({
