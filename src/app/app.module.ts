@@ -34,11 +34,6 @@ import { LandingPageHeaderComponent } from './components/landing-page/landing-pa
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { LayoutComponent } from './components/layout/layout.component';
-import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
-import { ContentComponent } from './components/layout/content/content.component';
-import { SidebarFolderComponent } from './components/layout/sidebar/sidebar-folder/sidebar-folder.component';
-import { SidebarFileComponent } from './components/layout/sidebar/sidebar-file/sidebar-file.component';
 
 @NgModule({
   declarations: [
@@ -66,11 +61,6 @@ import { SidebarFileComponent } from './components/layout/sidebar/sidebar-file/s
     LandingPageHeaderComponent,
     LandingPageFlashCardComponent,
     HowItWorksComponent,
-    LayoutComponent,
-    SidebarComponent,
-    ContentComponent,
-    SidebarFolderComponent,
-    SidebarFileComponent,
   ],
   imports: [
     BrowserModule,
