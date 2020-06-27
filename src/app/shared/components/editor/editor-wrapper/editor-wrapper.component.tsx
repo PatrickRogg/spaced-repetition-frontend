@@ -27,10 +27,7 @@ export class EditorWrapperComponent
   @ViewChild(containerElementName, { static: false }) containerRef: ElementRef;
 
   savedText = localStorage.getItem("saved");
-  value = "\
-  \
-  \
-  ";
+  value = "\\\\\\\n\\\n";
 
   constructor() {
   }

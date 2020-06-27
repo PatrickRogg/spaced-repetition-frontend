@@ -1,0 +1,9 @@
+<div
+  class="pl-2 mb-1 align-items-center"
+  (click)="openFile()"
+  [ngClass]="{ 'file-open-color': isOpen() }"
+>
+  <i class="far fa-file-alt"></i>
+
+  <span class="pl-2 noselect">{{ file.name }}</span>
+</div>

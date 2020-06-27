@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
@@ -34,58 +34,63 @@ import { LandingPageHeaderComponent } from './components/landing-page/landing-pa
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { NotesSidebarComponent } from './components/notes/notes-sidebar/notes-sidebar.component';
-import { NotesComponent } from './components/notes/notes.component';
-import { NotesContentComponent } from './components/notes/notes-content/notes-content.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { ContentComponent } from './components/layout/content/content.component';
+import { SidebarFolderComponent } from './components/layout/sidebar/sidebar-folder/sidebar-folder.component';
+import { SidebarFileComponent } from './components/layout/sidebar/sidebar-file/sidebar-file.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LandingPageComponent,
-        NavbarComponent,
-        SignUpComponent,
-        SignInComponent,
-        FooterComponent,
-        FlashCardDeckOverviewComponent,
-        FlashCardDeckDetailComponent,
-        FlashCardDeckDetailTitleComponent,
-        HomeComponent,
-        SpacedRepetitionStatsComponent,
-        SpacedRepetitionStatsOverviewComponent,
-        SpacedRepetitionStatsDetailComponent,
-        RichTextEditorComponent,
-        CreateFlashCardComponent,
-        SpacedRepetitionComponent,
-        CreateTopicComponent,
-        TopicWithFlashCardsComponent,
-        FlashCardsComponent,
-        EditFlashCardComponent,
-        HomeStudyComponent,
-        LandingPageHeaderComponent,
-        LandingPageFlashCardComponent,
-        HowItWorksComponent,
-        NotesSidebarComponent,
-        NotesComponent,
-        NotesContentComponent,
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ChartsModule,
-        QuillModule.forRoot(),
-        SharedModule,
-        NgbModule,
-    ],
-    providers: [{
-        provide: HTTP_INTERCEPTORS,
-        useClass: HttpInterceptorService,
-        multi: true
+  declarations: [
+    AppComponent,
+    LandingPageComponent,
+    NavbarComponent,
+    SignUpComponent,
+    SignInComponent,
+    FooterComponent,
+    FlashCardDeckOverviewComponent,
+    FlashCardDeckDetailComponent,
+    FlashCardDeckDetailTitleComponent,
+    HomeComponent,
+    SpacedRepetitionStatsComponent,
+    SpacedRepetitionStatsOverviewComponent,
+    SpacedRepetitionStatsDetailComponent,
+    RichTextEditorComponent,
+    CreateFlashCardComponent,
+    SpacedRepetitionComponent,
+    CreateTopicComponent,
+    TopicWithFlashCardsComponent,
+    FlashCardsComponent,
+    EditFlashCardComponent,
+    HomeStudyComponent,
+    LandingPageHeaderComponent,
+    LandingPageFlashCardComponent,
+    HowItWorksComponent,
+    LayoutComponent,
+    SidebarComponent,
+    ContentComponent,
+    SidebarFolderComponent,
+    SidebarFileComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ChartsModule,
+    QuillModule.forRoot(),
+    SharedModule,
+    NgbModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
-    ],
-    bootstrap: [AppComponent]
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

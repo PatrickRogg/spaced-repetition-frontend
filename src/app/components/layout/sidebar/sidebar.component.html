@@ -1,0 +1,11 @@
+<div class="sidebar">
+  <div>
+    <h4>Documents</h4>
+  </div>
+
+  <hr />
+
+  <div *ngFor="let folder of topLevelFolder">
+    <app-sidebar-folder [folder]="folder"></app-sidebar-folder>
+  </div>
+</div>
