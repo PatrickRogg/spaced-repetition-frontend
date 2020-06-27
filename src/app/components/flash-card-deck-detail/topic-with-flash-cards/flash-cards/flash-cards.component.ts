@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateFlashCardComponent } from './create-flash-card/create-flash-card.component';
 import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
+import { FlashCard } from 'src/app/models/flash-card.model';
 
 @Component({
     selector: 'app-flash-cards',

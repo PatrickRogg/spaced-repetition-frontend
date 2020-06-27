@@ -7,20 +7,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputErrorMessageComponent } from './components/input-error-message/input-error-message.component';
 import { DomChangeDirective } from './directives/dom-change.directive';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { PageComponent } from './components/page-wrapper/page/page.component';
-import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.component';
-
-
+import { EditorComponent } from './components/editor/editor.component';
+import { EditorWrapperComponent } from './components/editor/editor-wrapper/editor-wrapper.component';
 
 
 @NgModule({
     declarations: [
         CustomInputComponent,
         InputErrorMessageComponent,
-        PageComponent,
         DomChangeDirective,
         SafeHtmlPipe,
-        PageWrapperComponent,
+        EditorComponent,
+        EditorWrapperComponent,
     ],
     imports: [
         CommonModule,
@@ -31,8 +29,8 @@ import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.com
     exports: [
         CustomInputComponent,
         InputErrorMessageComponent,
-        PageWrapperComponent,
         SafeHtmlPipe,
+        EditorComponent
     ]
 })
 export class SharedModule { }

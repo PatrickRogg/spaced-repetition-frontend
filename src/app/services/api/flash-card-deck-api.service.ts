@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CORE_API_URL } from 'src/app/app.constants';
-import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
 import { Observable } from 'rxjs';
-import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
+import { FlashCardDeckOverview } from 'src/app/models/flash-card-deck-overview.model';
+import { FlashCardDeck } from 'src/app/models/flash-card-deck.model';
 
 @Injectable({
     providedIn: 'root'

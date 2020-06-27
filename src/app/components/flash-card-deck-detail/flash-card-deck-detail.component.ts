@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-api.service';
-import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
-import { Topic } from 'src/app/shared/models/topic.model';
+import { FlashCardDeck } from 'src/app/models/flash-card-deck.model';
+import { Topic } from 'src/app/models/topic.model';
 
 @Component({
     selector: 'app-flash-card-deck-detail',
@@ -10,7 +10,7 @@ import { Topic } from 'src/app/shared/models/topic.model';
     styleUrls: ['./flash-card-deck-detail.component.scss']
 })
 export class FlashCardDeckDetailComponent implements OnInit {
-    flashCardDeck: FlashCardDeck
+    flashCardDeck: FlashCardDeck;
 
     constructor(
         private activatedRoute: ActivatedRoute,

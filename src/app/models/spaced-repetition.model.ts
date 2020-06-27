@@ -1,4 +1,4 @@
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
+import { FlashCard } from './flash-card.model';
 
 export class SpacedRepetition {
     public prevLevel: number;

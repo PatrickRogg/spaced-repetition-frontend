@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserSignUpRequestData } from './models/user-sign-up.request-model';
-import { AuthApiService } from 'src/app/services/api/auth-api.service';
-import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ErrorResponse } from 'src/app/models/error-response.model';
 
 @Component({
 	selector: 'app-sign-up',

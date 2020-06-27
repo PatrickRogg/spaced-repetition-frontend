@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ErrorResponse } from 'src/app/shared/models/error-response.model';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
 import { NextRepetitionService } from 'src/app/services/next-repetition.service';
 import { formatDate } from '@angular/common';
 import { LEVELS } from 'src/app/app.constants';
-import { UpdateFlashCard } from 'src/app/shared/models/update-flash-card.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateConverterService } from 'src/app/services/date-converter.service';
+import { ErrorResponse } from 'src/app/models/error-response.model';
+import { FlashCard } from 'src/app/models/flash-card.model';
+import { UpdateFlashCard } from 'src/app/models/update-flash-card.model';
 
 @Component({
     selector: 'app-edit-flash-card',

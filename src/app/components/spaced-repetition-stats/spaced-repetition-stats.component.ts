@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
+import { SpacedRepetition } from 'src/app/models/spaced-repetition.model';
 
 @Component({
     selector: 'app-spaced-repetition-stats',

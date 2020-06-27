@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
 import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-api.service';
-import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ErrorResponse } from 'src/app/models/error-response.model';
+import { FlashCardDeck } from 'src/app/models/flash-card-deck.model';
 
 @Component({
     selector: 'app-flash-card-deck-detail-title',

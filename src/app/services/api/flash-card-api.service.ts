@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CORE_API_URL } from 'src/app/app.constants';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
-import { CreateFlashCardRequest } from 'src/app/shared/models/create-flash-card-request.model';
-import { UpdateFlashCard } from 'src/app/shared/models/update-flash-card.model';
+import { FlashCard } from 'src/app/models/flash-card.model';
+import { CreateFlashCardRequest } from 'src/app/models/create-flash-card-request.model';
+import { UpdateFlashCard } from 'src/app/models/update-flash-card.model';
 
 @Injectable({
     providedIn: 'root'

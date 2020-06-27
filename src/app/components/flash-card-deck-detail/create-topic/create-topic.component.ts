@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { TopicApiService } from 'src/app/services/api/topic-api.service';
-import { CreateUpdateTopic } from 'src/app/shared/models/create-update-topic.model';
-import { Topic } from 'src/app/shared/models/topic.model';
+import { Topic } from 'src/app/models/topic.model';
+import { ErrorResponse } from 'src/app/models/error-response.model';
+import { CreateUpdateTopic } from 'src/app/models/create-update-topic.model';
 
 @Component({
     selector: 'app-create-topic',

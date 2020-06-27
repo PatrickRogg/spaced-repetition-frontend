@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
+import { SpacedRepetition } from 'src/app/models/spaced-repetition.model';
 
 @Component({
   selector: 'app-spaced-repetition-stats-detail',

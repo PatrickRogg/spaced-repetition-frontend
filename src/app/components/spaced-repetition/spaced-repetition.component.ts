@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { NextRepetitionService } from 'src/app/services/next-repetition.service';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
 import { FlashCardRepetitionApiService } from 'src/app/services/api/flash-card-repetition-api.service';
-import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
 import { DateConverterService } from 'src/app/services/date-converter.service';
+import { SpacedRepetition } from 'src/app/models/spaced-repetition.model';
+import { FlashCard } from 'src/app/models/flash-card.model';
 
 @Component({
     selector: 'app-spaced-repetition',

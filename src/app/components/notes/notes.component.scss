@@ -1,17 +1,7 @@
-.notes-sidebar {
-    position: fixed;
-    width: 240px;
-    background: grey;
-    height: 100%;
-}
-
-.notes-content {
-    height: 100%;
-    width: 100%;
-}
-
-.wrapper {
-    height: 100%;
-    width: 100vw;
-    position: fixed;
+.grid-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: ".notes-sidebar .notes-content";
 }

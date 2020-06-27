@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthApiService } from './api/auth-api.service';
 import { UserSignInRequestData } from '../components/sign-in/models/user-sign-in.request-model';
-import { AuthToken } from '../shared/models/auth-token.model';
 import { map } from 'rxjs/operators';
 import { UserSignUpRequestData } from '../components/sign-up/models/user-sign-up.request-model';
+import { AuthToken } from '../models/auth-token.model';
 
 @Injectable({
     providedIn: 'root'

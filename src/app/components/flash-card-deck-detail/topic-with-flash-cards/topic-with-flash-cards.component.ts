@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Topic } from 'src/app/shared/models/topic.model';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { TopicApiService } from 'src/app/services/api/topic-api.service';
-import { CreateUpdateTopic } from 'src/app/shared/models/create-update-topic.model';
-import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { ErrorResponse } from 'src/app/models/error-response.model';
+import { FlashCard } from 'src/app/models/flash-card.model';
+import { Topic } from 'src/app/models/topic.model';
+import { CreateUpdateTopic } from 'src/app/models/create-update-topic.model';
 
 @Component({
     selector: 'app-topic-with-flash-cards',

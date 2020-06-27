@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
 import { NavigationExtras, Router } from '@angular/router';
+import { FlashCardDeckOverview } from 'src/app/models/flash-card-deck-overview.model';
 
 @Component({
     selector: 'app-home-study',

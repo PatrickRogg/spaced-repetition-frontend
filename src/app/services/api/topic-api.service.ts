@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CORE_API_URL } from 'src/app/app.constants';
 import { HttpClient } from '@angular/common/http';
-import { Topic } from 'src/app/shared/models/topic.model';
 import { Observable } from 'rxjs';
-import { CreateUpdateTopic } from 'src/app/shared/models/create-update-topic.model';
+import { Topic } from 'src/app/models/topic.model';
+import { CreateUpdateTopic } from 'src/app/models/create-update-topic.model';
 
 @Injectable({
   providedIn: 'root'

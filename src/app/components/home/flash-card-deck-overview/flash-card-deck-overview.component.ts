@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
 import { Router, NavigationExtras } from '@angular/router';
 import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-api.service';
-import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
+import { FlashCardDeckOverview } from 'src/app/models/flash-card-deck-overview.model';
+import { FlashCardDeck } from 'src/app/models/flash-card-deck.model';
 
 @Component({
     selector: 'app-flash-card-deck-overview',
