@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { File } from 'src/app/models/file-system.model';
-import { OpenFileService } from '../services/open-file.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { OpenFileService } from 'src/app/workspace/services/open-file.service';
 
 @Component({
   selector: 'app-sidebar-file',
