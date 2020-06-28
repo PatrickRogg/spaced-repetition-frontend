@@ -1,5 +1,10 @@
 .file-open-color {
-  background-color: #474c50;
+  background-color: rgba(55, 53, 47, 0.08);
+}
+
+.sidebar-file:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+  cursor: pointer;
 }
 
 .noselect {
