@@ -1,0 +1,12 @@
+[contentEditable=true]:empty:before {
+  content: attr(placeholder);
+  color: grey;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+p {
+  cursor: text;
+}

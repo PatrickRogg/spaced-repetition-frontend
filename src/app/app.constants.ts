@@ -1,6 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 export const CORE_API_URL = environment.coreApiUrl;
+export const EDITOR_API_URL = environment.editorApiUrl;
 export const LEVELS = [...Array(31).keys()].slice(1);
 export const LEVEL_DAY_DELAYS = [];
 export const LEVEL_MULTIPLIER = 2.25;

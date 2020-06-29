@@ -7,6 +7,8 @@ import { SidebarFolderComponent } from './components/sidebar/sidebar-folder/side
 import { WorkspaceHomeComponent } from './components/workspace-home/workspace-home.component';
 import { WorkspaceComponent } from './workspace.component';
 import { WorkspaceEditorComponent } from './components/workspace-editor/workspace-editor.component';
+import { WorkspaceEditorFlashcardsComponent } from './components/workspace-editor/workspace-editor-flashcards/workspace-editor-flashcards.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { WorkspaceEditorComponent } from './components/workspace-editor/workspac
     WorkspaceHomeComponent,
     WorkspaceComponent,
     WorkspaceEditorComponent,
+    WorkspaceEditorFlashcardsComponent,
   ],
-  imports: [CommonModule, WorkspaceRoutingModule],
+  imports: [CommonModule, WorkspaceRoutingModule, SharedModule],
 })
 export class WorkspaceModule {}

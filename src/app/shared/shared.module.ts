@@ -9,6 +9,7 @@ import { DomChangeDirective } from './directives/dom-change.directive';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EditorComponent } from './components/editor/editor.component';
 import { EditorWrapperComponent } from './components/editor/editor-wrapper/editor-wrapper.component';
+import { CreateFlashCardComponent } from './components/create-flash-card/create-flash-card.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { EditorWrapperComponent } from './components/editor/editor-wrapper/edito
         SafeHtmlPipe,
         EditorComponent,
         EditorWrapperComponent,
+        CreateFlashCardComponent,
     ],
     imports: [
         CommonModule,
@@ -30,7 +32,8 @@ import { EditorWrapperComponent } from './components/editor/editor-wrapper/edito
         CustomInputComponent,
         InputErrorMessageComponent,
         SafeHtmlPipe,
-        EditorComponent
+        EditorComponent,
+        CreateFlashCardComponent,
     ]
 })
 export class SharedModule { }

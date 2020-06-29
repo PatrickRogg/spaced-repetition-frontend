@@ -4,6 +4,7 @@ import { CORE_API_URL } from 'src/app/app.constants';
 import { Observable } from 'rxjs';
 import { FlashCardDeckOverview } from 'src/app/models/flash-card-deck-overview.model';
 import { FlashCardDeck } from 'src/app/models/flash-card-deck.model';
+import { FlashCardDeckWithTopic } from 'src/app/models/flash-card-deck-with-topic.model';
 
 @Injectable({
     providedIn: 'root'
@@ -34,4 +35,8 @@ export class FlashCardDeckApiService {
     public deleteFlashCardDeck(id: number) {
         return this.httpClient.delete(this.FLASH_CARD_API_URL + id);
     }
+
+    public getFlashCardDecksOfUserWithTopics(): Observable<FlashCardDeckWithTopic[]> {
+        return this.httpClient.get<FlashCardDeckWithTopic[]>(this.FLASH_CARD_API_URL + 'user/with-topics');
+    } 
 }

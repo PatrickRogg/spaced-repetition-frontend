@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Folder } from 'src/app/models/file-system.model';
 
 @Component({
@@ -8,7 +8,9 @@ import { Folder } from 'src/app/models/file-system.model';
 })
 export class SidebarFolderComponent implements OnInit {
   @Input() folder: Folder;
-  isOpen = true;
+  @Output() folderDeletedEmitter = new EventEmitter<Folder>();
+
+  isOpen = false;
 
   constructor() { }
 
@@ -19,4 +21,11 @@ export class SidebarFolderComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
+  public deleteFolder(): void {
+    this.folderDeletedEmitter.emit(this.folder);
+  }
+
+  public isFolderEmpty(): boolean {
+    return this.folder.children.length === 0;
+  }
 }

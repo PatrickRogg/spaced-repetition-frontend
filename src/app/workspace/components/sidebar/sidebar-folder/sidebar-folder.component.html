@@ -4,6 +4,13 @@
     <i class="fas fa-caret-down" *ngIf="isOpen"></i>
 
     <span class="pl-2 noselect">{{ folder.name }}</span>
+    <a
+      class="text-danger float-right"
+      (click)="deleteFolder()"
+      *ngIf="isFolderEmpty()"
+    >
+      <i class="far fa-trash-alt"></i>
+    </a>
   </div>
 
   <div *ngIf="isOpen">

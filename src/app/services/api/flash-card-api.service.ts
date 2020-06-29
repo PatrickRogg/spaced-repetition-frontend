@@ -36,4 +36,8 @@ export class FlashCardApiService {
     public deleteFlashCard(flashCardId: number) {
         return this.httpClient.delete(this.FLASH_CARD_API_URL + flashCardId);
     }
+
+    public getFlashCardsByIds(ids: number[]) {
+        return this.httpClient.post<FlashCard[]>(this.FLASH_CARD_API_URL + `user/`, ids);
+      }
 }

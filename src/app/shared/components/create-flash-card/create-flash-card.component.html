@@ -1,0 +1,71 @@
+<form [formGroup]="flashCardForm">
+  <div class="row">
+    <div class="col-12">
+      <app-custom-input
+        [label]="'Question'"
+        [placeholder]="'How many corners has a rectangle?'"
+        [control]="flashCardForm.get('question')"
+        [errors]="validationErrors"
+        [name]="'question'"
+      >
+      </app-custom-input>
+    </div>
+    <div class="col-12">
+      <label>Answer</label>
+      <textarea
+        class="form-control"
+        formControlName="answer"
+        rows="8"
+      ></textarea>
+      <app-input-error-message
+        [errors]="validationErrors"
+        [name]="'answer'"
+      ></app-input-error-message>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-6">
+    <select
+      class="custom-select"
+      [(ngModel)]="selectedFlashCardDeck"
+    >
+      <option disabled [value]="null">Select a Flash Card Deck</option>
+      <option
+        *ngFor="let flashCardDeck of flashCardDecks"
+        [ngValue]="flashCardDeck"
+      >
+        {{ flashCardDeck.name }}
+      </option>
+    </select>
+    <app-input-error-message
+      [errors]="validationErrors"
+      [name]="'flashcardDeckId'"
+    ></app-input-error-message>
+  </div>
+
+  <div class="col-6" *ngIf="selectedFlashCardDeck">
+    <select class="custom-select" [(ngModel)]="selectedTopic">
+      <option selected disabled [value]="null">Select a Topic</option>
+      <option
+        *ngFor="let topic of selectedFlashCardDeck.topics"
+        [ngValue]="topic"
+      >
+        {{ topic.name }}
+      </option>
+    </select>
+    <app-input-error-message
+      [errors]="validationErrors"
+      [name]="'topicId'"
+    ></app-input-error-message>
+  </div>
+</div>
+
+<button
+  class="btn btn-primary"
+  (click)="submit()"
+  [disabled]="flashCardForm.invalid"
+>
+  Add Flash Card
+</button>

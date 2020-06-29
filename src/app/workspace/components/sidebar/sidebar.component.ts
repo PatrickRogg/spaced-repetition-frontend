@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Folder, File } from 'src/app/models/file-system.model';
+import { FileSystem, File, Folder } from 'src/app/models/file-system.model';
+import { FileSystemApiService } from 'src/app/services/api/file-system-api.service';
+import { FileApiService } from 'src/app/services/api/file-api.service';
+import { FileSystemService } from '../../services/file-system.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,58 +11,49 @@ import { Folder, File } from 'src/app/models/file-system.model';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  topLevelFolder: Folder[] = [
-    new Folder(`1`, `Cloud Computing`, [
-      new File(`2`, `1. Vorlesgung`),
-      new File(`3`, `2. Vorlesgung`),
-      new File(`4`, `3. Vorlesgung`),
-      new File(`5`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `ML`, [
-      new Folder(`1`, `1. Vorlesgung`, [new File(`1`, `Second Level nesting`)]),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `Cloud Computing`, [
-      new File(`1`, `1. Vorlesgung`),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `ML`, [
-      new Folder(`1`, `1. Vorlesgung`, [new File(`1`, `Second Level nesting`)]),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `Cloud Computing`, [
-      new File(`1`, `1. Vorlesgung`),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `ML`, [
-      new Folder(`1`, `1. Vorlesgung`, [new File(`1`, `Second Level nesting`)]),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `Cloud Computing`, [
-      new File(`1`, `1. Vorlesgung`),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-    new Folder(`1`, `ML`, [
-      new Folder(`1`, `1. Vorlesgung`, [new File(`1`, `Second Level nesting`)]),
-      new File(`1`, `2. Vorlesgung`),
-      new File(`1`, `3. Vorlesgung`),
-      new File(`1`, `4. Vorlesgung`),
-    ]),
-  ];
+  fileSystem: FileSystem;
 
-  constructor() {}
+  constructor(
+    private fileSystemService: FileSystemService,
+    private fileSystemApiService: FileSystemApiService,
+    private fileApiService: FileApiService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFileSystem();
+  }
+
+  getFileSystem(): void {
+    this.fileSystemService.getFileSystem().subscribe((data) => {
+      this.fileSystem = data;
+    });
+  }
+
+  public addFile(): void {
+    const file = new File(uuid.v4(), `Untitled`);
+    this.fileSystem.fileSystemElements.push(file);
+    this.fileSystemService.updateFileSystem(this.fileSystem);
+    this.fileApiService.createFile(file).subscribe();
+  }
+
+  public addFolder(): void {
+    const folder = new Folder(uuid.v4(), `Untitled`, []);
+    this.fileSystem.fileSystemElements.push(folder);
+    this.fileSystemService.updateFileSystem(this.fileSystem);
+  }
+
+  public deleteFile(file: File): void {
+    this.fileSystem.fileSystemElements = this.fileSystem.fileSystemElements.filter(
+      (e) => e !== file
+    );
+    this.fileSystemService.updateFileSystem(this.fileSystem);
+    this.fileApiService.deleteFile(file.id).subscribe();
+  }
+
+  public deleteFolder(folder: Folder): void {
+    this.fileSystem.fileSystemElements = this.fileSystem.fileSystemElements.filter(
+      (e) => e !== folder
+    );
+    this.fileSystemService.updateFileSystem(this.fileSystem);
+  }
 }

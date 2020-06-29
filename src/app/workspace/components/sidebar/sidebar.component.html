@@ -5,7 +5,36 @@
 
   <hr />
 
-  <div *ngFor="let folder of topLevelFolder">
-    <app-sidebar-folder [folder]="folder"></app-sidebar-folder>
+  <div *ngIf="fileSystem">
+    <div *ngFor="let item of fileSystem.fileSystemElements">
+      <app-sidebar-file
+        *ngIf="item.children === undefined"
+        [file]="item"
+        (fildeDeletedEmitter)="deleteFile($event)"
+      ></app-sidebar-file>
+      <app-sidebar-folder
+        *ngIf="item.children !== undefined"
+        [folder]="item"
+        (folderDeletedEmitter)="deleteFolder($event)"
+      ></app-sidebar-folder>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="clickable-div py-1" (click)="addFile()">
+    <i class="fas fa-plus"></i>
+
+    <span class="pl-2 noselect">
+      Add a File
+    </span>
+  </div>
+
+  <div class="clickable-div py-1" (click)="addFolder()">
+    <i class="fas fa-plus"></i>
+
+    <span class="pl-2 noselect">
+      Add a Folder
+    </span>
   </div>
 </div>
