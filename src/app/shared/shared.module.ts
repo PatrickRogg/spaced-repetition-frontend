@@ -11,29 +11,28 @@ import { EditorComponent } from './components/editor/editor.component';
 import { EditorWrapperComponent } from './components/editor/editor-wrapper/editor-wrapper.component';
 import { CreateFlashCardComponent } from './components/create-flash-card/create-flash-card.component';
 
-
 @NgModule({
-    declarations: [
-        CustomInputComponent,
-        InputErrorMessageComponent,
-        DomChangeDirective,
-        SafeHtmlPipe,
-        EditorComponent,
-        EditorWrapperComponent,
-        CreateFlashCardComponent,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ContenteditableModule,
-    ],
-    exports: [
-        CustomInputComponent,
-        InputErrorMessageComponent,
-        SafeHtmlPipe,
-        EditorComponent,
-        CreateFlashCardComponent,
-    ]
+  declarations: [
+    CustomInputComponent,
+    InputErrorMessageComponent,
+    DomChangeDirective,
+    SafeHtmlPipe,
+    EditorComponent,
+    EditorWrapperComponent,
+    CreateFlashCardComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ContenteditableModule
+  ],
+  exports: [
+    CustomInputComponent,
+    InputErrorMessageComponent,
+    SafeHtmlPipe,
+    EditorComponent,
+    CreateFlashCardComponent
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

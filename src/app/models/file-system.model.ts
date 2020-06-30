@@ -18,10 +18,11 @@ export class File extends FileSystemElement {
 }
 
 export class Folder extends FileSystemElement {
+  public children: FileSystemElement[];
+  
   constructor(
     public id: string,
     public name: string,
-    public children: FileSystemElement[]
   ) {
     super(id, name);
     this.children = []

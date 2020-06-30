@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SidebarFileComponent } from './components/sidebar/sidebar-file/sidebar-file.component';
 import { SidebarFolderComponent } from './components/sidebar/sidebar-folder/sidebar-folder.component';
@@ -20,6 +22,6 @@ import { SharedModule } from '../shared/shared.module';
     WorkspaceEditorComponent,
     WorkspaceEditorFlashcardsComponent,
   ],
-  imports: [CommonModule, WorkspaceRoutingModule, SharedModule],
+  imports: [CommonModule, WorkspaceRoutingModule, SharedModule, DragDropModule],
 })
 export class WorkspaceModule {}
