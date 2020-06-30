@@ -15,7 +15,6 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private fileSystemService: FileSystemService,
-    private fileSystemApiService: FileSystemApiService,
     private fileApiService: FileApiService
   ) {}
 
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit {
   }
 
   public addFolder(): void {
-    const folder = new Folder(uuid.v4(), `Untitled`, []);
+    const folder = new Folder(uuid.v4(), `Untitled`);
     this.fileSystem.fileSystemElements.push(folder);
     this.fileSystemService.updateFileSystem(this.fileSystem);
   }
