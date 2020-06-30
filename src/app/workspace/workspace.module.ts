@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SharedModule } from '../shared/shared.module';
+import { TreeModule } from 'angular-tree-component';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SidebarFileComponent } from './components/sidebar/sidebar-file/sidebar-file.component';
@@ -10,7 +11,6 @@ import { WorkspaceHomeComponent } from './components/workspace-home/workspace-ho
 import { WorkspaceComponent } from './workspace.component';
 import { WorkspaceEditorComponent } from './components/workspace-editor/workspace-editor.component';
 import { WorkspaceEditorFlashcardsComponent } from './components/workspace-editor/workspace-editor-flashcards/workspace-editor-flashcards.component';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,6 @@ import { SharedModule } from '../shared/shared.module';
     WorkspaceEditorComponent,
     WorkspaceEditorFlashcardsComponent,
   ],
-  imports: [CommonModule, WorkspaceRoutingModule, SharedModule, DragDropModule],
+  imports: [CommonModule, WorkspaceRoutingModule, SharedModule, TreeModule.forRoot()],
 })
 export class WorkspaceModule {}

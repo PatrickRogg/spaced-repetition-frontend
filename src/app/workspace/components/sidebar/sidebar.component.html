@@ -5,21 +5,36 @@
 
   <hr />
 
-  <div *ngIf="fileSystem">
-    <div *ngFor="let item of fileSystem.fileSystemElements">
-      <app-sidebar-file
-        *ngIf="item.children === undefined"
-        [file]="item"
-        (fildeDeletedEmitter)="deleteFile($event)"
-      ></app-sidebar-file>
-      <app-sidebar-folder
-        *ngIf="item.children !== undefined"
-        [folder]="item"
-        (folderDeletedEmitter)="deleteFolder($event)"
-      ></app-sidebar-folder>
-    </div>
-  </div>
-
+  <tree-root
+    *ngIf="fileSystem"
+    [nodes]="fileSystem.fileSystemElements"
+    [options]="options"
+  >
+    <ng-template
+      #treeNodeTemplate
+      let-node
+      let-index="index"
+      class="align-items-center"
+    >
+      <i class="far fa-file-alt" *ngIf="!node.data.children"></i>
+      <i class="far fa-folder" *ngIf="!!node.data.children"></i>
+      <span class="ml-2">{{ node.data.name }}</span>
+      <a
+        class="text-danger float-right"
+        *ngIf="!!node.data.children && node.data.children.length === 0"
+        (click)="deleteFolder(node.data)"
+      >
+        <i class="far fa-trash-alt"></i>
+      </a>
+      <a
+        class="text-danger float-right"
+        *ngIf="!node.data.children"
+        (click)="deleteFile(node.data)"
+      >
+        <i class="far fa-trash-alt"></i>
+      </a>
+    </ng-template>
+  </tree-root>
   <hr />
 
   <div class="clickable-div py-1" (click)="addFile()">

@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
+@import '~angular-tree-component/dist/angular-tree-component.css';
 
 :root {
   --background-color: #f8f9fc;
@@ -46,14 +47,13 @@ a {
   cursor: pointer;
 }
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                        supported by Chrome and Opera */
+// sidebar tree
+.node-content-wrapper {
+  width: 100% !important;
+}
+
+.toggle-children-wrapper {
+  padding: 0 !important;
 }
 
 // Quill editor
