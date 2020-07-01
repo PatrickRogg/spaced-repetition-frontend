@@ -9,6 +9,7 @@
     *ngIf="fileSystem"
     [nodes]="fileSystem.fileSystemElements"
     [options]="options"
+    (treeDrop)="onDrop($event)"
   >
     <ng-template
       #treeNodeTemplate
@@ -37,7 +38,7 @@
   </tree-root>
   <hr />
 
-  <div class="clickable-div py-1" (click)="addFile()">
+  <div class="clickable py-1" (click)="addFile()">
     <i class="fas fa-plus"></i>
 
     <span class="pl-2 noselect">
@@ -45,7 +46,7 @@
     </span>
   </div>
 
-  <div class="clickable-div py-1" (click)="addFolder()">
+  <div class="clickable py-1" (click)="addFolder()">
     <i class="fas fa-plus"></i>
 
     <span class="pl-2 noselect">

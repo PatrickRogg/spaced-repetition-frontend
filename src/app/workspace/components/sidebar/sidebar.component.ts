@@ -110,4 +110,8 @@ export class SidebarComponent implements OnInit {
 
     return nextFileSystemElements;
   }
+
+  public onDrop(event: any) {
+    this.fileSystemService.updateFileSystem(this.fileSystem, this.tree);
+  }
 }

@@ -5,8 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { TreeModule } from 'angular-tree-component';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SidebarFileComponent } from './components/sidebar/sidebar-file/sidebar-file.component';
-import { SidebarFolderComponent } from './components/sidebar/sidebar-folder/sidebar-folder.component';
 import { WorkspaceHomeComponent } from './components/workspace-home/workspace-home.component';
 import { WorkspaceComponent } from './workspace.component';
 import { WorkspaceEditorComponent } from './components/workspace-editor/workspace-editor.component';
@@ -15,8 +13,6 @@ import { WorkspaceEditorFlashcardsComponent } from './components/workspace-edito
 @NgModule({
   declarations: [
     SidebarComponent,
-    SidebarFileComponent,
-    SidebarFolderComponent,
     WorkspaceHomeComponent,
     WorkspaceComponent,
     WorkspaceEditorComponent,

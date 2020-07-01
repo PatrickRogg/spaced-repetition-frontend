@@ -1,4 +1,8 @@
-.clickable-div:hover {
+.clickable {
+    padding-left: 10px
+}
+
+.clickable:hover {
     background-color: rgba(55, 53, 47, 0.08);
     cursor: pointer;
 }

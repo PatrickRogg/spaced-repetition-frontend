@@ -56,6 +56,15 @@ a {
   padding: 0 !important;
 }
 
+.tree-node {
+  padding-left: 10px
+}
+
+
+.tree-children {
+  padding-left: 0;
+}
+
 // Quill editor
 .ql-toolbar.ql-snow {
   background-color: white !important;
