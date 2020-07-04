@@ -9,6 +9,8 @@ import { WorkspaceHomeComponent } from './components/workspace-home/workspace-ho
 import { WorkspaceComponent } from './workspace.component';
 import { WorkspaceEditorComponent } from './components/workspace-editor/workspace-editor.component';
 import { WorkspaceEditorFlashcardsComponent } from './components/workspace-editor/workspace-editor-flashcards/workspace-editor-flashcards.component';
+import { SidebarDocumentComponent } from './components/sidebar/sidebar-document/sidebar-document.component';
+import { SidebarRepetitionComponent } from './components/sidebar/sidebar-repetition/sidebar-repetition.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { WorkspaceEditorFlashcardsComponent } from './components/workspace-edito
     WorkspaceComponent,
     WorkspaceEditorComponent,
     WorkspaceEditorFlashcardsComponent,
+    SidebarDocumentComponent,
+    SidebarRepetitionComponent,
   ],
   imports: [CommonModule, WorkspaceRoutingModule, SharedModule, TreeModule.forRoot()],
 })

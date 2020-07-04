@@ -1,70 +1,7 @@
-<div class="sidebar">
-  <div>
-    <h4>Documents</h4>
-  </div>
+<div>
+  <app-sidebar-repetition></app-sidebar-repetition>
 
   <hr />
 
-  <tree-root
-    *ngIf="fileSystem"
-    [nodes]="fileSystem.fileSystemElements"
-    [options]="options"
-    (treeDrop)="onDrop($event)"
-  >
-    <ng-template
-      #treeNodeTemplate
-      let-node
-      let-index="index"
-      class="align-items-center node-row"
-    >
-      <div class="node-col">
-        <i class="far fa-file-alt" *ngIf="!node.data.children"></i>
-        <i class="far fa-folder" *ngIf="!!node.data.children"></i>
-      </div>
-      <div class="node-col node-text">
-        <span
-          class="node-name ml-2"
-          contenteditable="true"
-          [textContent]="node.data.name"
-          (input)="node.data.name = $event.target.textContent"
-          (blur)="nodeNameBlur()"
-        >
-          {{ node.data.name }}
-        </span>
-      </div>
-      <div class="node-col node-delete">
-        <a
-          class="text-danger"
-          *ngIf="!!node.data.children && node.data.children.length === 0"
-          (click)="deleteFolder(node.data)"
-        >
-          <i class="far fa-trash-alt"></i>
-        </a>
-        <a
-          class="text-danger"
-          *ngIf="!node.data.children"
-          (click)="deleteFile(node.data)"
-        >
-          <i class="far fa-trash-alt"></i>
-        </a>
-      </div>
-    </ng-template>
-  </tree-root>
-  <hr />
-
-  <div class="clickable py-1" (click)="addFile()">
-    <i class="fas fa-plus"></i>
-
-    <span class="pl-2 noselect">
-      Add a File
-    </span>
-  </div>
-
-  <div class="clickable py-1" (click)="addFolder()">
-    <i class="fas fa-plus"></i>
-
-    <span class="pl-2 noselect">
-      Add a Folder
-    </span>
-  </div>
+  <app-sidebar-document></app-sidebar-document>
 </div>

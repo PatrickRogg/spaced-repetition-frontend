@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthApiService } from 'src/app/services/api/auth-api.service';
 import { UserSignInRequestData } from './models/user-sign-in.request-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -28,7 +27,7 @@ export class SignInComponent implements OnInit {
         }
         const data = new UserSignInRequestData(this.email, this.password);
         this.authService.signIn(data).subscribe(
-            data => this.router.navigate(['/home']),
+            data => this.router.navigate(['/workspace/home']),
             error => this.areCredentialsWrong = true,
         );
     }

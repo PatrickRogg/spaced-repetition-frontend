@@ -1,0 +1,19 @@
+<h4 class="pl-2">Repetition</h4>
+
+<div>
+  <div class="clickable py-1" (click)="startRepetition()">
+    <i class="fas fa-play"></i>
+    <span class="noselect">
+      Start Repetition
+    </span>
+    <small class="float-right badge badge-danger">{{todoFlashCardCount}}</small>
+  </div>
+
+  <div class="clickable py-1" routerLink="/workspace/home">
+    <i class="fas fa-box-open"></i>
+
+    <span class="noselect">
+      Decks
+    </span>
+  </div>
+</div>

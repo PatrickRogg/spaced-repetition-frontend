@@ -2,7 +2,7 @@
 @import "~angular-tree-component/dist/angular-tree-component.css";
 
 :root {
-  --background-color: #f8f9fc;
+  --background-color: #ffffff;
   --disabled-background-color: #918d8dc5;
   --primary: #4e73df;
 }
@@ -90,6 +90,14 @@ a {
 
 .tree-children {
   padding-left: 0;
+}
+
+.node-wrapper {
+  padding-right: 10px;
+}
+
+.clickable {
+  padding: 0 10px;
 }
 
 

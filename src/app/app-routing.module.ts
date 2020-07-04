@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   { path: 'how-it-works', component: HowItWorksComponent },
   {
-    path: 'workspace/:username',
+    path: 'workspace',
     loadChildren: () =>
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },

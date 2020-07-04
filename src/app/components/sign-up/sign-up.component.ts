@@ -41,7 +41,7 @@ export class SignUpComponent implements OnInit {
 		const data = new UserSignUpRequestData(form.get('username').value, form.get('email').value, form.get('password').value);
 		this.authService.signUp(data).subscribe(
 			data => {
-				this.router.navigate([`/home`]);
+				this.router.navigate([`/workspace/home`]);
 			},
 			error => {
 				this.errors = error.error.errors;

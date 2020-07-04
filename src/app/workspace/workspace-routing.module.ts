@@ -14,7 +14,7 @@ const routes: Routes = [
         component: WorkspaceHomeComponent,
       },
       {
-        path: 'notes/:id',
+        path: 'files/:id',
         component: WorkspaceEditorComponent,
       },
     ],
