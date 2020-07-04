@@ -1,5 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
-@import '~angular-tree-component/dist/angular-tree-component.css';
+@import "~angular-tree-component/dist/angular-tree-component.css";
 
 :root {
   --background-color: #f8f9fc;
@@ -57,12 +57,53 @@ a {
 }
 
 .tree-node {
-  padding-left: 10px
+  padding-left: 10px;
 }
 
+.node-wrapper:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+}
+
+.node-content-wrapper-active,
+.node-content-wrapper.node-content-wrapper-active:hover,
+.node-content-wrapper-active.node-content-wrapper-focused {
+  background-color: transparent !important;
+}
+
+.node-content-wrapper {
+  border-radius: 0;
+}
+
+.node-content-wrapper-focused {
+  background-color: transparent !important;
+}
+
+.node-content-wrapper-active,
+.node-content-wrapper-focused,
+.node-content-wrapper:hover {
+  box-shadow: none !important;
+}
+
+.node-content-wrapper:hover {
+  background: none !important;
+}
 
 .tree-children {
   padding-left: 0;
+}
+
+
+// cursor 
+.angular-tree-component {
+  cursor: auto !important;
+}
+
+tree-node-expander {
+  cursor: pointer;
+}
+
+.node-content-wrapper {
+  cursor: pointer;
 }
 
 // Quill editor

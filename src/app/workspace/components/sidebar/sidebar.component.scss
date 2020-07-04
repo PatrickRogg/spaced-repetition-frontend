@@ -1,13 +1,33 @@
 .clickable {
-    padding-left: 10px
+  padding-left: 10px;
 }
 
 .clickable:hover {
-    background-color: rgba(55, 53, 47, 0.08);
-    cursor: pointer;
+  background-color: rgba(55, 53, 47, 0.08);
+  cursor: pointer;
 }
 
 .fa-file-alt {
-    width: 16px;
-    text-align: center;
+  width: 16px;
+  text-align: center;
+}
+
+.node-name {
+  cursor: text;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.node-row {
+  display: table;
+}
+
+.node-col {
+  display: table-cell;
+}
+
+.node-text {
+  width: 100%;
 }

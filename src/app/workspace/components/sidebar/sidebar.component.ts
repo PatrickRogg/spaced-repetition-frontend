@@ -8,7 +8,7 @@ import {
 import { FileApiService } from 'src/app/services/api/file-api.service';
 import { FileSystemService } from '../../services/file-system.service';
 import * as uuid from 'uuid';
-import { ITreeOptions, TreeComponent } from 'angular-tree-component';
+import { ITreeOptions, TreeComponent, TreeNode } from 'angular-tree-component';
 
 @Component({
   selector: 'app-sidebar',
@@ -112,6 +112,10 @@ export class SidebarComponent implements OnInit {
   }
 
   public onDrop(event: any) {
+    this.fileSystemService.updateFileSystem(this.fileSystem, this.tree);
+  }
+
+  public nodeNameBlur() {
     this.fileSystemService.updateFileSystem(this.fileSystem, this.tree);
   }
 }
