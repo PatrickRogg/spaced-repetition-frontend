@@ -8,7 +8,6 @@ import { InputErrorMessageComponent } from './components/input-error-message/inp
 import { DomChangeDirective } from './directives/dom-change.directive';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EditorComponent } from './components/editor/editor.component';
-import { EditorWrapperComponent } from './components/editor/editor-wrapper/editor-wrapper.component';
 import { CreateFlashCardComponent } from './components/create-flash-card/create-flash-card.component';
 import { FlashCardsComponent } from './components/flash-cards/flash-cards.component';
 import { RouterModule } from '@angular/router';
@@ -20,7 +19,6 @@ import { RouterModule } from '@angular/router';
     DomChangeDirective,
     SafeHtmlPipe,
     EditorComponent,
-    EditorWrapperComponent,
     CreateFlashCardComponent,
     FlashCardsComponent,
     
