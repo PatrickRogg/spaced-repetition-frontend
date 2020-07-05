@@ -10,6 +10,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { EditorComponent } from './components/editor/editor.component';
 import { EditorWrapperComponent } from './components/editor/editor-wrapper/editor-wrapper.component';
 import { CreateFlashCardComponent } from './components/create-flash-card/create-flash-card.component';
+import { FlashCardsComponent } from './components/flash-cards/flash-cards.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,19 +22,23 @@ import { CreateFlashCardComponent } from './components/create-flash-card/create-
     EditorComponent,
     EditorWrapperComponent,
     CreateFlashCardComponent,
+    FlashCardsComponent,
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ContenteditableModule
+    ContenteditableModule,
+    RouterModule,
   ],
   exports: [
     CustomInputComponent,
     InputErrorMessageComponent,
     SafeHtmlPipe,
     EditorComponent,
-    CreateFlashCardComponent
+    CreateFlashCardComponent,
+    FlashCardsComponent
   ],
 })
 export class SharedModule {}
