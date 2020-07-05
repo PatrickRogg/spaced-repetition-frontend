@@ -2,11 +2,8 @@
   <div class="col-6">
     Question
   </div>
-  <div class="col-1">
-    Level
-  </div>
-  <div class="col-2">
-    Next
+  <div class="col-36">
+    Deck
   </div>
   <div class="col-2">Topic</div>
   <div class="col-1"></div>
@@ -20,25 +17,9 @@
           {{ flashCard.question }}
         </a>
       </div>
-      <div class="col-1">
-        <span
-          class="badge badge-pill badge-warning"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="Level"
-        >
-          {{ flashCard.level }}
-        </span>
-      </div>
-      <div class="col-2">
-        <small
-          class="text-muted"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="Next repetition"
-        >
-          <i class="far fa-clock"></i>
-          {{ flashCard.nextRepetition | date: "mediumDate" }}
+      <div class="col-3">
+        <small data-toggle="tooltip" data-placement="bottom" title="Topic">
+          {{ flashCard.flashCardDeckName }}
         </small>
       </div>
       <div class="col-2">
