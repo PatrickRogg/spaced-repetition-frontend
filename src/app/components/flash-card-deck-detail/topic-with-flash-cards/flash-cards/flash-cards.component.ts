@@ -27,9 +27,12 @@ export class FlashCardsComponent implements OnInit {
     const modalRef = this.modalService.open(CreateFlashCardComponent, options);
     modalRef.componentInstance.topicId = this.topicId;
 
-    modalRef.result.then((createdFlashCard) => {
-      this.flashCards.push(createdFlashCard);
-    });
+    modalRef.result.then(
+      (createdFlashCard) => {
+        this.flashCards.push(createdFlashCard);
+      },
+      (reason) => {}
+    );
   }
 
   public async openEditFlashCardModal(flashCard: FlashCard) {
@@ -41,7 +44,12 @@ export class FlashCardsComponent implements OnInit {
     const modalRef = this.modalService.open(EditFlashCardComponent, options);
     modalRef.componentInstance.flashCardId = flashCard.id;
 
-    modalRef.result.then((flashCard) => this.updateFlashCard(flashCard));
+    modalRef.result.then(
+      (flashCard) => {
+        this.updateFlashCard(flashCard);
+      },
+      (reason) => {}
+    );
   }
 
   public updateFlashCard(updatedFlashCard: FlashCard): void {

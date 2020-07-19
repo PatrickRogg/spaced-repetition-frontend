@@ -32,9 +32,12 @@ export class FlashCardDeckOverviewComponent implements OnInit {
       options
     );
 
-    modalRef.result.then((createdFlashCardDeck) => {
-      this.flashCardDecks.push(createdFlashCardDeck);
-    });
+    modalRef.result.then(
+      (createdFlashCardDeck) => {
+        this.flashCardDecks.push(createdFlashCardDeck);
+      },
+      (reason) => {}
+    );
   }
 
   public start(flashCardDeck: FlashCardDeck): void {

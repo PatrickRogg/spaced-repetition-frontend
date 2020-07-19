@@ -1,7 +1,5 @@
-<div class="wrapper">
-  <quill-editor
-    #editor
-    [modules]="modules"
-    [formControl]="control"
-  ></quill-editor>
-</div>
+<ckeditor
+  [config]="editorConfig"
+  [editor]="Editor"
+  [formControl]="control"
+></ckeditor>
