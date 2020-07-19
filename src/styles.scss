@@ -12,6 +12,7 @@ body {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji" !important;
   background-color: var(--background-color) !important;
+  min-height: 100vh;
 }
 
 .card {
@@ -47,22 +48,6 @@ a {
   cursor: pointer;
 }
 
-// .text-primary {
-//     color: var(--primary) !important
-// }
-
-// .bg-primary {
-//     background-color: var(--primary);
-// }
-
-// .btn-primary {
-//     background-color: var(--primary);
-// }
-
-// .btn-outline-primary {
-//     border-color: var(--primary);
-// }
-
 // Quill editor
 .ql-toolbar.ql-snow {
   background-color: white !important;
@@ -71,6 +56,3 @@ a {
 .ql-editor {
   background-color: white !important;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
