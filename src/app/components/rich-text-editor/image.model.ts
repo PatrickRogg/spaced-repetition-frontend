@@ -1,3 +1,3 @@
 export class Image {
-    public data: any;
+  public data: any;
 }

@@ -1,26 +1,35 @@
 <div class="card mb-4">
-    <div class="card-header">
-        <div class="row align-items-center topic-row">
-            <div class="col-10 col-md-8">
-                <h6 class="mb-0" *ngIf="!isEditingTopic" (click)="editTopic()">
-                    <a>{{topic.name}} <i class="fas fa-pencil-alt topic-edit align-top"></i></a>
-                </h6>
-                <div class="form-inline" *ngIf="isEditingTopic" [formGroup]="topicForm">
-                    <input type="text" class="form-control mr-3" formControlName="name">
-                    <a (click)="updateTopic()"><i class="fas fa-save topic-save"></i></a>
-                </div>
-
-            </div>
-            <div class="col-2 col-md-4 text-right">
-                <a class="text-danger" *ngIf="flashCards.length === 0" (click)="deleteTopic()">
-                    <i class="far fa-trash-alt"></i>
-                </a>
-            </div>
+  <div class="card-header">
+    <div class="row align-items-center topic-row">
+      <div class="col-10 col-md-8">
+        <h6 class="mb-0" *ngIf="!isEditingTopic" (click)="editTopic()">
+          <a
+            >{{ topic.name }}
+            <i class="fas fa-pencil-alt topic-edit align-top"></i
+          ></a>
+        </h6>
+        <div class="form-inline" *ngIf="isEditingTopic" [formGroup]="topicForm">
+          <input type="text" class="form-control mr-3" formControlName="name" />
+          <a (click)="updateTopic()"><i class="fas fa-save topic-save"></i></a>
         </div>
+      </div>
+      <div class="col-2 col-md-4 text-right">
+        <a
+          class="text-danger"
+          *ngIf="flashCards.length === 0"
+          (click)="deleteTopic()"
+        >
+          <i class="far fa-trash-alt"></i>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div class="card-body">
-        <app-flash-cards [topicId]="topic.id" [flashCards]="flashCards"
-            (deleteFlashCardEventEmitter)="deleteFlashCard($event)"></app-flash-cards>
-    </div>
+  <div class="card-body">
+    <app-flash-cards
+      [topicId]="topic.id"
+      [flashCards]="flashCards"
+      (deleteFlashCardEventEmitter)="deleteFlashCard($event)"
+    ></app-flash-cards>
+  </div>
 </div>

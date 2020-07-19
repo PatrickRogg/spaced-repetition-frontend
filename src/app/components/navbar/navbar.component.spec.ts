@@ -5,26 +5,24 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('NavbarComponent', () => {
-    let component: NavbarComponent;
-    let fixture: ComponentFixture<NavbarComponent>;
-    let debugElement: DebugElement;
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
+  let debugElement: DebugElement;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [NavbarComponent]
-        })
-            .compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [NavbarComponent],
+    }).compileComponents();
+  }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(NavbarComponent);
-        component = fixture.componentInstance;
-        debugElement = fixture.debugElement;
-        fixture.detectChanges();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-    
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

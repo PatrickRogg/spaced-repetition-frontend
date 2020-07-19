@@ -5,54 +5,56 @@ import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-    selector: 'app-flash-card-deck-detail-title',
-    templateUrl: './flash-card-deck-detail-title.component.html',
-    styleUrls: ['./flash-card-deck-detail-title.component.scss']
+  selector: 'app-flash-card-deck-detail-title',
+  templateUrl: './flash-card-deck-detail-title.component.html',
+  styleUrls: ['./flash-card-deck-detail-title.component.scss'],
 })
 export class FlashCardDeckDetailTitleComponent implements OnInit {
-    @Input() flashCardDeck: FlashCardDeck;
+  @Input() flashCardDeck: FlashCardDeck;
 
-    isEditing = false;
-    validationErrors = new ErrorResponse({});
-    flashCardDeckForm: FormGroup;
+  isEditing = false;
+  validationErrors = new ErrorResponse({});
+  flashCardDeckForm: FormGroup;
 
-    constructor(
-        private flashCardDeckApiService: FlashCardDeckApiService,
-        private fb: FormBuilder,
-    ) { }
+  constructor(
+    private flashCardDeckApiService: FlashCardDeckApiService,
+    private fb: FormBuilder
+  ) {}
 
-    ngOnInit(): void {
-        this.createFlashCardDeckForm();
+  ngOnInit(): void {
+    this.createFlashCardDeckForm();
+  }
+
+  public edit(): void {
+    this.isEditing = true;
+  }
+
+  createFlashCardDeckForm(): void {
+    this.flashCardDeckForm = this.fb.group({
+      name: [this.flashCardDeck.name],
+      notes: [this.flashCardDeck.notes],
+    });
+  }
+
+  public update(): void {
+    if (!this.isEditing) {
+      return;
     }
 
-    public edit(): void {
-        this.isEditing = true;
-    }
+    this.flashCardDeck.name = this.flashCardDeckForm.get('name').value;
+    this.flashCardDeck.notes = this.flashCardDeckForm.get('notes').value;
 
-    createFlashCardDeckForm(): void {
-        this.flashCardDeckForm = this.fb.group({
-            name: [this.flashCardDeck.name],
-            notes: [this.flashCardDeck.notes]
-        });
-    }
-
-    public update(): void {
-        if (!this.isEditing) {
-            return;
+    this.flashCardDeckApiService
+      .updateFlashCardDeck(this.flashCardDeck.id, this.flashCardDeck)
+      .subscribe(
+        (data) => {
+          this.isEditing = false;
+        },
+        (error) => {
+          if (error.error) {
+            this.validationErrors = error.error.errors;
+          }
         }
-
-        this.flashCardDeck.name = this.flashCardDeckForm.get('name').value;
-        this.flashCardDeck.notes = this.flashCardDeckForm.get('notes').value;
-
-        this.flashCardDeckApiService.updateFlashCardDeck(this.flashCardDeck.id, this.flashCardDeck).subscribe(
-            data => {
-                this.isEditing = false;
-            },
-            error => {
-                if (error.error) {
-                    this.validationErrors = error.error.errors;
-                }
-            }
-        );
-    }
+      );
+  }
 }

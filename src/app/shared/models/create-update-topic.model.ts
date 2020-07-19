@@ -1,4 +1,4 @@
 export class CreateUpdateTopic {
-    public flashCardDeckId: number;
-    public name: string;
+  public flashCardDeckId: number;
+  public name: string;
 }

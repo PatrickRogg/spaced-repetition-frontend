@@ -8,9 +8,8 @@ describe('LandingPageFlashCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LandingPageFlashCardComponent ]
-    })
-    .compileComponents();
+      declarations: [LandingPageFlashCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

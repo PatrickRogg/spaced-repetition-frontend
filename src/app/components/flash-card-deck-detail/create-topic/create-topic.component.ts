@@ -5,41 +5,36 @@ import { CreateUpdateTopic } from 'src/app/shared/models/create-update-topic.mod
 import { Topic } from 'src/app/shared/models/topic.model';
 
 @Component({
-    selector: 'app-create-topic',
-    templateUrl: './create-topic.component.html',
-    styleUrls: ['./create-topic.component.scss']
+  selector: 'app-create-topic',
+  templateUrl: './create-topic.component.html',
+  styleUrls: ['./create-topic.component.scss'],
 })
 export class CreateTopicComponent implements OnInit {
-    @Input() flashCardDeckId: number;
+  @Input() flashCardDeckId: number;
 
-    @Output() createTopicEventEmitter = new EventEmitter<Topic>();
-    
-    validationErrors = new ErrorResponse({});
+  @Output() createTopicEventEmitter = new EventEmitter<Topic>();
 
-    constructor(
-        private topicApiService: TopicApiService,
-    ) { }
+  validationErrors = new ErrorResponse({});
 
-    ngOnInit(): void {
-    }
+  constructor(private topicApiService: TopicApiService) {}
 
-    public create(): void {
-        const data = new CreateUpdateTopic();
-        data.flashCardDeckId = this.flashCardDeckId;
-        data.name = `Unnamed Topic`;
+  ngOnInit(): void {}
 
+  public create(): void {
+    const data = new CreateUpdateTopic();
+    data.flashCardDeckId = this.flashCardDeckId;
+    data.name = `Unnamed Topic`;
 
-        this.topicApiService.create(data).subscribe(
-            data => {
-                this.createTopicEventEmitter.emit(data);
-                this.validationErrors = new ErrorResponse({});
-            },
-            error => {
-                if (error.error) {
-                    this.validationErrors = error.error.errors;
-                }
-            }
-        )
-    }
-
+    this.topicApiService.create(data).subscribe(
+      (data) => {
+        this.createTopicEventEmitter.emit(data);
+        this.validationErrors = new ErrorResponse({});
+      },
+      (error) => {
+        if (error.error) {
+          this.validationErrors = error.error.errors;
+        }
+      }
+    );
+  }
 }

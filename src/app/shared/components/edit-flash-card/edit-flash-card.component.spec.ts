@@ -8,9 +8,8 @@ describe('EditFlashCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditFlashCardComponent ]
-    })
-    .compileComponents();
+      declarations: [EditFlashCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

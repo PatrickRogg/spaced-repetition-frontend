@@ -5,37 +5,39 @@ import { FlashCardDeck } from 'src/app/shared/models/flash-card-deck.model';
 import { Topic } from 'src/app/shared/models/topic.model';
 
 @Component({
-    selector: 'app-flash-card-deck-detail',
-    templateUrl: './flash-card-deck-detail.component.html',
-    styleUrls: ['./flash-card-deck-detail.component.scss']
+  selector: 'app-flash-card-deck-detail',
+  templateUrl: './flash-card-deck-detail.component.html',
+  styleUrls: ['./flash-card-deck-detail.component.scss'],
 })
 export class FlashCardDeckDetailComponent implements OnInit {
-    flashCardDeck: FlashCardDeck
+  flashCardDeck: FlashCardDeck;
 
-    constructor(
-        private activatedRoute: ActivatedRoute,
-        private flashCardDeckApiService: FlashCardDeckApiService,
-    ) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private flashCardDeckApiService: FlashCardDeckApiService
+  ) {}
 
-    ngOnInit(): void {
-        this.getFlashCardDeck();
-    }
+  ngOnInit(): void {
+    this.getFlashCardDeck();
+  }
 
-    getFlashCardDeck(): void {
-        const flashCardDeckId = +this.activatedRoute.snapshot.paramMap.get('id');
+  getFlashCardDeck(): void {
+    const flashCardDeckId = +this.activatedRoute.snapshot.paramMap.get('id');
 
-        this.flashCardDeckApiService.getFlashCardDeckOfUser(flashCardDeckId).subscribe(
-            data => {
-                this.flashCardDeck = data;
-            }
-        );
-    }
+    this.flashCardDeckApiService
+      .getFlashCardDeckOfUser(flashCardDeckId)
+      .subscribe((data) => {
+        this.flashCardDeck = data;
+      });
+  }
 
-    public addTopic(topic: Topic): void {
-        this.flashCardDeck.topics.push(topic);
-    }
+  public addTopic(topic: Topic): void {
+    this.flashCardDeck.topics.push(topic);
+  }
 
-    public deleteTopic(topic: Topic): void {
-        this.flashCardDeck.topics = this.flashCardDeck.topics.filter(t => t !== topic);
-    }
+  public deleteTopic(topic: Topic): void {
+    this.flashCardDeck.topics = this.flashCardDeck.topics.filter(
+      (t) => t !== topic
+    );
+  }
 }

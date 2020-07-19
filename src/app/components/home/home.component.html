@@ -1,11 +1,13 @@
 <div class="container">
-    <h3 class="mb-4">
-        Dashboard
-    </h3>
-    
-    <div class="mb-4">
-        <app-home-study [flashCardDecks]="flashCardDecks"></app-home-study>
-    </div>
+  <h3 class="mb-4">
+    Dashboard
+  </h3>
 
-    <app-flash-card-deck-overview [flashCardDecks]="flashCardDecks"></app-flash-card-deck-overview>
+  <div class="mb-4">
+    <app-home-study [flashCardDecks]="flashCardDecks"></app-home-study>
+  </div>
+
+  <app-flash-card-deck-overview
+    [flashCardDecks]="flashCardDecks"
+  ></app-flash-card-deck-overview>
 </div>

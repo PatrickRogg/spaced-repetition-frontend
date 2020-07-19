@@ -1,41 +1,60 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" routerLink="/">
-            <h2 class="m-0 text-white">
-                <strong>Sparep</strong>
-            </h2>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <h2 class="m-0 text-white">
+        <strong>Sparep</strong>
+      </h2>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarToggler"
+      aria-controls="navbarToggler"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav">
-                <li class="nav-item text-center" *ngIf="isSignedIn()">
-                    <a class="nav-link" routerLink="/home">Dashboard</a>
-                </li>
-                <li class="nav-item text-center">
-                    <a class="nav-link" routerLink="/how-it-works">How it works</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item my-2" *ngIf="!isSignedIn()">
-                    <button class="btn btn-light btn-block" (click)="signIn()" id="sign-in-button">
-                        Sign In
-                    </button>
-                </li>
-                <li class="nav-item my-2" *ngIf="!isSignedIn()">
-                    <button class="btn btn-success btn-block" (click)="signUp()" id="sign-up-button">
-                        Sign Up
-                    </button>
-                </li>
-                <li class="nav-item my-2" *ngIf="isSignedIn()">
-                    <button class="btn btn-danger btn-block" (click)="signOut()" id="sign-out-button">
-                        Sign Out
-                    </button>
-                </li>
-            </ul>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav">
+        <li class="nav-item text-center" *ngIf="isSignedIn()">
+          <a class="nav-link" routerLink="/home">Dashboard</a>
+        </li>
+        <li class="nav-item text-center">
+          <a class="nav-link" routerLink="/how-it-works">How it works</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item my-2" *ngIf="!isSignedIn()">
+          <button
+            class="btn btn-light btn-block"
+            (click)="signIn()"
+            id="sign-in-button"
+          >
+            Sign In
+          </button>
+        </li>
+        <li class="nav-item my-2" *ngIf="!isSignedIn()">
+          <button
+            class="btn btn-success btn-block"
+            (click)="signUp()"
+            id="sign-up-button"
+          >
+            Sign Up
+          </button>
+        </li>
+        <li class="nav-item my-2" *ngIf="isSignedIn()">
+          <button
+            class="btn btn-danger btn-block"
+            (click)="signOut()"
+            id="sign-out-button"
+          >
+            Sign Out
+          </button>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

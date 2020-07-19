@@ -1,37 +1,50 @@
 @import "~bootstrap/scss/bootstrap";
 
 :root {
-    --background-color: #f8f9fc;
-    --disabled-background-color: #918d8dc5;
-    --primary: #4e73df;
+  --background-color: #f8f9fc;
+  --disabled-background-color: #918d8dc5;
+  --primary: #4e73df;
 }
 
 html,
 body {
-    font-family: "Metropolis", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-    background-color: var(--background-color) !important;
+  font-family: "Metropolis", "Segoe UI", "Roboto", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji" !important;
+  background-color: var(--background-color) !important;
 }
 
 .card {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    line-height: 1.2;
-    color: #323f52;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #323f52;
 }
 
 hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 // .text-primary {
@@ -52,12 +65,12 @@ a {
 
 // Quill editor
 .ql-toolbar.ql-snow {
-    background-color: white !important;
+  background-color: white !important;
 }
 
 .ql-editor {
-    background-color: white !important;
+  background-color: white !important;
 }
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";

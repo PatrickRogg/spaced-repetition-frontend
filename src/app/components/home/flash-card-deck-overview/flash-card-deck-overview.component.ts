@@ -7,45 +7,51 @@ import { CreateFlashCardDeckComponent } from './create-flash-card-deck/create-fl
 import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
 
 @Component({
-    selector: 'app-flash-card-deck-overview',
-    templateUrl: './flash-card-deck-overview.component.html',
-    styleUrls: ['./flash-card-deck-overview.component.scss']
+  selector: 'app-flash-card-deck-overview',
+  templateUrl: './flash-card-deck-overview.component.html',
+  styleUrls: ['./flash-card-deck-overview.component.scss'],
 })
 export class FlashCardDeckOverviewComponent implements OnInit {
-    @Input() flashCardDecks: FlashCardDeckOverview[] = [];
+  @Input() flashCardDecks: FlashCardDeckOverview[] = [];
 
-    constructor(
-        private router: Router,
-        private modalService: NgbModal,
-        private flashCardDeckApiService: FlashCardDeckApiService,
-    ) { }
+  constructor(
+    private router: Router,
+    private modalService: NgbModal,
+    private flashCardDeckApiService: FlashCardDeckApiService
+  ) {}
 
-    ngOnInit(): void {
-    }
-    
-    public openCreateFlashCardDeckModal(): void {
-        const options = {
-            centered: true,
-            size: `xl`
-        }
-        const modalRef = this.modalService.open(CreateFlashCardDeckComponent, options);
+  ngOnInit(): void {}
 
-        modalRef.result.then((createdFlashCardDeck) => {
-            this.flashCardDecks.push(createdFlashCardDeck);
-        });
-    }
+  public openCreateFlashCardDeckModal(): void {
+    const options = {
+      centered: true,
+      size: `xl`,
+    };
+    const modalRef = this.modalService.open(
+      CreateFlashCardDeckComponent,
+      options
+    );
 
-    public start(flashCardDeck: FlashCardDeck): void {
-        const navigationExtras: NavigationExtras = {
-            state: {
-                flashCardDeckIds: [flashCardDeck.id]
-            }
-        };
-        this.router.navigate(['/spaced-repetition'], navigationExtras);
-    }
+    modalRef.result.then((createdFlashCardDeck) => {
+      this.flashCardDecks.push(createdFlashCardDeck);
+    });
+  }
 
-    public deleteFlashCardDeck(flashCardDeck: FlashCardDeckOverview): void {
-        this.flashCardDecks = this.flashCardDecks.filter(fd => flashCardDeck !== fd);
-        this.flashCardDeckApiService.deleteFlashCardDeck(flashCardDeck.id).subscribe();
-    }
+  public start(flashCardDeck: FlashCardDeck): void {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        flashCardDeckIds: [flashCardDeck.id],
+      },
+    };
+    this.router.navigate(['/spaced-repetition'], navigationExtras);
+  }
+
+  public deleteFlashCardDeck(flashCardDeck: FlashCardDeckOverview): void {
+    this.flashCardDecks = this.flashCardDecks.filter(
+      (fd) => flashCardDeck !== fd
+    );
+    this.flashCardDeckApiService
+      .deleteFlashCardDeck(flashCardDeck.id)
+      .subscribe();
+  }
 }

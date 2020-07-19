@@ -11,75 +11,85 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateConverterService } from 'src/app/services/date-converter.service';
 
 @Component({
-    selector: 'app-edit-flash-card',
-    templateUrl: './edit-flash-card.component.html',
-    styleUrls: ['./edit-flash-card.component.scss']
+  selector: 'app-edit-flash-card',
+  templateUrl: './edit-flash-card.component.html',
+  styleUrls: ['./edit-flash-card.component.scss'],
 })
 export class EditFlashCardComponent implements OnInit {
-    flashCardForm: FormGroup;
-    @Input() flashCardId: number;
-    validationErrors = new ErrorResponse({});
-    levels = LEVELS;
+  flashCardForm: FormGroup;
+  @Input() flashCardId: number;
+  validationErrors = new ErrorResponse({});
+  levels = LEVELS;
 
-    constructor(
-        private flashCardApiService: FlashCardApiService,
-        private fb: FormBuilder,
-        private nextRepetitionService: NextRepetitionService,
-        private activeModal: NgbActiveModal,
-        private dateConverterService: DateConverterService,
-    ) { }
+  constructor(
+    private flashCardApiService: FlashCardApiService,
+    private fb: FormBuilder,
+    private nextRepetitionService: NextRepetitionService,
+    private activeModal: NgbActiveModal,
+    private dateConverterService: DateConverterService
+  ) {}
 
-    ngOnInit(): void {
-        this.getFlashCard();
-    }
+  ngOnInit(): void {
+    this.getFlashCard();
+  }
 
-    getFlashCard(): void {
-        this.flashCardApiService.getFlashCard(this.flashCardId).subscribe(
-            data => this.createFlashCardForm(data)
-        );
-    }
+  getFlashCard(): void {
+    this.flashCardApiService
+      .getFlashCard(this.flashCardId)
+      .subscribe((data) => this.createFlashCardForm(data));
+  }
 
-    createFlashCardForm(flashCard: FlashCard): void {
-        const formattedDate = formatDate(flashCard.lastWrongAnswer, 'yyyy-MM-dd', 'en');
+  createFlashCardForm(flashCard: FlashCard): void {
+    const formattedDate = formatDate(
+      flashCard.lastWrongAnswer,
+      'yyyy-MM-dd',
+      'en'
+    );
 
-        this.flashCardForm = this.fb.group({
-            question: [flashCard.question],
-            answer: [flashCard.answer],
-            level: [flashCard.level],
-            lastWrongAnswer: [formattedDate]
-        });
-    }
+    this.flashCardForm = this.fb.group({
+      question: [flashCard.question],
+      answer: [flashCard.answer],
+      level: [flashCard.level],
+      lastWrongAnswer: [formattedDate],
+    });
+  }
 
-    public submit(): void {
-        const form = this.flashCardForm;
-        const lastWrongAnswerAsString: string = form.get('lastWrongAnswer').value;
-        const lastWrongAnswer = this.dateConverterService.convertToUTC(new Date(lastWrongAnswerAsString));
-        
-        const requestData = new UpdateFlashCard(
-            form.get('question').value,
-            form.get('answer').value,
-            form.get('level').value,
-            lastWrongAnswer,
-        );
+  public submit(): void {
+    const form = this.flashCardForm;
+    const lastWrongAnswerAsString: string = form.get('lastWrongAnswer').value;
+    const lastWrongAnswer = this.dateConverterService.convertToUTC(
+      new Date(lastWrongAnswerAsString)
+    );
 
-        this.flashCardApiService.updateFlashCard(this.flashCardId, requestData).subscribe(
-            data => {
-                this.activeModal.close(data);
-            },
-            error => {
-                if (error.error) {
-                    this.validationErrors = error.error.errors;
-                }
-            }
-        );
-    }
+    const requestData = new UpdateFlashCard(
+      form.get('question').value,
+      form.get('answer').value,
+      form.get('level').value,
+      lastWrongAnswer
+    );
 
-    public getNextDate(): Date {
-        return this.nextRepetitionService.getNextRepetition(new Date(this.flashCardForm.get('lastWrongAnswer').value),
-            this.flashCardForm.get('level').value);
-    }
+    this.flashCardApiService
+      .updateFlashCard(this.flashCardId, requestData)
+      .subscribe(
+        (data) => {
+          this.activeModal.close(data);
+        },
+        (error) => {
+          if (error.error) {
+            this.validationErrors = error.error.errors;
+          }
+        }
+      );
+  }
 
-    public close(): void {
-        this.activeModal.dismiss();
-    }
+  public getNextDate(): Date {
+    return this.nextRepetitionService.getNextRepetition(
+      new Date(this.flashCardForm.get('lastWrongAnswer').value),
+      this.flashCardForm.get('level').value
+    );
+  }
+
+  public close(): void {
+    this.activeModal.dismiss();
+  }
 }

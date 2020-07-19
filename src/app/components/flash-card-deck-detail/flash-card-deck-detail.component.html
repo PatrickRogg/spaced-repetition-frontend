@@ -1,12 +1,18 @@
 <div class="container" *ngIf="flashCardDeck">
-    <app-flash-card-deck-detail-title [flashCardDeck]="flashCardDeck">
-    </app-flash-card-deck-detail-title>
+  <app-flash-card-deck-detail-title [flashCardDeck]="flashCardDeck">
+  </app-flash-card-deck-detail-title>
 
-    <div class="mb-4"></div>
+  <div class="mb-4"></div>
 
-    <div *ngFor="let topic of flashCardDeck.topics">
-        <app-topic-with-flash-cards [topic]="topic" (deleteTopicEventEmitter)="deleteTopic(topic)"></app-topic-with-flash-cards>
-    </div>
+  <div *ngFor="let topic of flashCardDeck.topics">
+    <app-topic-with-flash-cards
+      [topic]="topic"
+      (deleteTopicEventEmitter)="deleteTopic(topic)"
+    ></app-topic-with-flash-cards>
+  </div>
 
-    <app-create-topic [flashCardDeckId]="flashCardDeck.id" (createTopicEventEmitter)="addTopic($event)"></app-create-topic>
+  <app-create-topic
+    [flashCardDeckId]="flashCardDeck.id"
+    (createTopicEventEmitter)="addTopic($event)"
+  ></app-create-topic>
 </div>

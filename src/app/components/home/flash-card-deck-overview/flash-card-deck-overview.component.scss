@@ -1,21 +1,21 @@
 .list-group-item {
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-    padding-left: 0;
-    padding-right: 0;
-    background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding-left: 0;
+  padding-right: 0;
+  background-color: transparent;
 }
 
 .create-flash-card {
-    cursor: pointer;
-    border-bottom: none !important; 
+  cursor: pointer;
+  border-bottom: none !important;
 }
 
 .create-flash-card:hover {
-    background-color: rgba(0,0,0,.075);
-    cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.075);
+  cursor: pointer;
 }
 
 .status-item {
-    width: 31px;
+  width: 31px;
 }

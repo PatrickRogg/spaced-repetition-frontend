@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    coreApiUrl: `https://api.constant-time.com/api/`
+  production: true,
+  coreApiUrl: `https://api.constant-time.com/api/`,
 };

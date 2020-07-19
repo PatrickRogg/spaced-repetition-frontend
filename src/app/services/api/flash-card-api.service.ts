@@ -7,33 +7,46 @@ import { CreateFlashCardRequest } from 'src/app/shared/models/create-flash-card-
 import { UpdateFlashCard } from 'src/app/shared/models/update-flash-card.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlashCardApiService {
-    
-    private header = { headers: { 'Content-Type': 'application/json' } };
-    private FLASH_CARD_API_URL = CORE_API_URL + 'flash-cards/';
+  private header = { headers: { 'Content-Type': 'application/json' } };
+  private FLASH_CARD_API_URL = CORE_API_URL + 'flash-cards/';
 
-    constructor(private httpClient: HttpClient) {
-    }
+  constructor(private httpClient: HttpClient) {}
 
-    public getAllFlashCardsByTopicId(topicId: number): Observable<FlashCard[]> {
-        return this.httpClient.get<FlashCard[]>(this.FLASH_CARD_API_URL + `user/topic/${topicId}`);
-    }
+  public getAllFlashCardsByTopicId(topicId: number): Observable<FlashCard[]> {
+    return this.httpClient.get<FlashCard[]>(
+      this.FLASH_CARD_API_URL + `user/topic/${topicId}`
+    );
+  }
 
-    public getFlashCard(flashCardId: number): Observable<FlashCard> {
-        return this.httpClient.get<FlashCard>(this.FLASH_CARD_API_URL + `user/${flashCardId}`);
-    }
+  public getFlashCard(flashCardId: number): Observable<FlashCard> {
+    return this.httpClient.get<FlashCard>(
+      this.FLASH_CARD_API_URL + `user/${flashCardId}`
+    );
+  }
 
-    public createFlashCard(data: CreateFlashCardRequest): Observable<FlashCard> {
-        return this.httpClient.post<FlashCard>(this.FLASH_CARD_API_URL, data, this.header);
-    }
+  public createFlashCard(data: CreateFlashCardRequest): Observable<FlashCard> {
+    return this.httpClient.post<FlashCard>(
+      this.FLASH_CARD_API_URL,
+      data,
+      this.header
+    );
+  }
 
-    public updateFlashCard(flashCardId: number, data: UpdateFlashCard): Observable<FlashCard> {
-        return this.httpClient.put<FlashCard>(this.FLASH_CARD_API_URL + flashCardId, data, this.header);
-    }
+  public updateFlashCard(
+    flashCardId: number,
+    data: UpdateFlashCard
+  ): Observable<FlashCard> {
+    return this.httpClient.put<FlashCard>(
+      this.FLASH_CARD_API_URL + flashCardId,
+      data,
+      this.header
+    );
+  }
 
-    public deleteFlashCard(flashCardId: number) {
-        return this.httpClient.delete(this.FLASH_CARD_API_URL + flashCardId);
-    }
+  public deleteFlashCard(flashCardId: number) {
+    return this.httpClient.delete(this.FLASH_CARD_API_URL + flashCardId);
+  }
 }

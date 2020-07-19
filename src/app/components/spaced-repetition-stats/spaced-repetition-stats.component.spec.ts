@@ -8,9 +8,8 @@ describe('SpacedRepetitionStatsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpacedRepetitionStatsComponent ]
-    })
-    .compileComponents();
+      declarations: [SpacedRepetitionStatsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

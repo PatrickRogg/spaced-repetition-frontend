@@ -8,9 +8,8 @@ describe('FlashCardDeckOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlashCardDeckOverviewComponent ]
-    })
-    .compileComponents();
+      declarations: [FlashCardDeckOverviewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

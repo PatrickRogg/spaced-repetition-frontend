@@ -1,6 +1,3 @@
 export class UserSignInRequestData {
-    constructor(
-        public email: string,
-        public password: string,
-    ) {}
+  constructor(public email: string, public password: string) {}
 }

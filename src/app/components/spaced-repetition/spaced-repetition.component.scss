@@ -1,24 +1,24 @@
 main {
-    text-align: center;
-    min-height: 100vh;
+  text-align: center;
+  min-height: 100vh;
 }
 
 .answer {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 :host ::ng-deep h1 {
-    font-size: 2rem !important;
+  font-size: 2rem !important;
 }
 
 :host ::ng-deep h2 {
-    font-size: 1.5rem !important;
+  font-size: 1.5rem !important;
 }
 
 :host ::ng-deep h3 {
-    font-size: 1.17rem !important;
+  font-size: 1.17rem !important;
 }
 
 :host ::ng-deep h4 {
-    font-size: 1rem !important;
+  font-size: 1rem !important;
 }

@@ -3,26 +3,22 @@ import { FlashCardDeckApiService } from 'src/app/services/api/flash-card-deck-ap
 import { FlashCardDeckOverview } from 'src/app/shared/models/flash-card-deck-overview.model';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    flashCardDecks: FlashCardDeckOverview[] = [];
+  flashCardDecks: FlashCardDeckOverview[] = [];
 
-    constructor(
-        private flashCardDeckApiService: FlashCardDeckApiService,
-    ) { }
+  constructor(private flashCardDeckApiService: FlashCardDeckApiService) {}
 
-    ngOnInit(): void {
-        this.getFlashCardDecks();
-    }
+  ngOnInit(): void {
+    this.getFlashCardDecks();
+  }
 
-    getFlashCardDecks(): void {
-        this.flashCardDeckApiService.getFlashCardDecksOfUser().subscribe(
-            data => {
-                this.flashCardDecks = data;
-            }
-        );
-    }
+  getFlashCardDecks(): void {
+    this.flashCardDeckApiService.getFlashCardDecksOfUser().subscribe((data) => {
+      this.flashCardDecks = data;
+    });
+  }
 }

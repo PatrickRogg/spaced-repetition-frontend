@@ -7,48 +7,47 @@ import { map } from 'rxjs/operators';
 import { UserSignUpRequestData } from '../components/sign-up/models/user-sign-up.request-model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-    constructor(
-        private router: Router,
-        private authApiService: AuthApiService,
-    ) { }
+  constructor(private router: Router, private authApiService: AuthApiService) {}
 
-    public signIn(signInData: UserSignInRequestData) {
-        return this.authApiService.signIn(signInData)
-            .pipe(map((authToken: AuthToken) => {
-                if (authToken) {
-                    localStorage.setItem('token', JSON.stringify(authToken.token));
-                }
-                return authToken;
-            }));
-    }
-
-    public signUp(signUpData: UserSignUpRequestData) {
-        return this.authApiService.signUp(signUpData)
-            .pipe(map((authToken: AuthToken) => {
-                if (authToken) {
-                    localStorage.setItem('token', JSON.stringify(authToken.token));
-                }
-                return authToken;
-            }));
-    }
-
-    public signOut() {
-        localStorage.removeItem('token');
-        this.router.navigate(['/sign-in']);
-    }
-
-    public isSignedIn() {
-        return !!localStorage.getItem('token');
-    }
-
-    public getToken() {
-        const token: string = JSON.parse(localStorage.getItem('token'));
-        if (token) {
-          return token;
+  public signIn(signInData: UserSignInRequestData) {
+    return this.authApiService.signIn(signInData).pipe(
+      map((authToken: AuthToken) => {
+        if (authToken) {
+          localStorage.setItem('token', JSON.stringify(authToken.token));
         }
-        return '';
-      }
+        return authToken;
+      })
+    );
+  }
+
+  public signUp(signUpData: UserSignUpRequestData) {
+    return this.authApiService.signUp(signUpData).pipe(
+      map((authToken: AuthToken) => {
+        if (authToken) {
+          localStorage.setItem('token', JSON.stringify(authToken.token));
+        }
+        return authToken;
+      })
+    );
+  }
+
+  public signOut() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/sign-in']);
+  }
+
+  public isSignedIn() {
+    return !!localStorage.getItem('token');
+  }
+
+  public getToken() {
+    const token: string = JSON.parse(localStorage.getItem('token'));
+    if (token) {
+      return token;
+    }
+    return '';
+  }
 }

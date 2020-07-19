@@ -1,51 +1,62 @@
 <div class="modal-header">
-    <h4 class="mb-3">
-        Update Flash Card
-    </h4>
-    <button class="close" (click)="close()">
-        <span aria-hidden="true" id="cross">×</span>
-    </button>
+  <h4 class="mb-3">
+    Update Flash Card
+  </h4>
+  <button class="close" (click)="close()">
+    <span aria-hidden="true" id="cross">×</span>
+  </button>
 </div>
 <div class="modal-body">
-    
-    <form [formGroup]="flashCardForm" *ngIf="flashCardForm">
-        <div class="row">
-            <div class="col-12">
-                <app-custom-input [label]="'Question'" [placeholder]="'How many corners has a rectangle?'"
-                    [control]="flashCardForm.get('question')" [errors]="validationErrors" [name]="'question'">
-                </app-custom-input>
-            </div>
-            <div class="col-12">
-                <label>Answer</label>
-                <app-rich-text-editor [control]="flashCardForm.get('answer')"></app-rich-text-editor>
-                <app-input-error-message [errors]="validationErrors" [name]="'answer'">
-                </app-input-error-message>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-3">
-                <label for="Level">Level</label>
-                <select class="custom-select" formControlName="level">
-                    <option *ngFor="let level of levels" [ngValue]="level">{{level}}</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <label for="question">Last Wrong answer</label>
-                <input type="date" class="form-control" formControlName="lastWrongAnswer">
-            </div>
-            <div class="col-3 my-auto">
-                <label for="question">Next Repetition</label>
-                <p class="mb-0">{{getNextDate() | date: 'mediumDate'}}</p>
-            </div>
-        </div>
-    </form>
-
-
+  <form [formGroup]="flashCardForm" *ngIf="flashCardForm">
     <div class="row">
-        <div class="col-12 text-right">
-            <button class="btn btn-primary" (click)="submit()">
-                Save
-            </button>
-        </div>
+      <div class="col-12">
+        <app-custom-input
+          [label]="'Question'"
+          [placeholder]="'How many corners has a rectangle?'"
+          [control]="flashCardForm.get('question')"
+          [errors]="validationErrors"
+          [name]="'question'"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-12">
+        <label>Answer</label>
+        <app-rich-text-editor
+          [control]="flashCardForm.get('answer')"
+        ></app-rich-text-editor>
+        <app-input-error-message [errors]="validationErrors" [name]="'answer'">
+        </app-input-error-message>
+      </div>
     </div>
+    <div class="row mt-3">
+      <div class="col-3">
+        <label for="Level">Level</label>
+        <select class="custom-select" formControlName="level">
+          <option *ngFor="let level of levels" [ngValue]="level">{{
+            level
+          }}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="question">Last Wrong answer</label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="lastWrongAnswer"
+        />
+      </div>
+      <div class="col-3 my-auto">
+        <label for="question">Next Repetition</label>
+        <p class="mb-0">{{ getNextDate() | date: "mediumDate" }}</p>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-12 text-right">
+      <button class="btn btn-primary" (click)="submit()">
+        Save
+      </button>
+    </div>
+  </div>
 </div>

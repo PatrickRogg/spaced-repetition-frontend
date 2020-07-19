@@ -1,5 +1,3 @@
 export class ErrorResponse {
-    constructor(
-        public errors: object,
-    ) {}
+  constructor(public errors: object) {}
 }

@@ -1,34 +1,48 @@
 <div class="modal-header">
-    <h4>Create Flash Card</h4>
+  <h4>Create Flash Card</h4>
 
-    <button class="close" (click)="close()">
-        <span id="cross">×</span>
-    </button>
+  <button class="close" (click)="close()">
+    <span id="cross">×</span>
+  </button>
 </div>
 
 <div class="modal-body">
-    <form [formGroup]="flashCardForm">
-        <div class="row">
-            <div class="col-12">
-                <app-custom-input [label]="'Question'" [placeholder]="'How many corners has a rectangle?'"
-                    [control]="flashCardForm.get('question')" [errors]="validationErrors" [name]="'question'">
-                </app-custom-input>
-            </div>
-            <div class="col-12">
-                <label>Answer</label>
-                <app-rich-text-editor [control]="flashCardForm.get('answer')"></app-rich-text-editor>
-                <app-input-error-message [errors]="validationErrors" [name]="'answer'"></app-input-error-message>
-            </div>
-        </div>
-    </form>
+  <form [formGroup]="flashCardForm">
+    <div class="row">
+      <div class="col-12">
+        <app-custom-input
+          [label]="'Question'"
+          [placeholder]="'How many corners has a rectangle?'"
+          [control]="flashCardForm.get('question')"
+          [errors]="validationErrors"
+          [name]="'question'"
+        >
+        </app-custom-input>
+      </div>
+      <div class="col-12">
+        <label>Answer</label>
+        <app-rich-text-editor
+          [control]="flashCardForm.get('answer')"
+        ></app-rich-text-editor>
+        <app-input-error-message
+          [errors]="validationErrors"
+          [name]="'answer'"
+        ></app-input-error-message>
+      </div>
+    </div>
+  </form>
 </div>
 
 <div class="modal-footer">
-    <div class="row">
-        <div class="col-12 text-right">
-            <button class="btn btn-primary" (click)="submit()" [disabled]="flashCardForm.invalid">
-                Add Flash Card
-            </button>
-        </div>
+  <div class="row">
+    <div class="col-12 text-right">
+      <button
+        class="btn btn-primary"
+        (click)="submit()"
+        [disabled]="flashCardForm.invalid"
+      >
+        Add Flash Card
+      </button>
     </div>
+  </div>
 </div>

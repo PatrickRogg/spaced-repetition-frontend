@@ -1,25 +1,47 @@
 <header class="bg-dark">
-    <div class="container h-100">
-        <div class="row h-100">
-            <div class="col-lg-12">
-                <h1>Sign Up</h1>
-                <div class="form-container" (keyup.enter)="signUp()">
-                    <form [formGroup]="signUpForm">
-                        <app-custom-input [label]="'Username'" [autofocus]="true" [placeholder]="'Username'"
-                            [name]="'username'" [control]="signUpForm.get('username')" [errors]="errors">
-                        </app-custom-input>
-                        <app-custom-input [type]="'email'" [label]="'Email'" [placeholder]="'Email'" [name]="'email'"
-                            [control]="signUpForm.get('email')" [errors]="errors"></app-custom-input>
-                        <app-custom-input [type]="'password'" [label]="'Password'" [placeholder]="'Password'"
-                            [name]="'password'" [control]="signUpForm.get('password')" [errors]="errors">
-                        </app-custom-input>
-                        <button class="btn btn-lg btn-primary btn-block mt-3" (click)="signUp()"
-                            [disabled]="signUpForm.invalid" id="sign-up-button">
-                            Sign Up
-                        </button>
-                    </form>
-                </div>
-            </div>
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-lg-12">
+        <h1>Sign Up</h1>
+        <div class="form-container" (keyup.enter)="signUp()">
+          <form [formGroup]="signUpForm">
+            <app-custom-input
+              [label]="'Username'"
+              [autofocus]="true"
+              [placeholder]="'Username'"
+              [name]="'username'"
+              [control]="signUpForm.get('username')"
+              [errors]="errors"
+            >
+            </app-custom-input>
+            <app-custom-input
+              [type]="'email'"
+              [label]="'Email'"
+              [placeholder]="'Email'"
+              [name]="'email'"
+              [control]="signUpForm.get('email')"
+              [errors]="errors"
+            ></app-custom-input>
+            <app-custom-input
+              [type]="'password'"
+              [label]="'Password'"
+              [placeholder]="'Password'"
+              [name]="'password'"
+              [control]="signUpForm.get('password')"
+              [errors]="errors"
+            >
+            </app-custom-input>
+            <button
+              class="btn btn-lg btn-primary btn-block mt-3"
+              (click)="signUp()"
+              [disabled]="signUpForm.invalid"
+              id="sign-up-button"
+            >
+              Sign Up
+            </button>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </header>
