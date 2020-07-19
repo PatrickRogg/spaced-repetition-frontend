@@ -2,7 +2,7 @@
 
 [Demo](https://constant-time.com)
 
-This repository contains the frontend for the spaced repetition application. The backend version can be found [here](https://github.com/PatrickRogg/spaced-repetition-backend).
+This repository contains the frontend for the spaced repetition application.
 
 
 ## Development server
