@@ -27,4 +27,12 @@ export class NavbarComponent implements OnInit {
   public isSignedIn(): boolean {
     return this.authService.isSignedIn();
   }
+
+  public brandClick(): void {
+    if (this.isSignedIn()) {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 }
