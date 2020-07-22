@@ -22,3 +22,7 @@ main {
 :host ::ng-deep h4 {
   font-size: 1rem !important;
 }
+
+:host ::ng-deep img {
+  max-width: 100%;
+}

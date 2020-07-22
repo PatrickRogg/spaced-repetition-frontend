@@ -61,14 +61,12 @@
                       </a>
                     </div>
                   </div>
-                  <span
+                  <div
                     class="answer"
                     *ngIf="!isQuestion"
-                    [innerHtml]="
-                      todoFlashCards[currentFLashCardIndex].answer | safeHtml
-                    "
+                    [innerHtml]="todoFlashCards[currentFLashCardIndex].answer | safeHtml"
                   >
-                  </span>
+                </div>
                   <div class="row" *ngIf="!isQuestion">
                     <div class="col-12 text-right">
                       <a

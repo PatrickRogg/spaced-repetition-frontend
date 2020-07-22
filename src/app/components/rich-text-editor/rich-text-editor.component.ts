@@ -25,7 +25,7 @@ export class RichTextEditorComponent implements OnInit {
 
   imagePluginFactory(editor) {
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-      return new CloudinaryUnsigned( loader, `dscmuxssa`, `hv1inlo6`, [ 160, 500, 1000, 1052 ]);
+      return new CloudinaryUnsigned( loader, `dscmuxssa`, `hv1inlo6`);
     };
   }
 }
