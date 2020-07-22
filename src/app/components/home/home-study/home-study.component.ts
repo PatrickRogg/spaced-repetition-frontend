@@ -15,7 +15,7 @@ export class HomeStudyComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getTodoFlashCardCount(): number {
+  public getTodoFlashCardCount(): number {
     if (this.todoFlashCardCount) {
       return this.todoFlashCardCount;
     }

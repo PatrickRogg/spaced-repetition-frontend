@@ -17,16 +17,6 @@
           [autofocus]="true"
         ></app-custom-input>
       </div>
-      <div class="col-12 mb-2">
-        <label>Notes</label>
-        <app-rich-text-editor
-          [control]="flashCardDeckForm.get('notes')"
-        ></app-rich-text-editor>
-        <app-input-error-message
-          [errors]="validationErrors"
-          [name]="'notes'"
-        ></app-input-error-message>
-      </div>
       <div class="col-12 text-right">
         <button
           class="btn btn-primary"

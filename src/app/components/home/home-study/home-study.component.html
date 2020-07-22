@@ -1,19 +1,21 @@
 <div *ngIf="flashCardDecks">
-  <div *ngIf="getTodoFlashCardCount() > 0">
-    <div class="row">
-      <div class="col-12 col-md-9">
-        <h5>You still have to do {{ todoFlashCardCount }} Flash Cards today</h5>
-      </div>
-      <div class="col-12 col-md-3 text-right">
-        <button class="btn btn-primary" (click)="startRepetition()">
-          Start Repetition
-        </button>
-      </div>
+  <div class="jumbotron">
+    <h1 class="display-4 text-center">Todays Repetition</h1>
+    <hr class="my-4" />
+    <h4 class="lead text-center mb-3">
+      <span *ngIf="getTodoFlashCardCount() > 0">
+        You still have to do <strong>{{ todoFlashCardCount }}</strong> Flash
+        Cards today
+        </span
+      >
+      <span *ngIf="getTodoFlashCardCount() === 0">
+        All cards are completed. Come back tomorrow for your next Repetition!
+      </span>
+    </h4>
+    <div class="text-center" *ngIf="getTodoFlashCardCount() > 0">
+      <button class="btn btn-primary btn-lg" (click)="startRepetition()">
+        Start Repetition
+      </button>
     </div>
-  </div>
-  <div *ngIf="getTodoFlashCardCount() === 0">
-    <h5>
-      You completed all flash cards for today. Come back tomorrow!
-    </h5>
   </div>
 </div>
