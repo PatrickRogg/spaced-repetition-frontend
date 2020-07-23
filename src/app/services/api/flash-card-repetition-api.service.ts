@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CORE_API_URL } from 'src/app/app.constants';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
-  FlashCard,
-  FlashCardBuilder,
+  SpacedRepetitionFlashCard,
 } from 'src/app/shared/models/flash-card.model';
 
 @Injectable({
@@ -15,8 +14,8 @@ export class FlashCardRepetitionApiService {
   private FLASH_CARD_REPETITION_API_URL = CORE_API_URL + 'spaced-repetition';
   constructor(private httpClient: HttpClient) {}
 
-  public getFlashCards(flashCardDeckIds: number[]): Observable<FlashCard[]> {
-    return this.httpClient.post<FlashCard[]>(
+  public getFlashCards(flashCardDeckIds: number[]): Observable<SpacedRepetitionFlashCard[]> {
+    return this.httpClient.post<SpacedRepetitionFlashCard[]>(
       this.FLASH_CARD_REPETITION_API_URL,
       flashCardDeckIds,
       this.header

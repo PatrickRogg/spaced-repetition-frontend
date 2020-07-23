@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
-import { FlashCard } from 'src/app/shared/models/flash-card.model';
+import { SpacedRepetitionFlashCard } from 'src/app/shared/models/flash-card.model';
 import { NextRepetitionService } from 'src/app/services/next-repetition.service';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
 import { FlashCardRepetitionApiService } from 'src/app/services/api/flash-card-repetition-api.service';
@@ -17,7 +17,7 @@ import { DateConverterService } from 'src/app/services/date-converter.service';
 export class SpacedRepetitionComponent implements OnInit {
   isQuestion = true;
   flashCardRepetitions: SpacedRepetition[] = [];
-  todoFlashCards: FlashCard[] = [];
+  todoFlashCards: SpacedRepetitionFlashCard[] = [];
   currentFLashCardIndex = 0;
 
   constructor(
@@ -44,7 +44,7 @@ export class SpacedRepetitionComponent implements OnInit {
   getFashCardDeck(fashCardDeckIds: number[]) {
     this.flashCardRepetitionApiService
       .getFlashCards(fashCardDeckIds)
-      .subscribe((flashCards: FlashCard[]) => {
+      .subscribe((flashCards: SpacedRepetitionFlashCard[]) => {
         flashCards.forEach((flashCard) =>
           this.flashCardRepetitions.push(new SpacedRepetition(flashCard))
         );
@@ -122,7 +122,7 @@ export class SpacedRepetitionComponent implements OnInit {
     );
   }
 
-  public deleteFlashCard(flashCard: FlashCard): void {
+  public deleteFlashCard(flashCard: SpacedRepetitionFlashCard): void {
     this.todoFlashCards = this.todoFlashCards.filter((fc) => fc !== flashCard);
     this.flashCardRepetitions = this.flashCardRepetitions.filter(
       (fcr) => fcr.flashCard.id !== flashCard.id
@@ -135,7 +135,7 @@ export class SpacedRepetitionComponent implements OnInit {
     }
   }
 
-  public async openEditFlashCardModal(flashCard: FlashCard) {
+  public async openEditFlashCardModal(flashCard: SpacedRepetitionFlashCard) {
     const options = {
       centered: true,
       size: `xl`,
@@ -146,7 +146,7 @@ export class SpacedRepetitionComponent implements OnInit {
     modalRef.result.then((flashCard) => this.updateFlashCard(flashCard));
   }
 
-  public updateFlashCard(updatedFlashCard: FlashCard): void {
+  public updateFlashCard(updatedFlashCard: SpacedRepetitionFlashCard): void {
     for (let i = 0; i < this.todoFlashCards.length; i++) {
       if (this.todoFlashCards[i].id === updatedFlashCard.id) {
         this.todoFlashCards[i] = updatedFlashCard;

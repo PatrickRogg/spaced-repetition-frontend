@@ -15,6 +15,11 @@ export class FlashCard {
   }
 }
 
+export class SpacedRepetitionFlashCard extends FlashCard {
+  public topicName: string;
+  public flashCardDeckName: string;
+}
+
 export class FlashCardBuilder {
   private flashCard: FlashCard;
 
