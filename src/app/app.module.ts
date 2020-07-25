@@ -33,9 +33,11 @@ import { EditFlashCardComponent } from './shared/components/edit-flash-card/edit
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
-import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { HowItWorksComponent } from './components/landing-page/how-it-works/how-it-works.component';
+import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-header/landing-page-flash-card/landing-page-flash-card.component';
+import { HowConstantTimeWorksComponent } from './components/landing-page/how-constant-time-works/how-constant-time-works.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
     LandingPageHeaderComponent,
     LandingPageFlashCardComponent,
     TutorialComponent,
+    HowItWorksComponent,
+    HowConstantTimeWorksComponent,
   ],
   imports: [
     BrowserModule,
