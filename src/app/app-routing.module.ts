@@ -8,7 +8,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { SpacedRepetitionStatsComponent } from './components/spaced-repetition-stats/spaced-repetition-stats.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SpacedRepetitionComponent } from './components/spaced-repetition/spaced-repetition.component';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
     component: SpacedRepetitionStatsComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'how-it-works', component: HowItWorksComponent },
+  { path: 'tutorial', component: TutorialComponent },
   { path: '', component: LandingPageComponent },
 ];
 

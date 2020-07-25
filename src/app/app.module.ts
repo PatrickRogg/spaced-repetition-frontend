@@ -34,8 +34,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { HomeStudyComponent } from './components/home/home-study/home-study.component';
 import { LandingPageHeaderComponent } from './components/landing-page/landing-page-header/landing-page-header.component';
 import { LandingPageFlashCardComponent } from './components/landing-page/landing-page-flash-card/landing-page-flash-card.component';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HomeStudyComponent,
     LandingPageHeaderComponent,
     LandingPageFlashCardComponent,
-    HowItWorksComponent,
+    TutorialComponent,
   ],
   imports: [
     BrowserModule,

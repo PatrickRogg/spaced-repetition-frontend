@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Create new Flash Card Deck</h5>
+  <h5 class="modal-title">Create new Flashcard Deck</h5>
   <button class="close" (click)="close()">
     <span aria-hidden="true" id="cross">×</span>
   </button>
@@ -10,7 +10,7 @@
       <div class="col-12 mb-2">
         <app-custom-input
           [label]="'Name'"
-          [placeholder]="'Flash Card Deck Name'"
+          [placeholder]="'Flashcard Deck Name'"
           [control]="flashCardDeckForm.get('name')"
           [errors]="validationErrors"
           [name]="'name'"
@@ -23,7 +23,7 @@
           (click)="save()"
           [disabled]="flashCardDeckForm.invalid"
         >
-          Save Flash Card Deck
+          Save Flashcard Deck
         </button>
       </div>
     </div>
