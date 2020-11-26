@@ -20,7 +20,6 @@ export class RichTextEditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.control)
   }
 
   imagePluginFactory(editor) {

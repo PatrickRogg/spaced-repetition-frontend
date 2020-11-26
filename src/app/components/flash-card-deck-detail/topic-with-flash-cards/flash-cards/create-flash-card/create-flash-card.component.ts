@@ -4,7 +4,7 @@ import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service
 import { CreateFlashCardRequest } from '../../../../../shared/models/create-flash-card-request.model';
 import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { FlashCard } from 'src/app/shared/models/flash-card.model';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-flash-card',

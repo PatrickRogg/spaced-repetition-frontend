@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { SpacedRepetitionFlashCard } from 'src/app/shared/models/flash-card.model';
-import { NextRepetitionService } from 'src/app/services/next-repetition.service';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
 import { FlashCardRepetitionApiService } from 'src/app/services/api/flash-card-repetition-api.service';
 import { SpacedRepetition } from 'src/app/shared/models/spaced-repetition.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditFlashCardComponent } from 'src/app/shared/components/edit-flash-card/edit-flash-card.component';
-import { DateConverterService } from 'src/app/services/date-converter.service';
+import * as dayjs from 'dayjs';
+import { supermemo, SuperMemoGrade } from 'supermemo';
 
 @Component({
   selector: 'app-spaced-repetition',
@@ -25,14 +25,11 @@ export class SpacedRepetitionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private flashCardRepetitionApiService: FlashCardRepetitionApiService,
     private flashCardApiService: FlashCardApiService,
-    private nextRepetitionService: NextRepetitionService,
-    private modalService: NgbModal,
-    private dateConverterService: DateConverterService
+    private modalService: NgbModal
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       const flashCardDeckIds = this.router.getCurrentNavigation().extras.state
         .flashCardDeckIds;
-      console.log(flashCardDeckIds);
       this.getFashCardDeck(flashCardDeckIds);
     } else {
       this.router.navigate(['/home']);
@@ -56,38 +53,20 @@ export class SpacedRepetitionComponent implements OnInit {
     this.isQuestion = false;
   }
 
-  public answerWrong(): void {
-    this.completeFlashCard(1);
-  }
-
-  public answerCorrect(): void {
-    this.completeFlashCard();
-  }
-
-  completeFlashCard(level?: number): void {
+  public gradeFlashCard(grade: SuperMemoGrade): void {
     const currFlashCard = this.todoFlashCards[this.currentFLashCardIndex];
     this.removeCurrentFlashCardFromTodo(currFlashCard.id);
 
     const currFLashCardRepetition = this.getFlashCardRepetitionBy(
       currFlashCard.id
     );
-    currFLashCardRepetition.prevLevel = currFLashCardRepetition.flashCard.level;
-
-    if (level) {
-      currFLashCardRepetition.flashCard.level = level;
-      const lastWrongAnswer = new Date();
-      lastWrongAnswer.setHours(lastWrongAnswer.getHours() - 1);
-      currFLashCardRepetition.flashCard.lastWrongAnswer = this.dateConverterService.convertToUTC(
-        lastWrongAnswer
-      );
-    } else {
-      currFLashCardRepetition.flashCard.level++;
-    }
-
-    currFLashCardRepetition.flashCard.nextRepetition = this.nextRepetitionService.getNextRepetition(
-      currFLashCardRepetition.flashCard.lastWrongAnswer,
-      currFLashCardRepetition.flashCard.level
-    );
+    const { interval, repetition, efactor } = supermemo(currFlashCard, grade);
+    currFLashCardRepetition.flashCard.interval = interval;
+    currFLashCardRepetition.flashCard.repetition = repetition;
+    currFLashCardRepetition.flashCard.efactor = efactor;
+    currFLashCardRepetition.flashCard.nextRepetition = dayjs(Date.now())
+      .add(interval, 'day')
+      .toISOString();
 
     this.flashCardApiService
       .updateFlashCard(currFlashCard.id, currFlashCard)

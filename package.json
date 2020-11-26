@@ -28,10 +28,12 @@
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.9.3",
+    "dayjs": "^1.9.6",
     "jwt-decode": "^2.2.0",
     "ng2-charts": "^2.3.2",
     "puff-puff": "^1.0.0",
     "rxjs": "~6.5.4",
+    "supermemo": "^2.0.17",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

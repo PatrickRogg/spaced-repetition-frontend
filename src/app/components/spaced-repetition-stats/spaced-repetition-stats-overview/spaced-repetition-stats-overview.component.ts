@@ -40,7 +40,6 @@ export class SpacedRepetitionStatsOverviewComponent implements OnInit {
     event: MouseEvent;
     active: {}[];
   }): void {
-    console.log(event, active);
   }
 
   public chartHovered({
@@ -50,7 +49,6 @@ export class SpacedRepetitionStatsOverviewComponent implements OnInit {
     event: MouseEvent;
     active: {}[];
   }): void {
-    console.log(event, active);
   }
 
   public updateChartData() {

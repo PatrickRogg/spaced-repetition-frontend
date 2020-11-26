@@ -1,14 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ErrorResponse } from 'src/app/shared/models/error-response.model';
 import { FlashCard } from 'src/app/shared/models/flash-card.model';
 import { FlashCardApiService } from 'src/app/services/api/flash-card-api.service';
-import { NextRepetitionService } from 'src/app/services/next-repetition.service';
-import { formatDate } from '@angular/common';
-import { LEVELS } from 'src/app/app.constants';
 import { UpdateFlashCard } from 'src/app/shared/models/update-flash-card.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DateConverterService } from 'src/app/services/date-converter.service';
+import { supermemo } from 'supermemo';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-edit-flash-card',
@@ -19,14 +17,11 @@ export class EditFlashCardComponent implements OnInit {
   flashCardForm: FormGroup;
   @Input() flashCardId: number;
   validationErrors = new ErrorResponse({});
-  levels = LEVELS;
 
   constructor(
     private flashCardApiService: FlashCardApiService,
     private fb: FormBuilder,
-    private nextRepetitionService: NextRepetitionService,
-    private activeModal: NgbActiveModal,
-    private dateConverterService: DateConverterService
+    private activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
@@ -36,36 +31,31 @@ export class EditFlashCardComponent implements OnInit {
   getFlashCard(): void {
     this.flashCardApiService
       .getFlashCard(this.flashCardId)
-      .subscribe((data) => this.createFlashCardForm(data));
+      .subscribe((data) => {
+        this.createFlashCardForm(data);
+      });
   }
 
   createFlashCardForm(flashCard: FlashCard): void {
-    const formattedDate = formatDate(
-      flashCard.lastWrongAnswer,
-      'yyyy-MM-dd',
-      'en'
-    );
-
     this.flashCardForm = this.fb.group({
       question: [flashCard.question],
       answer: [flashCard.answer],
-      level: [flashCard.level],
-      lastWrongAnswer: [formattedDate],
+      interval: [flashCard.interval],
+      repetition: [flashCard.repetition],
+      efactor: [flashCard.efactor],
     });
   }
 
   public submit(): void {
     const form = this.flashCardForm;
-    const lastWrongAnswerAsString: string = form.get('lastWrongAnswer').value;
-    const lastWrongAnswer = this.dateConverterService.convertToUTC(
-      new Date(lastWrongAnswerAsString)
-    );
 
     const requestData = new UpdateFlashCard(
       form.get('question').value,
       form.get('answer').value,
-      form.get('level').value,
-      lastWrongAnswer
+      form.get('interval').value,
+      form.get('repetition').value,
+      form.get('efactor').value,
+      this.getNextDate().toISOString()
     );
 
     this.flashCardApiService
@@ -83,10 +73,21 @@ export class EditFlashCardComponent implements OnInit {
   }
 
   public getNextDate(): Date {
-    return this.nextRepetitionService.getNextRepetition(
-      new Date(this.flashCardForm.get('lastWrongAnswer').value),
-      this.flashCardForm.get('level').value
+    const { interval, repetition, efactor } = supermemo(
+      {
+        efactor: +this.flashCardForm.get('efactor'),
+        interval: +this.flashCardForm.get('interval'),
+        repetition: +this.flashCardForm.get('repetition'),
+      },
+      3
     );
+    if (!this.flashCardForm.get('interval').value) {
+      return new Date();
+    }
+
+    const now = new Date()
+    now.setDate(new Date().getDate() + +this.flashCardForm.get('interval').value);
+    return now;
   }
 
   public close(): void {

@@ -26,7 +26,7 @@ export class SpacedRepetitionStatsComponent implements OnInit {
     this.flashCardRepetitions.forEach((flashCardRepetition) => {
       if (flashCardRepetition.prevLevel) {
         if (
-          flashCardRepetition.prevLevel < flashCardRepetition.flashCard.level
+          flashCardRepetition.prevLevel < flashCardRepetition.flashCard.repetition
         ) {
           data[0]++;
         } else {
